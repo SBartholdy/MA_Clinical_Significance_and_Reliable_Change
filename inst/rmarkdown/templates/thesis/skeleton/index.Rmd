@@ -1,0 +1,81 @@
+---
+author: 'Stephan Bartholdy'
+date: "`r format(Sys.time(), '%B %Y')`"
+institution: 'University of Salzburg'
+advisor: 'Dr. Raphael Schuster'
+altadvisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+department: 'Fachbereich Psychologie'
+#title: 'Optimizing Statistical Power and Precision of Reliable Change in Clinical Trials by Means of Pre--Post EMA'
+title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post Ecological Momentary Assessment'
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: 
+  thesisdown::thesis_pdf: default
+#  thesisdown::thesis_gitbook: default
+#  thesisdown::thesis_word: default
+#  thesisdown::thesis_epub: default
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+zusammenfassung: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-zusammenfassung.Rmd"), collapse = '\n  ')`
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is 
+# needed on the line after the |.
+acknowledgements: |
+  I want to thank my direct supervisor Dr. Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I also want to thank my indirect supervisor Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter for always offering his advice and expertise. \par
+  Apart from the excellent supervision, I´m thankful to Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton Rupert Laireiter, and Wolfgang Trutschnig for providing me with simulated data sets which they generated for their recent study on statistical power of Intense Pre-Post Assessment approaches. \par
+  This thesis was written using the _Salzburgthesisdown_ template ^[\url{https://github.com/irmingard/salzburgthesisdown}] by Veronika Priesner. Based on the _Thesisdown_ package ^[\url{https://github.com/ismayc/thesisdown}] [@Ismay.2020], this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX\ syntax.
+#\par
+#Finally, I want to thank my parents Laura and Frank for supporting me unconditionally throughout every step of my life and education. I dedicate this thesis, being the most difficult task of my life yet, to both of you, because without you I would not have been able to fulfill any of the dreams nor achieve any of the goals that I had in my life until today.
+#preface: |
+#  This is an example of a thesis setup to use the reed thesis document class
+#  (for LaTeX) and the R bookdown package, in general.
+bibliography: bib/thesis.bib
+csl: csl/apa.csl
+lot: true
+lof: true
+#space_between_paragraphs: true
+header-includes:
+- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+-->
+
+<!--
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r include_packages, include=FALSE, echo=FALSE}
+# This chunk ensures that the thesisdown package is
+# installed and loaded. This thesisdown package includes
+# the template files for the thesis.
+#if(!require(devtools))
+#  install.packages("devtools", repos = "http://cran.rstudio.com")
+#if(!require(thesisdown))
+#  devtools::install_github("ismayc/thesisdown")
+
+# just in case:
+#tinytex::tlmgr_update()
+#update.packages(ask = FALSE, checkBuilt = TRUE)
+
+pacman::p_load(rmarkdown,knitr,thesisdown,papaja,dplyr,tidyverse,haven,foreign,bootstrap,sjmisc,lattice,Rmisc,methods,devtools,psych,DescTools,summarytools,kableExtra,lubridate,timetk,overlapping,ggplot2,gghalves,plot.matrix,FNN)
+#pacman::p_load(qgraph,bootnet,copula,reshape) #data generation
+#pacman::p_load(suddengains) #include as method or not?
+
+#opts_chunk$set(echo = FALSE, cache=FALSE)
+#knitr::read_chunk("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/PP_Stichprobenvergleiche_d0.88.R")
+```
+
+<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
+PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
+and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+-->
+
+<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters.
+-->
+
+

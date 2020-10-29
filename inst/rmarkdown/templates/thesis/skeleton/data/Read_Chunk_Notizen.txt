@@ -1,0 +1,46 @@
+
+
+<!--
+```{r, echo=FALSE, include=FALSE, cache=FALSE}
+#"inst/rmarkdown/templates/thesis/skeleton/data/PP_Stichprobenvergleiche_d0.92.R"
+
+#knitr::purl("data/PP_Stichprobenvergleiche_d0.92.Rmd", output = "data/PP_Stichprobenvergleiche_d0.92.R", documentation = 2)
+#knitr::purl("data/EMA_Stichprobenvergleiche_d0.88.Rmd", output = "data/EMA_Stichprobenvergleiche_d0.88.R", documentation = 2)
+
+#knitr::read_chunk("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/PP_Stichprobenvergleiche_d0.92.R")
+#knitr::read_chunk("data/PP_Stichprobenvergleiche_d0.88.R")
+#knitr::read_chunk("data/EMA_Stichprobenvergleiche_d0.88.R")
+
+#getwd()
+#knitr:::knit_code$get()
+#knitr:::knit_code$get("remedy75")
+```
+-->
+<!--
+```{r getlabels}
+#, echo = FALSE
+#labs = knitr::all_labels()
+#labs = labs[!labs %in% c("setup", "toc", "getlabels", "allcode")]
+```
+
+```{r allcode, ref.label = labs, eval = FALSE}
+
+```
+-->
+
+<!--
+```{r, code = readLines("data/PP_Stichprobenvergleiche_d0.92.R")}
+
+```
+-->
+<!--
+```{r}
+setup
+```
+
+```{r}
+remedy01
+```
+-->
+
+

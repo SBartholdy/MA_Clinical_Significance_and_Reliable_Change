@@ -1,0 +1,1934 @@
+---
+author: 'Stephan Bartholdy'
+date: "`r format(Sys.time(), '%B %Y')`"
+institution: 'University of Salzburg'
+advisor: 'Dr. Raphael Schuster'
+altadvisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+department: 'Fachbereich Psychologie'
+#title: 'Optimizing Statistical Power and Precision of Reliable Change in Clinical Trials by Means of Pre--Post EMA'
+title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post Ecological Momentary Assessment'
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: 
+  thesisdown::thesis_pdf: default
+#  thesisdown::thesis_gitbook: default
+#  thesisdown::thesis_word: default
+#  thesisdown::thesis_epub: default
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+zusammenfassung: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-zusammenfassung.Rmd"), collapse = '\n  ')`
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is 
+# needed on the line after the |.
+acknowledgements: |
+  I want to thank my direct supervisor Dr. Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I also want to thank my indirect supervisor Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter for always offering his advice and expertise. \par
+  Apart from the excellent supervision, I´m thankful to Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton Rupert Laireiter, and Wolfgang Trutschnig for providing me with simulated data sets which they generated for their recent study on statistical power of Intense Pre-Post Assessment approaches. \par
+  This thesis was written using the _Salzburgthesisdown_ template ^[\url{https://github.com/irmingard/salzburgthesisdown}] by Veronika Priesner. Based on the _Thesisdown_ package ^[\url{https://github.com/ismayc/thesisdown}] [@Ismay.2020], this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX\ syntax.
+#\par
+#Finally, I want to thank my parents Laura and Frank for supporting me unconditionally throughout every step of my life and education. I dedicate this thesis, being the most difficult task of my life yet, to both of you, because without you I would not have been able to fulfill any of the dreams nor achieve any of the goals that I had in my life until today.
+#preface: |
+#  This is an example of a thesis setup to use the reed thesis document class
+#  (for LaTeX) and the R bookdown package, in general.
+bibliography: bib/thesis.bib
+csl: csl/apa.csl
+lot: true
+lof: true
+#space_between_paragraphs: true
+header-includes:
+- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+-->
+
+<!--
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r include_packages, include=FALSE, echo=FALSE}
+# This chunk ensures that the thesisdown package is
+# installed and loaded. This thesisdown package includes
+# the template files for the thesis.
+#if(!require(devtools))
+#  install.packages("devtools", repos = "http://cran.rstudio.com")
+#if(!require(thesisdown))
+#  devtools::install_github("ismayc/thesisdown")
+
+# just in case:
+#tinytex::tlmgr_update()
+#update.packages(ask = FALSE, checkBuilt = TRUE)
+
+pacman::p_load(rmarkdown,knitr,thesisdown,papaja,dplyr,tidyverse,haven,foreign,bootstrap,sjmisc,lattice,Rmisc,methods,devtools,psych,DescTools,summarytools,kableExtra,lubridate,timetk,overlapping,ggplot2,gghalves,plot.matrix,FNN)
+#pacman::p_load(qgraph,bootnet,copula,reshape) #data generation
+#pacman::p_load(suddengains) #include as method or not?
+
+#opts_chunk$set(echo = FALSE, cache=FALSE)
+#knitr::read_chunk("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/PP_Stichprobenvergleiche_d0.88.R")
+```
+
+<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
+PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
+and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+-->
+
+<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters.
+-->
+
+
+
+<!--chapter:end:index.Rmd-->
+
+<!--
+This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
+-->
+
+<!--
+The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.
+-->
+
+# Introduction
+
+bla
+
+<!--chapter:end:01-introduction.Rmd-->
+
+
+# Theoretical Background
+
+
+
+## Assessment of Psychopathology in Clinical Research and Practice
+
+
+
+
+In clinical outcome research, research predominantly focuses mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as _t_ values, Cohen´s _d_, Hedge´s _g_, and often the sole reliance on statistical significance, as well. 
+\par
+
+Relevant biases and side effects include placebo effects, the \enquote{hello-and-goodbye} effect, response bias, dropout, 
+
+\par
+There is a difference between _efficacy_ research, which studies treatment effects under controlled conditions, and _effectiveness_ research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups [@Anderson.2014], which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
+\par
+There are many variations of the same concept, including the _Clinically Significant Difference (CSD)_, the _Reliable Change Index (RCI)_, the _Minimal Detectable Change (MDC)_, the _Minimal Clinically Important Difference (MCID)_, and the _Minimal Important Difference (MID)_.	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
+
+
+
+## Methods for the Classification of Significant Change in Clinical Research
+
+
+<!--
+//``Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.´´ \par
+//First applied in marital counseling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients) \par
+
+//Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values \par
+
+- mean differences between pre- and post-timepoints or between treatment and control groups \par
+
+-	reasonable for cumulating evidence in meta-analyses \par
+
+-	but results often interpreted only in terms of statistical significance \par
+
+//``@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.´´
+-->
+
+
+## Digital Mental Health Service
+
+
+
+### Ecological Momentary Assessment (EMA)
+
+_Ecological Momentary Assessment (EMA)_, also known as _Intense Pre-Post Assessment (IPA)_, is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a \enquote{\textit{field experiment}}). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high sampling frequencies, it can be applied efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort. Longitudinal EMA designs typically consist of a small number of psychometrically reliable items that require minimal effort and time for the respondents to answer [@Rot.2012; @Shiffman.2008]. As these short self-reports can be presented in smartphone apps or computer programs, this approach forms a powerful, yet feasible opportunity to study the progression of affective states and behaviors on an individual level.
+\par
+This diagnostic tool could be seen as a bridge between empirical research and clinical practice: Research commonly finds insights from comparisons between groups of subjects, while the knowledge that is needed for the interaction with patients and clients is much more centered around them as individuals. Any practical work with them is in itself a study of processes within each person. EMA formats can benefit both fields by facilitating a deeper understanding of complex psychological processes.
+\par
+_//introducing, offering, alternative, discover, yield, capture_
+\par
+
+For instance, EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always embedded in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counseling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before each assessment.
+
+
+
+\par
+<!--
+//plot shows high mood variability pre-treatment (SD = 3.81) and much lower variability post-treatment (SD = 1.04), as well as a higher pre-treatment mean (M = 9.11) than post-treatment mean (M = 1.86)  
+//plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
+//or imagine assessing depressive symptoms in participant 1 randomly on day 12 pre-treatment (score of about 5) and on day 26 post-treatment (score of 5) -> total difference of 0 points -> useless intervention (possibly worse than placebo)!
+-->
+
+
+
+
+## Purpose of the Study
+
+The present thesis forms an in-depth investigation of the theoretically expectable increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
+
+
+\par
+investigated if the inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
+
+
+The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology. \par
+
+These methods will be compared for both the classical questionnaire format and the EMA format.
+
+
+
+## Hypotheses
+
+
+
+
+From a clinical perspective, it is expected that the sensitivity of _..._ is high, while the specificity of _..._ is low.
+
+
+
+
+<!--chapter:end:02-theoretical-background.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+# Method {#method}
+
+
+
+
+
+
+## Study Design
+
+
+
+## Planned Statistical Analyses
+
+
+
+
+## Data Simulation Procedure
+
+All following analyses are based on mathematically simulated data sets that were generated for a previous study by @Schuster.2020. A detailed description of the simulation process can be found in the supplementary material of their article online ^[\url{https://doi.org/10.1016/j.invent.2020.100313}].\par
+
+Estimated parameters and the simulation process will be described in the following sections.
+
+
+<!--
+// The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
+
+validation.
+-->
+
+
+### Sample
+
+
+
+clinical sample undergoing treatment for depression
+
+
+### Simulated Scenarios
+
+
+
+
+Data sets for both diagnostic methods showed an overall effect size of Cohen´s _d_ between 0.88 (EMA) and 0.91 (questionnaire) for the symptom change from pre- to post timepoints. Their overall \enquote{treatment effect} would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
+\par
+
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Structure of the Questionnaire-Like Data Set}}
+  \label{tab:quest-str}
+  \begin{tabular}{@{}cc@{}}
+  \toprule
+  Variable & Description\\ \midrule
+  ID & participant ID\\
+  PRE1\_1 & assessment \#1 before treatment\\
+  PRE1\_2 & assessment \#2 before treatment\\
+  PRE1\_3 & assessment \#3 before treatment\\
+  PRE1\_4 & assessment \#4 before treatment\\
+  PRE1\_5 & assessment \#5 before treatment\\
+  POST1\_1 & assessment \#1 after treatment\\
+  POST1\_2 & assessment \#2 after treatment\\
+  POST1\_3 & assessment \#3 after treatment\\
+  POST1\_4 & assessment \#4 after treatment\\
+  POST1\_5 & assessment \#5 after treatment\\
+  PRE\_Mean & mean score of pre assessments\\
+  POST\_Mean & mean score of post assessments\\
+  ind.pretestSD & standard deviation of pre assessments\\
+  ind.posttestSD & standard deviation of post assessments\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+
+
+#### Questionnaire-Like Data
+
+PHQ-9 [@Kroenke.2001]
+
+
+
+Frequency of assessments
+
+
+
+
+
+#### EMA-Like Data
+
+
+
+Frequency of assessments
+
+
+
+
+
+
+
+## Data Pre-Processing
+
+
+
+
+### Extension of Individual Assessments
+
+#### K-Nearest-Neighbor Search
+
+In order to investigate the sensitivity and specificity of estimates obtained through single and short-interval assessment formats in comparison to each subject´s respective _true symptom levels_ -- defined by the score changes in their underlying structure of daily assessments--, it was necessary to extend the originally simulated assessment intervals. As both the questionnaire and EMA scenarios were first modeled for 5-fold intervals, they were extended for further analyses to obtain 30-fold pre- and post assessment intervals. This was achieved with the following approach (R code is provided in Appendix \@ref(r-knn-search)). \par
+
+In both simulated data sets comprising _N_ = 100.000 participants each, subjects with equal interval means and standard deviations were matched using a k-nearest-neighbor (KNN) search algorithm. In particular, this was done using the k-dimensional tree algorithm within the function `get.knn()` from the R package _FNN_ [@Beygelzimer.2019]. This KNN-search method compares all cases to one another on one or more dimensions of interest by computing the Euclidian distances between them. \par
+
+For instance, to compare two participants $p = (p_{1},p_{2})$ and $q = (q_{1},q_{2})$ regarding the symptom severity and variability within their baseline assessments, with $p_{1}$ and $q_{1}$ denoting the mean scores and $p_{2}$ and $q_{2}$ denoting the standard deviations of their respective baseline intervals, the Euclidian distance _d_ between them is given by Equation \@ref(eq:eucl-dist):
+
+\begin{equation}
+d(p,q) = \sqrt{(q_{1} - p_{1})^2 + (q_{2} - p_{2})^2} (\#eq:eucl-dist)
+\end{equation}
+
+Cases were matched separately by pre- and post-treatment intervals to ensure an appropriate balance between (1) within-interval similarity and (2) individual between-interval changes.
+
+1. within-interval similarity between matched cases: cases need to have a similar mean score and fluctuation within the respective interval
+2. individual between-interval changes: matched cases do not need to have similar score changes between their pre- and their post-treatment intervals
+
+\par
+By specifying the KNN-search function with _k_ = 5, it calculates the similarity of all cases to each other and matches each case with its 5 nearest neighbors, resulting in lists of 6 matched case IDs for each specific (observed) combination of interval means and standard deviations. In this way, cases with similar average symptom scores and similar _pre-_ and _post_ standard deviations were matched inside each data set (questionnaire and EMA). Thereby, only participants with both (1) similar average score changes from _pre_ to _post_ and (2) similar intra-individual variability were matched together. 
+
+
+#### Generation of 30-fold Individual Assessment Intervals
+
+The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. In detail, for each combination of 6 perfect neighbors regarding the pre-treatment interval, the IDs of these neighbors were used to bind their 5-fold pre-treatment intervals together to obtain a table of cases with 30-fold pre-treatment intervals. Within this data set of matched pre-case IDs, cases were first sorted within each set of 6 matched IDs (i.e., within rows), then sorted by rows (i.e., by the lowest ID in each row), and then filtered to contain only unique combinations of matched case IDs. The same was also done for all cases that were matched by their post-treatment intervals. \par
+
+Finally, pre- and post-KNN lists were joined by the first, and therefore lowest, ID in each case row. Hence, the number of cases was further filtered to comprise only cases which contained both 6-fold pre- and 6-fold post-case IDs, i.e. only cases with 6 pre-nearest neighbors and 6 post-nearest neighbors, which could be linked together by their lowest ID. For instance, if the KNN search had found 6 cases that perfectly matched on their pre-treatment intervals, _PreIDs_ = \{1; 63; 411; 482; 1072; 4315\}, and 6 cases that perfectly matched on their post-treatment intervals, _PostIDs_ = \{1; 28; 369; 472; 983; 2365\}, then these pre- and post-IDs would be joined together by the lowest ID that they had in common (i.e., 1): _IDs_ = \{\{1; 63; 411; 482; 1072; 4315\};\{1; 28; 369; 472; 983; 2365\}\}. \par
+
+Using this KNN-search information, the final 30-fold assessment intervals were then created by concatenating the assessments of matched cases from the originally simulated questionnaire- and EMA-like data sets. Both the questionnaire-like and EMA-like samples were reduced by the extension process by about 92 %, resulting in sample sizes of _N_ = 8240 (questionnaire) and _N_ = **........8087........** (EMA). R code for this procedure is provided in the Appendices \@ref(r-knn-search) and \@ref(r-extension). \par
+
+It should be noted that this strategy to extend assessment intervals, i.e. by stringing together 5-fold intervals from multiple different cases, was only considered appropriate because the originally simulated data presented no signs of autoregressive effects within individual intervals, i.e. neither systematic longitudinal effects between consecutive assessments (i.e., overall improvement or deterioration of symptoms within an interval) nor systematic variability (i.e., regression towards the mean or regression towards the tail). These assumptions can be confirmed, for instance, from the correlation matrix given in Section \@ref(reliability).
+
+
+### Random Sampling of Assessments from the Intense-Assessment Intervals
+
+In order to realistically simulate drawing arbitrary 5-fold (EMA-like) samples of assessments from each subject´s 30-fold intervals, the following approach was taken exclusively within the EMA data set (see the R code in Appendix \@ref(r-random-sampling)). \par
+
+For each subject individually, 5-fold _windows_ of pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \enquote{EMA_5.5_Window}. This scenario simulates a study design in which participants are monitored via EMA on 5 consecutive days before and after receiving a treatment. \par
+
+Furthermore, for each subject individually, 5 single pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \enquote{EMA_5.5_Days}. This scenario simulates a study design in which participants are monitored via EMA on 5 arbitrary and not necessarily consecutive days before and after receiving a treatment.
+
+
+### Exclusion of Cases Without Variance
+
+Cases with no symptom variability, i.e. with constant scores, throughout one or both of their assessment intervals were excluded from all analyses. This criterion for exclusion was formulated because it was deemed improbable for participants to show no fluctuation in PHQ-9 scores over 5-fold, or even more improbable, over 30-fold assessments. Including these cases would also have affected the outcomes of all clinical change methods which incorporate individual standard deviations as estimates of within-subject fluctuations, e.g., by yielding infinite values (see Section \@ref(class-methods) below). \par
+
+_n_ = 14 cases were excluded from questionnaire scenarios and _N_ = **............** cases were excluded from EMA scenarios, resulting in final samples comprising _N_ = 8226 participants with questionnaire assessments and _N_ = **............** participants with EMA assessments.
+
+
+### Comparability of the Data Sets
+
+
+
+
+
+
+
+
+
+## Reliability and Intra-Individual Autocorrelation {#reliability}
+
+
+
+@Titov.2011 found an internal consistency of PHQ-9 scores of $\alpha$ = .74 (pre treatment) and $\alpha$ = .81 (post treatment).
+
+
+
+### Paper-Pencil Scenario
+
+#### Intense 5-fold Assessment Intervals
+
+The correlation matrix of pre- and post assessments is shown in Table \@ref(tab:cor-fb5.5). The Fisher-z transformed average correlation coefficient of subsequent assessments was equal for pre- and post intervals, _r_ = .68. The average internal consistency Cronbach´s $\alpha$ between both pre- and post intervals was $\alpha$ = .84.
+
+
+
+#### Intense 30-fold Assessment Intervals
+
+
+#### Standard Single Pre-Post Assessments
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+
+
+
+
+
+## Clinical Interpretation of PHQ-9 Scores
+
+[@Karin.2018b; @Kroenke.2001]
+\par
+
+The clinical interpretation categories of the PHQ-9 and their classification frequencies among both data sets are shown below in Table \@ref(tab:phq-int).
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Clinical Interpretation of PHQ-9 Scores}}
+  \label{tab:phq-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  PHQ-9 Score & Classification & Interpretation\\ \midrule
+  0-4 & 0 & Minimal or none\\
+  5-9 & 1 & Mild\\
+  10-14 & 2 & Moderate\\
+  15-19 & 3 & Moderately severe\\
+  20-27 & 4 & Severe\\
+  \bottomrule
+  \end{tabular}
+  \end{threeparttable}
+\end{table}
+
+
+
+
+
+## Classification Methods {#class-methods}
+
+
+Widespread classification methods will be explored regarding their convergent and divergent validity
+
+
+
+### Percentage Change
+
+
+
+A detailed description of the Percentage Change _PC_ (or sometimes called Percentage Improvement, _PI_) Method is given in @Karin.2018.
+
+<br>
+\begin{equation}
+PC = \Bigl(1 - \frac{\overline{x_{2}}} {\overline{x_{1}}}\Bigr) \cdot 100 (\#eq:pc)
+\end{equation}
+
+\noindent
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+\par
+
+
+The _Percentage Change_ method results in an index that describes a subject´s post-treatment score as a proportion of his or her pre-treatment score. A positive result indicates that the post-treatment score is smaller than the pre-treatment score (i.e., improvement), while a negative result indicates a post-treatment score higher than the pre-treatment score (i.e., deterioration). When applied on a common scoring system for a psychological construct, i.e. including only non-negative scores, the resulting index can assume values smaller than or equal to 100. This is a consequence of the fact that a person can not reduce his or her scores by more than 100 %, as the lower bound of the scale itself is non-negative (most typically 0). But depending on the specific scale, it may well be possible that a subject can increase scores from pre- to post-treatment by more than 100 %, indicated by a post-treatment score greater than two times the size of the pre-treatment score. Hence, the negative limit of the index (i.e., the most extreme expression of deterioration) is not defined a priori, but rather scale- and data-specific, as it is determined by the maximum of the empirical distribution of pre-treatment scores in relation to the highest achievable score on the scale.
+\par
+The PC method is a _proportional_, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be _linear_ in the population, but rather 
+\par
+The assumption of _linear_ change is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated. 
+
+This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
+
+Subjects with a low symptom severity at baseline may not be able to show a score reduction $\geq$ the pre-defined meaningful difference, and hence could not be regarded as meaningfully improved, while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as meaningfully improved, even though their post-treatment score could still be within the clinical range of scores. 
+
+The main advantage of this approach is _..._
+
+\par
+On the other hand, if a method inherently assumes _proportional_ change, it defines the absolute score difference to be regarded as meaningfully changed proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
+
+The main advantage of this approach is _..._
+
+[see @Karin.2018]
+\par
+
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Percentage Change Interpretation of PHQ-9 Scores}}
+  \label{tab:pc-int}
+  \begin{tabular}{@{}cccc@{}}
+  \toprule
+  PC Criteria & Class. & Interpretation & Conventional Interpretation\\ \midrule
+  PC $\leq$ -50 & -2 & Strong Deterioration & Deterioration\\
+  -50 < PC $\leq$ -25 & -1 & Deterioration & No Change\\
+  -25 < PC < 25 & 0 & No Change & No Change\\
+  25 $\leq$ PC < 50 & 1 & Improvement & No Change\\
+  PC $\geq$ 50 & 2 & Strong Improvement & Improvement\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+
+An overview of the interpretation categories for the Percentage Change method is displayed in Table \@ref(tab:pc-int) above.
+
+
+
+### Clinically Significant Improvement, Clinically Significant Change
+
+
+
+<!--
+> ``The original validation study of the PHQ-9 defined clinically significant improvement as a post-treatment score of <= 9 combined with improvement of 50%.´´ (McMillan, Gilbody, & Richards, 2010)
+-->
+
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Clinically Significant Change Interpretation of PHQ-9 Scores}}
+  \label{tab:csi-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  Clinically Significant Change Criteria & Classification & Interpretation\\ \midrule
+  PHQ-9 Post-Score $\leq$ 9 \& PC $\geq$ 50 & -1 & Significant Improvement\\
+  PHQ-9 Post-Score > 9 \& -50 < PC < 50 & 0 & No Significant Change\\
+  PHQ-9 Post-Score > 9 \& PC $\leq$ -50 & 1 & Significant Deterioration\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+
+
+
+
+### Reliable Change Index
+
+
+The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+\par
+
+
+<!--
+-	When true changes are expected (e.g., as practice effects in neuropsychological tests), regression-based approaches can be used to correct obtained scores.  
+-	Many normative studies in the literature that report RCIs and cutoff scores for significant change in specific tests and scales.  
+-	``For instance, @Geiser.2000 concluded from their study on psychosomatic patients that RCIs were useful when monitoring the global scale of the Symptom-Checklist-90-R (SCL-90-R), but that it was also important to investigate specific cutoff scores for different groups of diagnoses. Furthermore, @Ekeroth.2014 investigated the concordance of CSIs/RCIs and diagnostic change (as assessed with the DSM-IV) in patients with eating disorders, and found that the calculated indices explained more variance in the measured psychopathological change than the diagnostic change according to DSM-IV.´´
+-->
+\par
+
+
+#### Reliable Change [@Jacobson.1984; @Jacobson.1991]
+
+
+Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 critized widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
+\par
+They 
+\par
+The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $RCI>|1.96|$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
+
+
+<br>
+\begin{equation}
+RCI = \frac{x_{2} - x_{1}}  {s_{diff}} (\#eq:rci-jt)
+\end{equation}
+
+\begin{equation}
+s_{diff} = \sqrt{2 \cdot (S_{E})^2} (\#eq:rci-jt-sdiff)
+\end{equation}
+
+\begin{equation}
+SE = s_{1} \cdot \sqrt{1 - r_{xx \text{´}}} (\#eq:rci-jt-se)
+\end{equation}
+<br>
+
+\noindent $x_{2}$ = subject´s posttest score, 
+$x_{1}$ = subject´s pretest score, 
+$s_{diff}$ = standard error of difference between test scores, 
+$SE$ = standard error of measurement, 
+$s_{1}$ = standard deviation of test scores at pretest, 
+$r_{xx \text{´}}$ = reliability of the measure
+\par
+
+For instance, a significant RC index of $|2|$ would show that the score difference was equal to two standard deviations which were weighted by the reliability of the method.
+
+
+\par
+
+Furthermore, @Jacobson.1984 and @Jacobson.1991 offer an additional formula for the calculation of a significance cutoff in raw scores, given by the following formula.
+
+<br>
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot s_{diff} = 1.96 \cdot \sqrt{2 \cdot (s_{1} \cdot \sqrt{1 - r_{xx \text{´}}})^2} (\#eq:rci-jt-cut)
+\end{equation}
+<br>
+
+\noindent $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+\par
+
+This formula defines the raw score that an individual would have to gain or lose in the respective scale to be recognized as reliably changed. It is also based on the whole sample´s characteristics.
+
+\par
+These estimates should be calculated using the standard deviation of either a control group, a normal population, or an experimental group at the baseline assessment. It also includes the test-retest reliability, usually obtained from a non-clinical sample, which is oftentimes available in the test manual or in published validation studies.
+
+\par
+Following from the assumption of normally distributed change scores, an individual RCI score could also be interpreted in the sense of percentage ranks, i.e. 
+assuming normality, it is expected that _X_ % of participants getting the same treatment under the same conditions, would show an improvement/deterioration of at most the same extent.
+\par
+
+<!--
+//According to @HintonBayre.2000, the RCIJT is appropriate when only pretest data and the test reliability are available and a true change in the construct, independently of treatment effects, is not expected. If normative retest data are available, he argues for the inclusion of the posttest variance. The absence of true change in the construct is a critical precondition because in many assessment contexts there are practice effects, regression toward the mean or divergence from the mean, and natural fluctuations in the construct. If these changes are expected independently of an intervention, they need to be taken into account as error variance [@Busch.2015].
+-->
+
+
+#### Defining an Individualized Reliable Change Index
+
+
+The RCI(ind) is proposed as a mathematical adaptation of the originally defined RCI to repeated-measurement data including more that two timepoints, such as data from EMA procedures.
+\par
+
+
+> Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+
+<br>
+\begin{equation}
+RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}} (\#eq:rci-step)
+\end{equation}
+<br>
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+<br>
+
+
+
+
+
+
+> RCI(ind) using the SD from the individual pre-interval
+
+<br>
+\begin{equation}
+RCI_{\textit{ind, pre SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D,pre}} (\#eq:rci-ind-presd)
+\end{equation}
+
+\begin{equation}
+SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-se)
+\end{equation}
+
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot SE_{D,pre} = 1.96 \cdot \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-cut)
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D,pre}$ = standard error of difference between the test scores in the individual´s pre interval 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+> RCI(ind) using pooled SDs from both individual intervals
+
+<br>
+\begin{equation}
+RCI_{\textit{ind, pooled SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D}} (\#eq:rci-ind-pooledsd)
+\end{equation}
+
+\begin{equation}
+SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-se)
+\end{equation}
+
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot SE_{D} = 1.96 \cdot \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-cut)
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D}$ = pooled standard error of difference between the test scores 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$s_{y}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+<!--
+//rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> individualized RCI)  
+  //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
+//number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
+  //mean difference standardized by dividing it by standard error of difference SED  
+//here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
+  //by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.  
+  //Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.
+
+
+//RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
+//subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.  
+//calculation of cutoff scores for significance of change in a specific test/scale etc.:
+-->
+
+
+
+
+### Confidence Interval Method (Edwards-Nunnally Method)
+
+
+@Edwards.1978
+[@Speer.1992]
+
+<br>
+\begin{equation}
+\textit{EN Interval} = \bigl[ r_{xx} (X_{pre} - M_{pre}) + M_{pre} \bigr] \pm 2 \cdot S_{pre} \cdot \sqrt{1 - r_{xx}} (\#eq:en)
+\end{equation}
+
+$r_{xx}$ = reliability of the measure, 
+$X_{pre}$ = individual´s raw score at pre-treatment, 
+$M_{pre}$ = mean of the sample at pre-treatment, 
+$S_{pre}$ = standard deviation of the sample at pre-treatment
+<br>
+
+> Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval method:
+
+\par
+
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Edwards-Nunnally Method Change Interpretation of PHQ-9 Scores}}
+  \label{tab:en-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  Edwards-Nunnally Criteria & Classification & Interpretation\\ \midrule
+  PHQ POST < [EN Interval] & -1 & Significant Improvement\\
+  PHQ POST $\in$ [EN Interval] & 0 & No Significant Change\\
+  PHQ POST > [EN Interval] & 1 & Significant Deterioration\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+
+
+
+
+<!--
+### Sudden Gains and Losses
+
+> Sudden Gain/Loss-Classification between pre- and post intervals [using the R package _{suddengains}_; @Wiedemann.2020]
+
+> 3 criteria for sudden change according to @Tang.1999:
+  > significant absolute change: Über-/Unterschreitung eines definierten Cutoff-Scores (z.B. RCI), hier PHQ-9-Score <= 9
+  > significant relative change: Reduktion/Zuwachs von Pre zu Post um >= 25%
+  > significant change in relation to symptom fluctuation: 
+
+\begin{equation}
+M_{pre} - M_{post} > \text{critical value} \cdot \sqrt{\frac{\left(n_{pre} - 1 \right) \cdot SD^2_{pre} + \left(n_{post} - 1 \right) \cdot SD^2_{post}} {n_{pre} + n_{post} - 2}} (\#eq:sg)
+\end{equation}
+
+<br>
+$M_{pre}$ = mean of the subject´s scores before a potential gain/loss, 
+$M_{post}$ = mean of the subject´s scores after a potential gain/loss, 
+$\text{critical value}$ = 2.776 = two-tailed t statistic for $\alpha$ = 0.05 and df = 4, 
+$n_{pre}$ = number of measurement points before a potential gain/loss, 
+$n_{post}$ = number of measurement points after a potential gain/loss, 
+$SD^2_{pre}$ = standard deviation of the subject´s scores before a potential gain/loss, 
+$SD^2_{post}$ = standard deviation of the subject´s scores after a potential gain/loss
+<br>
+
+```{r sg_int, echo=FALSE, results='asis'}
+tibble(SG = c("PHQ-9 Post-Mean <= 9 & (Mean) PC >= 25 & Mean Diff. > (absolute) critical fluctuation", 
+            "every other combination of conditions", 
+            "PHQ-9 Post-Mean > 9 & (Mean) PC <= -25 & Mean Diff. > (absolute) critical fluctuation"),
+       Classification = c(-1L,0L,1L),
+       Interpretation = c("Sudden Gain", "No Sudden Change", "Sudden Loss")) %>% 
+  apa_table(
+    col.names = c("Sudden-Gain/Loss Criteria", "Classification", "Interpretation"),
+    caption = "Sudden-Gain/Loss Interpretation of PHQ-9 Scores",
+    #caption.short = "Sudden-Gain/Loss Interpretation",
+    label = "sg-int",
+    #longtable = TRUE,
+    placement = "htb")
+```
+-->
+
+<!--
+### Personalized Advantage Index (PAI, DeRubeis)
+### Hierarchical Linear Models (HLM)
+multiwave-data approach using growth-curve modeling sensu @Speer.1992
+### Regression-Based Methods
+### Gulliksen-Lord-Novick Method [@Hsu.1989; @Hsu.1999]
+### Time Series-Based Analyses [e.g., @Holmes.2016]
+### Significant Change sensu @Christensen.1986
+### RCI(indiv) sensu @Hageman.1993
+### Method of 2 SEMs/2 SDs
+### ANCOVAs
+-->
+
+
+## Analyses of Statistical Power, Sensitivity, and Specificity
+
+Statistical power is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding _true positive_ results.
+
+<!--
+- higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
+- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
+-->
+
+
+\par \noindent
+_Sensitivity_, also known as _recall_ or _true-positive rate_, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both _true_ improvement and deterioration.
+\begin{equation}
+Sensitivity = \frac{tp}{p} = \frac{tp}{tp + fn} (\#eq:sensitivity)
+\end{equation}
+
+\par \noindent
+_Specificity_, also known as _selectivity_ or _true-negative rate_, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
+\begin{equation}
+Specificity = \frac{tn}{n} = \frac{tn}{tn + fp} (\#eq:specificity)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+\alpha = \frac{fp}{fp + tn} (\#eq:alpha-error)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+\beta = \frac{fn}{fn + tp} (\#eq:beta-error)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+Power = 1 - \beta (\#eq:power)
+\end{equation}
+
+\par \noindent
+Note that statistical power is equivalent to sensitivity, because:
+\begin{equation}
+Power = 1 - \beta = 1 - \frac{fn}{fn + tp} = \frac{fn + tp}{fn + tp} - \frac{fn}{fn + tp} = \frac{tp}{fn + tp} = Sensitivity (\#eq:power-sens-equiv)
+\end{equation}
+
+\par \noindent
+
+<!--
+<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
+Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively.
+-->
+
+
+<!--    !!! Classification Evaluation with >2 Classes
+//siehe Data Mining/ida(1)/Folie 36-37:
+- macro averaging
+- class-weighted averaging
+-->
+
+
+
+
+
+
+
+## Jackknife Resampling of Parameter Estimates
+
+Exemplary R code for this bootstrapped analysis is provided in \@ref(r-jackknife).
+
+
+
+<!--chapter:end:03-method.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+<!--
+```{r, include=FALSE, cache=FALSE, eval=FALSE}
+#knitr::purl("PP_Stichprobenvergleiche_d0.92.Rmd", output = "PP_Stichprobenvergleiche_d0.92.R", documentation = 2)
+
+#knitr::read_chunk("PP_Stichprobenvergleiche_d0.92.R")
+```
+-->
+
+```{r echo=FALSE}
+load("data/cor_07_k20/PP_30.30.RData")
+PP_30.30 = PP_30.30 %>%
+  as_tibble()
+
+load("data/cor_07_k20/PP_5.5.RData")
+PP_5.5 = PP_5.5 %>% 
+  dplyr::rename(ID_orig = ID) %>% 
+  filter(ID_orig %in% PP_30.30$ID1_PRE)
+
+load("data/cor_07_k20/PP_1.1.RData")
+
+pre_30mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5",
+            "PRE1_6","PRE1_7","PRE1_8","PRE1_9","PRE1_10",
+            "PRE1_11","PRE1_12","PRE1_13","PRE1_14","PRE1_15",
+            "PRE1_16","PRE1_17","PRE1_18","PRE1_19","PRE1_20",
+            "PRE1_21","PRE1_22","PRE1_23","PRE1_24","PRE1_25",
+            "PRE1_26","PRE1_27","PRE1_28","PRE1_29","PRE1_30")
+
+post_30mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5",
+             "POST1_6","POST1_7","POST1_8","POST1_9","POST1_10",
+             "POST1_11","POST1_12","POST1_13","POST1_14","POST1_15",
+             "POST1_16","POST1_17","POST1_18","POST1_19","POST1_20",
+             "POST1_21","POST1_22","POST1_23","POST1_24","POST1_25",
+             "POST1_26","POST1_27","POST1_28","POST1_29","POST1_30")
+
+pre_5mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5")
+post_5mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5")
+
+PP_5.5$PRE_Mean = apply(PP_5.5[pre_5mzp], 1, mean)
+PP_5.5$POST_Mean = apply(PP_5.5[post_5mzp], 1, mean)
+PP_5.5$MeanDiff = PP_5.5$PRE_Mean - PP_5.5$POST_Mean
+PP_5.5$ind.pretestSD = apply(PP_5.5[pre_5mzp], 1, sd)
+PP_5.5$ind.posttestSD = apply(PP_5.5[post_5mzp], 1, sd)
+
+PP_1.1$Diff = as.numeric(PP_1.1$PRE - PP_1.1$POST)
+
+# Ausschluss von Personen ohne Varianz in min. einem MZP-Intervall
+
+PP_5.5 = PP_5.5 %>% 
+  filter(ind.pretestSD != 0 & ind.posttestSD != 0)
+
+PP_30.30 = PP_30.30 %>% 
+  filter(ind.pretestSD != 0 & ind.posttestSD != 0)
+
+
+PP_5.5 = PP_5.5 %>% 
+  filter(ID_orig %in% PP_30.30$ID1_PRE)
+
+PP_30.30 = PP_30.30 %>% 
+  filter(ID1_PRE %in% PP_5.5$ID_orig)
+
+PP_1.1 = PP_1.1 %>% 
+  filter(ID_orig %in% PP_5.5$ID_orig & ID_orig %in% PP_30.30$ID1_PRE)
+
+
+PP_5.5 = PP_5.5 %>% 
+  add_column(., .before = "ID_orig", ID = 1:nrow(.))
+
+PP_30.30 = PP_30.30 %>% 
+  add_column(., .before = "ID1_PRE", ID = 1:nrow(.))
+
+PP_1.1 = PP_1.1 %>% 
+  add_column(., .before = "ID_orig", ID = 1:nrow(.))
+```
+
+# Results {#results}
+
+
+All steps of data preparation and statistical analyses were performed using the statistical programming language R [@RCoreTeam.2020]. A complete list of additionally installed packages is provided in Appendix \@ref(session-info).
+
+
+### Robustness of Results in Random Samples of n = 50 and n = 100 in Comparison to the Population
+
+
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+
+## Pre-Post Differences in Symptom Scores
+
+
+Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pre-treatment (in light bars) and post-treatment scores (in dark bars).
+
+
+```{r echo=FALSE, fig.align="center", out.width="75%"}
+#knitr::include_graphics("Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin.jpg")
+knitr::include_graphics("data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg")
+```
+
+\caption{\textit{A Figure}} \label{fig:fig1}
+\begin{center}
+  \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI}
+\end{center}
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+## Comparison of Classification Methods
+
+
+### Paper-Pencil Scenario
+
+Standard Questionnaire vs. Intense Questionnaire
+
+
+### EMA Scenario
+
+Standard EMA vs. Intense EMA
+
+
+
+
+## Baseline Dependence by Method
+
+
+Barplot with 95% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI...
+
+
+
+
+## False-Positive Rate and Specificity
+
+False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _p_ = _tp_ + _fn_ = 0, implying that cases of true change could neither be detected (i.e. _tp_ = 0) nor overlooked (i.e. _fn_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
+
+
+
+The _false-positive rate (FPR)_ is given by:
+\begin{equation}
+FPR = \frac{fp}{n} = \frac{fp}{fp + tn} (\#eq:fpr)
+\end{equation}
+
+\par
+Hence, classification methods can be compared regarding their false-positive rates and their specificity (i.e. probability of true-positive classifications) on the basis of this data source.
+
+\par
+The resulting 
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+
+## Jackknife Resampling of Parameter Estimates
+
+
+
+Within the same assessment frequency, the method bias of classifications was up to 19 % (of non-agreement).
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+<!--chapter:end:04-results.Rmd-->
+
+
+# Discussion
+
+
+
+
+
+## Discussion of Results
+
+
+
+
+
+Table Pros and Cons of Assessment Formats
+Table Pros and Cons of Classification Methods
+
+
+## Implications of Findings
+
+
+<!--
+Potential uses of all the investigated methods include:
+- reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
+- potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
+- routine outcome monitoring, feedback and evaluation tool for treatment
+- to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
+- easy visualization of symptom changes for patients and practitioners
+- [@Bauer.2004b]: clinical significance important for:
+* dose-response research
+* outcome-management systems (as a marker for remission/deterioration)
+* calculating relative improvement for comparison of new treatments with TAU
+-->
+
+
+## Strengths and Limitations
+
+
+
+
+external validity of findings
+\par
+One notable limitation of the study regards the characteristics of the simulated data sets. Although based on empirically gathered data from clinical samples, on average, the simulated baseline-interval scores were arguably low and mainly corresponded to mild and moderate levels of depression. The PHQ-9 scale has a maximum score of 27 points, but the data used for the analyses in this study did only reach a maximum of 25 points. Therefore, for instance, it would have been possible to add a constant score of 2 points to every single assessment, if the intention would had been to correct the data sets to represent more severe levels of depression. This overall correction would not have had any impact on the effect size (Cohen´s _d_), the underlying covariance matrix of assessments, test-retest reliabilities, the internal consistency Cronbach´s $\alpha$, or any of the proportional clinical change methods (Percentage Change, Individualized Reliable Change Index, and the Edwards-Nunnally Method). It would only have affected the proportions of cases that were identified by the Clinical Significance method as _moved from the clinical to the non-clinical population_, or vice versa. This is because the standard definition of clinically significant change in PHQ-9 scores includes the 50 % change criterion, as well as passing the cutoff score of 9 points defining the border between the clinical and the non-clinical distribution [see @McMillan.2010]. However, following from the comparative approach in this study, a constant-value correction would not have altered the measures of interest in this methodological comparison, and neither the conclusions that are drawn from its results. \par
+This example is intended to emphasize the generalizability of conclusions regarding the sensitivity and specificity of the analysed methods in comparison to each other: Assuming that the simulated data sets realistically represent empirically observed clinical trial data, the resulting differences in agreement between methods would be the same, regardless of the symptom-severity levels.
+
+
+
+
+## Conclusion
+
+bla
+
+<!--chapter:end:05-discussion.Rmd-->
+
+
+\backmatter
+
+<!-- 
+If you'd like to change the name of the bibliography to something else,
+delete "References" and replace it.
+-->
+
+# References
+<!--
+This manually sets the header for this unnumbered chapter.
+-->
+\markboth{References}{References}
+<!-- \hypertarget{refs}{} ? -->
+
+<!--
+To remove the indentation of the first entry.
+-->
+\noindent
+
+<!--
+To create a hanging indent and spacing between entries.  These three lines may need to be removed for styles that don't require the hanging indent.
+-->
+
+\setlength{\parindent}{-0.20in}
+\setlength{\leftskip}{0.20in}
+\setlength{\parskip}{8pt}
+
+::: {#refs}
+:::
+
+<!--
+This is just for testing with more citations for the bibliography at the end.  Add other entries into the list here if you'd like them to appear in the bibliography even if they weren't explicitly cited in the document.
+
+---
+nocite: | 
+  @angel2000, @angel2001, @angel2002a
+...
+-->
+
+<!--chapter:end:06-references.Rmd-->
+
+
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
+<!-- weil in References.Rmd ein Einzug eingestellt wurde -->
+\setlength{\parindent}{0in}
+\setlength{\leftskip}{0in}
+\setlength{\parskip}{0pt}
+
+# Appendix: R Code {-}
+
+The appendix includes information about the R version and packages that were used to prepare and process data, as well as R code for the most important pre-processing steps, the computation of clinical change methods, and the Jackknife-bootstrapping method.
+
+
+## R Session Information and Used Packages {#session-info}
+
+```{r label="session-info", results="asis", echo=TRUE}
+toLatex(sessionInfo())
+```
+
+
+## K-Nearest-Neighbor Search {#r-knn-search}
+
+K-Nearest-Neighbor Search (using `get.knn()` from the package _FNN_) for the questionnaire data set \enquote{PP_5.5} as an example (similar procedure for both the EMA and the questionnaire data set).
+
+```{r label="r-knn-search", eval=FALSE}
+pacman::p_load(dplyr, FNN)
+
+# opening the originally simulated data set (N = 100.000) and 
+# calculating interval means and standard deviations
+PP_5.5 = read.delim("cor_07_k20/cor_07_dataset_k20.txt", 
+                    row.names=NULL) %>%
+  select(PRE1_1:POST1_5) %>%
+  add_column(., .before = "PRE1_1", ID = 1:nrow(.)) %>%
+  as_tibble()
+
+pre_5mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5")
+post_5mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5")
+
+PP_5.5$PRE_Mean = apply(PP_5.5[pre_5mzp], 1, mean)
+PP_5.5$POST_Mean = apply(PP_5.5[post_5mzp], 1, mean)
+PP_5.5$MeanDiff = PP_5.5$PRE_Mean - PP_5.5$POST_Mean
+PP_5.5$ind.pretestSD = apply(PP_5.5[pre_5mzp], 1, sd)
+PP_5.5$ind.posttestSD = apply(PP_5.5[post_5mzp], 1, sd)
+save(PP_5.5, file = "cor_07_k20/PP_5.5.RData")
+
+# PRE interval: finding the k=5 nearest neighbors regarding their 
+# mean score and standard deviation (with distance == 0)
+pre_data = PP_5.5 %>% select(PRE_Mean, ind.pretestSD)
+PP_PRE_KNN_df = FNN::get.knn(pre_data, k=5, algorithm = "kd_tree")
+
+x = as_tibble(PP_PRE_KNN_df[[1]], .name_repair = "minimal")
+colnames(x) = c("neighbor1", "neighbor2", "neighbor3", 
+                "neighbor4", "neighbor5")
+y = as_tibble(PP_PRE_KNN_df[[2]], .name_repair = "minimal")
+colnames(y) = c("distance1", "distance2", "distance3", 
+                "distance4", "distance5")
+
+PP_PRE_KNN_df = bind_cols(x, y) %>%
+  add_column(., .before = "neighbor1", ID = 1:nrow(.)) %>%
+  filter(distance1 == 0 & distance2 == 0 & distance3 == 0 & 
+           distance4 == 0 & distance5 == 0)
+
+# POST interval: finding the k=5 nearest neighbors regarding their 
+# mean score and standard deviation (with distance == 0)
+post_data = PP_5.5 %>% select(POST_Mean, ind.posttestSD)
+PP_POST_KNN_df = FNN::get.knn(post_data, k=5, algorithm = "kd_tree")
+
+x = as_tibble(PP_POST_KNN_df[[1]], .name_repair = "minimal")
+colnames(x) = c("neighbor1", "neighbor2", "neighbor3", 
+                "neighbor4", "neighbor5")
+y = as_tibble(PP_POST_KNN_df[[2]], .name_repair = "minimal")
+colnames(y) = c("distance1", "distance2", "distance3", 
+                "distance4", "distance5")
+
+PP_POST_KNN_df = bind_cols(x, y) %>%
+  add_column(., .before = "neighbor1", ID = 1:nrow(.)) %>%
+  filter(distance1 == 0 & distance2 == 0 & distance3 == 0 & 
+           distance4 == 0 & distance5 == 0)
+
+# filtering the resulting knn combinations to keep only unique 
+# rows of 6 perfectly matching neighbors
+# PRE interval
+PP_PRE_KNN_df = PP_PRE_KNN_df %>%
+  select(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) %>%
+  apply(., 1, sort) %>%
+  t() %>%
+  as_tibble() %>%
+  arrange(., V1, V2, V3, V4, V5, V6) %>%
+  distinct() %>%
+  filter(V1 != V2 & V2 != V3 & V3 != V4 & V4 != V5 & V5 != V6) %>%
+  group_by(V1) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+colnames(PP_PRE_KNN_df) = c("ID1_PRE", "ID2_PRE", "ID3_PRE", 
+                            "ID4_PRE", "ID5_PRE", "ID6_PRE")
+
+# POST interval
+PP_POST_KNN_df = PP_POST_KNN_df %>%
+  select(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) %>%
+  apply(., 1, sort) %>%
+  t() %>%
+  as_tibble() %>%
+  arrange(., V1, V2, V3, V4, V5, V6) %>%
+  distinct() %>%
+  filter(V1 != V2 & V2 != V3 & V3 != V4 & V4 != V5 & V5 != V6) %>%
+  group_by(V1) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+colnames(PP_POST_KNN_df) = c("ID1_POST", "ID2_POST", "ID3_POST", 
+                             "ID4_POST", "ID5_POST", "ID6_POST")
+
+# joining the matched IDs of pre- and post-neighbors in a data frame
+PP_KNNs = inner_join(PP_PRE_KNN_df, PP_POST_KNN_df, 
+              by = c("ID1_PRE" = "ID1_POST"))
+PP_KNNs = PP_KNNs %>%
+  add_column(., .before = "ID2_POST", ID1_POST = PP_KNNs$ID1_PRE)
+save(PP_KNNs, file = "cor_07_k20/PP_KNNs.RData")
+```
+
+
+## Extension of Assessment Intervals {#r-extension}
+
+Extension of assessment intervals for the questionnaire data set \enquote{PP_5.5} as an example (similar procedure for both the EMA and the questionnaire data set).
+
+```{r label="r-extension", eval=FALSE}
+pacman::p_load(dplyr)
+load("cor_07_k20/PP_KNNs.RData")
+load("cor_07_k20/PP_5.5.RData")
+PP_KNNs = PP_KNNs %>% as.data.frame()
+
+PP_30.30 = data.frame(
+  ID1_PRE = c(), ID2_PRE = c(), ID3_PRE = c(), 
+  ID4_PRE = c(), ID5_PRE = c(), ID6_PRE = c(),
+  ID1_POST = c(), ID2_POST = c(), ID3_POST = c(), 
+  ID4_POST = c(), ID5_POST = c(), ID6_POST = c(),
+
+  PRE1_1 = c(), PRE1_2 = c(), PRE1_3 = c(), PRE1_4 = c(), 
+  PRE1_5 = c(), PRE1_6 = c(), PRE1_7 = c(), PRE1_8 = c(), 
+  PRE1_9 = c(), PRE1_10 = c(), PRE1_11 = c(), PRE1_12 = c(), 
+  PRE1_13 = c(), PRE1_14 = c(), PRE1_15 = c(), PRE1_16 = c(), 
+  PRE1_17 = c(), PRE1_18 = c(), PRE1_19 = c(), PRE1_20 = c(),
+  PRE1_21 = c(), PRE1_22 = c(), PRE1_23 = c(), PRE1_24 = c(), 
+  PRE1_25 = c(), PRE1_26 = c(), PRE1_27 = c(), PRE1_28 = c(), 
+  PRE1_29 = c(), PRE1_30 = c(),
+
+  POST1_1 = c(), POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), 
+  POST1_5 = c(), POST1_6 = c(), POST1_7 = c(), POST1_8 = c(), 
+  POST1_9 = c(), POST1_10 = c(), POST1_11 = c(), POST1_12 = c(), 
+  POST1_13 = c(), POST1_14 = c(), POST1_15 = c(), POST1_16 = c(), 
+  POST1_17 = c(), POST1_18 = c(), POST1_19 = c(), POST1_20 = c(),
+  POST1_21 = c(), POST1_22 = c(), POST1_23 = c(), POST1_24 = c(), 
+  POST1_25 = c(), POST1_26 = c(), POST1_27 = c(), POST1_28 = c(), 
+  POST1_29 = c(), POST1_30 = c())
+
+for (i in 1:length(PP_KNNs$ID1_PRE)) {
+  PP_30.30[i,"ID1_PRE"] = PP_KNNs[i,"ID1_PRE"]
+  PP_30.30[i,"ID2_PRE"] = PP_KNNs[i,"ID2_PRE"]
+  PP_30.30[i,"ID3_PRE"] = PP_KNNs[i,"ID3_PRE"]
+  PP_30.30[i,"ID4_PRE"] = PP_KNNs[i,"ID4_PRE"]
+  PP_30.30[i,"ID5_PRE"] = PP_KNNs[i,"ID5_PRE"]
+  PP_30.30[i,"ID6_PRE"] = PP_KNNs[i,"ID6_PRE"]
+  PP_30.30[i,"ID1_POST"] = PP_KNNs[i,"ID1_POST"]
+  PP_30.30[i,"ID2_POST"] = PP_KNNs[i,"ID2_POST"]
+  PP_30.30[i,"ID3_POST"] = PP_KNNs[i,"ID3_POST"]
+  PP_30.30[i,"ID4_POST"] = PP_KNNs[i,"ID4_POST"]
+  PP_30.30[i,"ID5_POST"] = PP_KNNs[i,"ID5_POST"]
+  PP_30.30[i,"ID6_POST"] = PP_KNNs[i,"ID6_POST"]
+
+  PP_30.30[i,"PRE1_1"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_2"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_3"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_4"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_5"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_6"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_7"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_8"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_9"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_10"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_5"]
+
+  PP_30.30[i,"PRE1_11"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_12"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_13"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_14"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_15"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_16"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_17"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_18"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_19"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_20"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_5"]
+
+  PP_30.30[i,"PRE1_21"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_22"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_23"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_24"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_25"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_26"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_27"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_28"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_29"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_30"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_5"]
+
+
+  PP_30.30[i,"POST1_1"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_2"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_3"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_4"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_5"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_6"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_7"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_8"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_9"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_10"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_5"]
+
+  PP_30.30[i,"POST1_11"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_12"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_13"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_14"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_15"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_16"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_17"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_18"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_19"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_20"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_5"]
+
+  PP_30.30[i,"POST1_21"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_22"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_23"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_24"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_25"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_26"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_27"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_28"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_29"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_30"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_5"]}
+```
+
+
+## Random Sampling of 5-fold EMA Windows and Days {#r-random-sampling}
+
+Random sampling of 5-fold EMA assessments from 30-fold intervals for the generation of individual (1) 5-fold windows and (2) 5-fold single assessment days.
+
+```{r label="r-random-sampling", eval=FALSE}
+pacman::p_load(dplyr)
+set.seed(42)
+
+pre_5mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5")
+post_5mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5")
+
+pre_30mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5",
+            "PRE1_6","PRE1_7","PRE1_8","PRE1_9","PRE1_10",
+            "PRE1_11","PRE1_12","PRE1_13","PRE1_14","PRE1_15",
+            "PRE1_16","PRE1_17","PRE1_18","PRE1_19","PRE1_20",
+            "PRE1_21","PRE1_22","PRE1_23","PRE1_24","PRE1_25",
+            "PRE1_26","PRE1_27","PRE1_28","PRE1_29","PRE1_30")
+post_30mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5",
+             "POST1_6","POST1_7","POST1_8","POST1_9","POST1_10",
+             "POST1_11","POST1_12","POST1_13","POST1_14","POST1_15",
+             "POST1_16","POST1_17","POST1_18","POST1_19","POST1_20",
+             "POST1_21","POST1_22","POST1_23","POST1_24","POST1_25",
+             "POST1_26","POST1_27","POST1_28","POST1_29","POST1_30")
+
+# (1) 5-fold windows (EMA_5.5_Window)
+# random sampling of 5-fold pre- and post-assessment windows (5 days 
+# in a row) from individual 30-fold intervals (EMA_30.30)
+EMA_5.5_Window = data.frame(ID = c(), 
+  Pre_MZP1 = c(), Pre_MZP2 = c(), Pre_MZP3 = c(), Pre_MZP4 = c(),
+  Pre_MZP5 = c(), Post_MZP1 = c(), Post_MZP2 = c(), Post_MZP3 = c(),
+  Post_MZP4 = c(), Post_MZP5 = c(), PRE1_1 = c(), PRE1_2 = c(),
+  PRE1_3 = c(), PRE1_4 = c(), PRE1_5 = c(), POST1_1 = c(),
+  POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), POST1_5 = c())
+
+for (i in EMA_30.30$ID) {
+  a = sample(1:26, 1)
+  EMA_5.5_pre_Window = pre_30mzp[seq(from = a, to = a+4)]
+  b = sample(1:26, 1)
+  EMA_5.5_post_Window = post_30mzp[seq(from = b, to = b+4)]
+  
+  EMA_5.5_Window[i,"ID"] = i
+  EMA_5.5_Window[i,"Pre_MZP1"] = EMA_5.5_pre_Window[1]
+  EMA_5.5_Window[i,"Pre_MZP2"] = EMA_5.5_pre_Window[2]
+  EMA_5.5_Window[i,"Pre_MZP3"] = EMA_5.5_pre_Window[3]
+  EMA_5.5_Window[i,"Pre_MZP4"] = EMA_5.5_pre_Window[4]
+  EMA_5.5_Window[i,"Pre_MZP5"] = EMA_5.5_pre_Window[5]
+  EMA_5.5_Window[i,"Post_MZP1"] = EMA_5.5_post_Window[1]
+  EMA_5.5_Window[i,"Post_MZP2"] = EMA_5.5_post_Window[2]
+  EMA_5.5_Window[i,"Post_MZP3"] = EMA_5.5_post_Window[3]
+  EMA_5.5_Window[i,"Post_MZP4"] = EMA_5.5_post_Window[4]
+  EMA_5.5_Window[i,"Post_MZP5"] = EMA_5.5_post_Window[5]
+  
+  EMA_5.5_Window[i,"PRE1_1"] = EMA_30.30[i,EMA_5.5_pre_Window[1]]
+  EMA_5.5_Window[i,"PRE1_2"] = EMA_30.30[i,EMA_5.5_pre_Window[2]]
+  EMA_5.5_Window[i,"PRE1_3"] = EMA_30.30[i,EMA_5.5_pre_Window[3]]
+  EMA_5.5_Window[i,"PRE1_4"] = EMA_30.30[i,EMA_5.5_pre_Window[4]]
+  EMA_5.5_Window[i,"PRE1_5"] = EMA_30.30[i,EMA_5.5_pre_Window[5]]
+  EMA_5.5_Window[i,"POST1_1"] = EMA_30.30[i,EMA_5.5_post_Window[1]]
+  EMA_5.5_Window[i,"POST1_2"] = EMA_30.30[i,EMA_5.5_post_Window[2]]
+  EMA_5.5_Window[i,"POST1_3"] = EMA_30.30[i,EMA_5.5_post_Window[3]]
+  EMA_5.5_Window[i,"POST1_4"] = EMA_30.30[i,EMA_5.5_post_Window[4]]
+  EMA_5.5_Window[i,"POST1_5"] = EMA_30.30[i,EMA_5.5_post_Window[5]]}
+
+# (2) 5-fold single assessment days (EMA_5.5_Days)
+# random sampling of 5-fold pre- and post-assessments (not necessarily
+# days in a row) from individual 30-fold intervals (EMA_30.30)
+EMA_5.5_Days = data.frame(ID = c(), 
+  Pre_MZP1 = c(), Pre_MZP2 = c(), Pre_MZP3 = c(), Pre_MZP4 = c(),
+  Pre_MZP5 = c(), Post_MZP1 = c(), Post_MZP2 = c(), Post_MZP3 = c(),
+  Post_MZP4 = c(), Post_MZP5 = c(), PRE1_1 = c(), PRE1_2 = c(),
+  PRE1_3 = c(), PRE1_4 = c(), PRE1_5 = c(), POST1_1 = c(),
+  POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), POST1_5 = c())
+
+for (i in EMA_30.30$ID) {
+  EMA_5.5_pre_Days = pre_30mzp[sort(sample(1:30, 5))]
+  EMA_5.5_post_Days = post_30mzp[sort(sample(1:30, 5))]
+  
+  EMA_5.5_Days[i,"ID"] = i
+  EMA_5.5_Days[i,"Pre_MZP1"] = EMA_5.5_pre_Days[1]
+  EMA_5.5_Days[i,"Pre_MZP2"] = EMA_5.5_pre_Days[2]
+  EMA_5.5_Days[i,"Pre_MZP3"] = EMA_5.5_pre_Days[3]
+  EMA_5.5_Days[i,"Pre_MZP4"] = EMA_5.5_pre_Days[4]
+  EMA_5.5_Days[i,"Pre_MZP5"] = EMA_5.5_pre_Days[5]
+  EMA_5.5_Days[i,"Post_MZP1"] = EMA_5.5_post_Days[1]
+  EMA_5.5_Days[i,"Post_MZP2"] = EMA_5.5_post_Days[2]
+  EMA_5.5_Days[i,"Post_MZP3"] = EMA_5.5_post_Days[3]
+  EMA_5.5_Days[i,"Post_MZP4"] = EMA_5.5_post_Days[4]
+  EMA_5.5_Days[i,"Post_MZP5"] = EMA_5.5_post_Days[5]
+  
+  EMA_5.5_Days[i,"PRE1_1"] = EMA_30.30[i,EMA_5.5_pre_Days[1]]
+  EMA_5.5_Days[i,"PRE1_2"] = EMA_30.30[i,EMA_5.5_pre_Days[2]]
+  EMA_5.5_Days[i,"PRE1_3"] = EMA_30.30[i,EMA_5.5_pre_Days[3]]
+  EMA_5.5_Days[i,"PRE1_4"] = EMA_30.30[i,EMA_5.5_pre_Days[4]]
+  EMA_5.5_Days[i,"PRE1_5"] = EMA_30.30[i,EMA_5.5_pre_Days[5]]
+  EMA_5.5_Days[i,"POST1_1"] = EMA_30.30[i,EMA_5.5_post_Days[1]]
+  EMA_5.5_Days[i,"POST1_2"] = EMA_30.30[i,EMA_5.5_post_Days[2]]
+  EMA_5.5_Days[i,"POST1_3"] = EMA_30.30[i,EMA_5.5_post_Days[3]]
+  EMA_5.5_Days[i,"POST1_4"] = EMA_30.30[i,EMA_5.5_post_Days[4]]
+  EMA_5.5_Days[i,"POST1_5"] = EMA_30.30[i,EMA_5.5_post_Days[5]]}
+```
+
+
+## R Code for the Calculation of Clinical Change Methods
+
+### Percentage Change {#r-pc}
+
+Calculation of the Percentage Change method PC for interpreting the score difference between two assessment intervals (i.e. Mean Percentage Change), as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-pc", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$Mean_PC = (1-(PP_5.5$POST_Mean / PP_5.5$PRE_Mean)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_5.5 = PP_5.5 %>% 
+  mutate(Mean_PC_klass = case_when(
+    Mean_PC <= -50 ~ -2,
+    Mean_PC > -50 & Mean_PC <= -25 ~ -1,
+    Mean_PC > -25 & Mean_PC < 25 ~ 0,
+    Mean_PC >= 25 & Mean_PC < 50 ~ 1,
+    Mean_PC >= 50 ~ 2,
+    TRUE ~ Mean_PC))
+
+### PP_30.30:
+PP_30.30$Mean_PC = (1-(PP_30.30$POST_Mean / PP_30.30$PRE_Mean)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_30.30 = PP_30.30 %>% 
+  mutate(Mean_PC_klass = case_when(
+    Mean_PC <= -50 ~ -2,
+    Mean_PC > -50 & Mean_PC <= -25 ~ -1,
+    Mean_PC > -25 & Mean_PC < 25 ~ 0,
+    Mean_PC >= 25 & Mean_PC < 50 ~ 1,
+    Mean_PC >= 50 ~ 2,
+    TRUE ~ Mean_PC))
+
+### PP_1.1:
+PP_1.1$PC = (1 - (PP_1.1$POST / PP_1.1$PRE)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_1.1 = PP_1.1 %>% 
+  mutate(PC_klass = case_when(
+    PC <= -50 ~ -2,
+    PC > -50 & PC <= -25 ~ -1,
+    PC > -25 & PC < 25 ~ 0,
+    PC >= 25 & PC < 50 ~ 1,
+    PC >= 50 ~ 2,
+    TRUE ~ as.numeric(PC)))
+```
+
+### Clinical Significance {#r-csi}
+
+Implementation of the Clinical Significance method CSI [see @McMillan.2010] for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-csi", eval=FALSE}
+# creating the interpretation categories for Clinically Sig. Change,
+# ranging from -1 (improvement) to 1 (deterioration):
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5 = PP_5.5 %>% 
+   mutate(CSI_klass = case_when(
+     PRE_Mean >= 10 & POST_Mean <= 9 & Mean_PC >= 50 ~ -1,
+     PRE_Mean <= 9 & POST_Mean >= 10 & Mean_PC <= -50 ~ 1,
+     TRUE ~ 0))
+
+### PP_30.30:
+PP_30.30 = PP_30.30 %>% 
+   mutate(CSI_klass = case_when(
+     PRE_Mean >= 10 & POST_Mean <= 9 & Mean_PC >= 50 ~ -1,
+     PRE_Mean <= 9 & POST_Mean >= 10 & Mean_PC <= -50 ~ 1,
+     TRUE ~ 0))
+
+### PP_1.1:
+PP_1.1 = PP_1.1 %>% 
+   mutate(CSI_klass = case_when(
+     PRE >= 10 & POST <= 9 & PC >= 50 ~ -1,
+     PRE <= 9 & POST >= 10 & PC <= -50 ~ 1,
+     TRUE ~ 0))
+```
+
+### Average Internal Consistency {#r-alpha}
+
+Calculation of the average internal consistency Cronbach´s $\alpha$ as the estimate of reliability to be used to compute Reliable Change Indices and the Edwards-Nunnally criteria. The population´s internal consistency of PHQ-9 assessments was first calculated within each 5-fold interval (pre and post). Then, $\alpha_{pre}$ and $\alpha_{post}$ were Fisher Z transformed to take the average of both estimates, and finally this value was transformed back to obtain a pooled Cronbach´s $\alpha$. The same calculation method was used for questionnaire and EMA data sets.
+
+```{r label="r-alpha", eval=FALSE}
+pacman::p_load(DescTools)
+PRE_alpha = CronbachAlpha(PP_5.5[pre_5mzp])
+POST_alpha = CronbachAlpha(PP_5.5[post_5mzp])
+PP_5.5_Alpha = FisherZInv(mean(c(FisherZ(PRE_alpha), 
+                                 FisherZ(POST_alpha))))
+```
+
+### Reliable Change Index [@Jacobson.1984; @Jacobson.1991] {#r-rci-jt}
+
+Calculation of the Reliable Change Index $RCI_{JT}$ and its population-level significance cutoff sensu @Jacobson.1984 and @Jacobson.1991 for the difference between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-rci-jt", eval=FALSE}
+pacman::p_load(dplyr)
+
+PP_1.1$RCI_JT = (PP_1.1$POST - PP_1.1$PRE) / 
+    sqrt(2 * (sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)) ^ 2)
+RCI_JT_Cutoff = 1.96 * sqrt(2 * (sd(PP_1.1$PRE) * 
+    sqrt(1 - PP_5.5_Alpha)) ^ 2)
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_1.1 = PP_1.1 %>% 
+  mutate(RCI_JT_klass = case_when(
+    RCI_JT < -1.96 ~ -1,
+    RCI_JT >= -1.96 & RCI_JT < 1.96 ~ 0,
+    RCI_JT > 1.96 ~ 1,
+    TRUE ~ RCI_JT))
+```
+
+### Reliable Change Index (Transformative Step) {#r-rci-step}
+
+Calculation of the transformative step between the Reliable Change Index sensu @Jacobson.1984 and @Jacobson.1991 and the proposed Individualized Reliable Change Index. $RCI_{Step}$ has the same denominator as $RCI_{JT}$, but replaces the difference between two single assessments with the mean difference between two assessment intervals in the numerator. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-step", eval=FALSE}
+pacman::p_load(dplyr)
+
+PP_5.5$RCI_Step = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+    sqrt(2 * (sd(PP_5.5$PRE1_1) * sqrt(1 - PP_5.5_Alpha)) ^ 2)
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_Step_klass = case_when(
+    RCI_Step < -1.96 ~ -1,
+    RCI_Step >= -1.96 & RCI_Step < 1.96 ~ 0,
+    RCI_Step > 1.96 ~ 1,
+    TRUE ~ RCI_Step))
+```
+
+### Individualized Reliable Change Index (Pre-SD) {#r-rci-ind-pre}
+
+Calculation of a proposed Individualized Reliable Change Index $RCI_{ind,preSD}$ and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s standard deviation from the baseline interval as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-ind-pre", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$SEd_pre = sqrt(2 * (PP_5.5$ind.pretestSD * 
+                            sqrt(1 - PP_5.5_Alpha)) ^ 2)
+PP_5.5$RCI_ind_preSD = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+                            PP_5.5$SEd_pre
+PP_5.5$RCI_ind_preSD_Cutoff =  1.96 * PP_5.5$SEd_pre
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_ind_preSD_klass = case_when(
+    RCI_ind_preSD < -1.96 ~ -1,
+    RCI_ind_preSD >= -1.96 & RCI_ind_preSD < 1.96 ~ 0,
+    RCI_ind_preSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_preSD))
+
+### PP_30.30:
+PP_30.30$SEd_pre = sqrt(2 * (PP_30.30$ind.pretestSD * 
+                            sqrt(1 - PP_5.5_Alpha)) ^ 2)
+PP_30.30$RCI_ind_preSD = (PP_30.30$POST_Mean - PP_30.30$PRE_Mean) / 
+                            PP_30.30$SEd_pre
+PP_30.30$RCI_ind_preSD_Cutoff =  1.96 * PP_30.30$SEd_pre
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(RCI_ind_preSD_klass = case_when(
+    RCI_ind_preSD < -1.96 ~ -1,
+    RCI_ind_preSD >= -1.96 & RCI_ind_preSD < 1.96 ~ 0,
+    RCI_ind_preSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_preSD))
+```
+
+### Individualized Reliable Change Index (Pooled SD) {#r-rci-ind-pool}
+
+Calculation of a proposed Individualized Reliable Change Index $RCI_{ind,pooledSD}$ and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s pooled standard deviation from both pre and post intervals as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-ind-pool", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$SEd_pooled = sqrt((PP_5.5$ind.pretestSD ^ 2 + 
+                  PP_5.5$ind.posttestSD ^ 2) * (1 - PP_5.5_Alpha))
+PP_5.5$RCI_ind_pooledSD = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+                            PP_5.5$SEd_pooled
+PP_5.5$RCI_ind_pooledSD_Cutoff =  1.96 * PP_5.5$SEd_pooled
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_ind_pooledSD_klass = case_when(
+    RCI_ind_pooledSD < -1.96 ~ -1,
+    RCI_ind_pooledSD >= -1.96 & RCI_ind_pooledSD < 1.96 ~ 0,
+    RCI_ind_pooledSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_pooledSD))
+
+### PP_30.30:
+PP_30.30$SEd_pooled = sqrt((PP_30.30$ind.pretestSD ^ 2 + 
+                  PP_30.30$ind.posttestSD ^ 2) * (1 - PP_5.5_Alpha))
+PP_30.30$RCI_ind_pooledSD = (PP_30.30$POST_Mean - PP_30.30$PRE_Mean) / 
+                            PP_30.30$SEd_pooled
+PP_30.30$RCI_ind_pooledSD_Cutoff =  1.96 * PP_30.30$SEd_pooled
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(RCI_ind_pooledSD_klass = case_when(
+    RCI_ind_pooledSD < -1.96 ~ -1,
+    RCI_ind_pooledSD >= -1.96 & RCI_ind_pooledSD < 1.96 ~ 0,
+    RCI_ind_pooledSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_pooledSD))
+```
+
+### Edwards-Nunnally Method {#r-en}
+
+Calculation of the Edwards-Nunnally Method _EN_ [see @Edwards.1978; @Speer.1992] for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-en", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$EN_min = (PP_5.5_Alpha * (PP_5.5$PRE_Mean - 
+          mean(PP_5.5$PRE_Mean)) + mean(PP_5.5$PRE_Mean)) - 2 *
+          mean(PP_5.5$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+PP_5.5$EN_max = (PP_5.5_Alpha * (PP_5.5$PRE_Mean - 
+          mean(PP_5.5$PRE_Mean)) + mean(PP_5.5$PRE_Mean)) + 2 *
+          mean(PP_5.5$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(EN_klass = case_when(
+    POST_Mean > EN_max ~ 1,
+    POST_Mean < EN_max & POST_Mean > EN_min ~ 0,
+    POST_Mean < EN_min ~ -1,
+    TRUE ~ POST_Mean))
+
+### PP_30.30:
+PP_30.30$EN_min = (PP_5.5_Alpha * (PP_30.30$PRE_Mean - 
+          mean(PP_30.30$PRE_Mean)) + mean(PP_30.30$PRE_Mean)) - 2 * 
+          mean(PP_30.30$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+PP_30.30$EN_max = (PP_5.5_Alpha * (PP_30.30$PRE_Mean - 
+          mean(PP_30.30$PRE_Mean)) + mean(PP_30.30$PRE_Mean)) + 2 * 
+          mean(PP_30.30$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(EN_klass = case_when(
+    POST_Mean > EN_max ~ 1,
+    POST_Mean < EN_max & POST_Mean > EN_min ~ 0,
+    POST_Mean < EN_min ~ -1,
+    TRUE ~ POST_Mean))
+
+### PP_1.1:
+PP_1.1$EN_min = (PP_5.5_Alpha * (PP_1.1$PRE - mean(PP_1.1$PRE)) + 
+    mean(PP_1.1$PRE)) - 2 * sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)
+PP_1.1$EN_max = (PP_5.5_Alpha * (PP_1.1$PRE - mean(PP_1.1$PRE)) + 
+    mean(PP_1.1$PRE)) + 2 * sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_1.1 = PP_1.1 %>% 
+  mutate(EN_klass = case_when(
+    POST > EN_max ~ 1,
+    POST < EN_max & POST > EN_min ~ 0,
+    POST < EN_min ~ -1,
+    TRUE ~ as.numeric(POST)))
+```
+
+
+## Jackknife Resampling of Clinical Change Methods {#r-jackknife}
+
+Bootstrapped calculation of Percentage Change through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-pc", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_30.30[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Window[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Days[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including only pre standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pre", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including pooled standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pool", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_pooledSD_jse"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_pooledSD_jbias"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jse"] = 
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jbias"] = 
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jse"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jbias"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+```
+
+
+
+<!--chapter:end:07-appendix.Rmd-->
+

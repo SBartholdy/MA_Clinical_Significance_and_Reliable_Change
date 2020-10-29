@@ -1,0 +1,92 @@
+
+# Theoretical Background
+
+
+
+## Assessment of Psychopathology in Clinical Research and Practice
+
+
+
+
+In clinical outcome research, research predominantly focuses mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as _t_ values, Cohen´s _d_, Hedge´s _g_, and often the sole reliance on statistical significance, as well. 
+\par
+
+Relevant biases and side effects include placebo effects, the \enquote{hello-and-goodbye} effect, response bias, dropout, 
+
+\par
+There is a difference between _efficacy_ research, which studies treatment effects under controlled conditions, and _effectiveness_ research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups [@Anderson.2014], which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
+\par
+There are many variations of the same concept, including the _Clinically Significant Difference (CSD)_, the _Reliable Change Index (RCI)_, the _Minimal Detectable Change (MDC)_, the _Minimal Clinically Important Difference (MCID)_, and the _Minimal Important Difference (MID)_.	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
+
+
+
+## Methods for the Classification of Significant Change in Clinical Research
+
+
+<!--
+//``Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.´´ \par
+//First applied in marital counseling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients) \par
+
+//Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values \par
+
+- mean differences between pre- and post-timepoints or between treatment and control groups \par
+
+-	reasonable for cumulating evidence in meta-analyses \par
+
+-	but results often interpreted only in terms of statistical significance \par
+
+//``@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.´´
+-->
+
+
+## Digital Mental Health Service
+
+
+
+### Ecological Momentary Assessment (EMA)
+
+_Ecological Momentary Assessment (EMA)_, also known as _Intense Pre-Post Assessment (IPA)_, is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a \enquote{\textit{field experiment}}). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high sampling frequencies, it can be applied efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort. Longitudinal EMA designs typically consist of a small number of psychometrically reliable items that require minimal effort and time for the respondents to answer [@Rot.2012; @Shiffman.2008]. As these short self-reports can be presented in smartphone apps or computer programs, this approach forms a powerful, yet feasible opportunity to study the progression of affective states and behaviors on an individual level.
+\par
+This diagnostic tool could be seen as a bridge between empirical research and clinical practice: Research commonly finds insights from comparisons between groups of subjects, while the knowledge that is needed for the interaction with patients and clients is much more centered around them as individuals. Any practical work with them is in itself a study of processes within each person. EMA formats can benefit both fields by facilitating a deeper understanding of complex psychological processes.
+\par
+_//introducing, offering, alternative, discover, yield, capture_
+\par
+
+For instance, EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always embedded in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counseling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before each assessment.
+
+
+
+\par
+<!--
+//plot shows high mood variability pre-treatment (SD = 3.81) and much lower variability post-treatment (SD = 1.04), as well as a higher pre-treatment mean (M = 9.11) than post-treatment mean (M = 1.86)  
+//plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
+//or imagine assessing depressive symptoms in participant 1 randomly on day 12 pre-treatment (score of about 5) and on day 26 post-treatment (score of 5) -> total difference of 0 points -> useless intervention (possibly worse than placebo)!
+-->
+
+
+
+
+## Purpose of the Study
+
+The present thesis forms an in-depth investigation of the theoretically expectable increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
+
+
+\par
+investigated if the inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
+
+
+The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology. \par
+
+These methods will be compared for both the classical questionnaire format and the EMA format.
+
+
+
+## Hypotheses
+
+
+
+
+From a clinical perspective, it is expected that the sensitivity of _..._ is high, while the specificity of _..._ is low.
+
+
+

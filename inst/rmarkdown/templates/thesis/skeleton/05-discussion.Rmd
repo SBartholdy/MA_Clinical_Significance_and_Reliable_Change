@@ -1,0 +1,50 @@
+
+# Discussion
+
+
+
+
+
+## Discussion of Results
+
+
+
+
+
+Table Pros and Cons of Assessment Formats
+Table Pros and Cons of Classification Methods
+
+
+## Implications of Findings
+
+
+<!--
+Potential uses of all the investigated methods include:
+- reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
+- potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
+- routine outcome monitoring, feedback and evaluation tool for treatment
+- to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
+- easy visualization of symptom changes for patients and practitioners
+- [@Bauer.2004b]: clinical significance important for:
+* dose-response research
+* outcome-management systems (as a marker for remission/deterioration)
+* calculating relative improvement for comparison of new treatments with TAU
+-->
+
+
+## Strengths and Limitations
+
+
+
+
+external validity of findings
+\par
+One notable limitation of the study regards the characteristics of the simulated data sets. Although based on empirically gathered data from clinical samples, on average, the simulated baseline-interval scores were arguably low and mainly corresponded to mild and moderate levels of depression. The PHQ-9 scale has a maximum score of 27 points, but the data used for the analyses in this study did only reach a maximum of 25 points. Therefore, for instance, it would have been possible to add a constant score of 2 points to every single assessment, if the intention would had been to correct the data sets to represent more severe levels of depression. This overall correction would not have had any impact on the effect size (Cohen´s _d_), the underlying covariance matrix of assessments, test-retest reliabilities, the internal consistency Cronbach´s $\alpha$, or any of the proportional clinical change methods (Percentage Change, Individualized Reliable Change Index, and the Edwards-Nunnally Method). It would only have affected the proportions of cases that were identified by the Clinical Significance method as _moved from the clinical to the non-clinical population_, or vice versa. This is because the standard definition of clinically significant change in PHQ-9 scores includes the 50 % change criterion, as well as passing the cutoff score of 9 points defining the border between the clinical and the non-clinical distribution [see @McMillan.2010]. However, following from the comparative approach in this study, a constant-value correction would not have altered the measures of interest in this methodological comparison, and neither the conclusions that are drawn from its results. \par
+This example is intended to emphasize the generalizability of conclusions regarding the sensitivity and specificity of the analysed methods in comparison to each other: Assuming that the simulated data sets realistically represent empirically observed clinical trial data, the resulting differences in agreement between methods would be the same, regardless of the symptom-severity levels.
+
+
+
+
+## Conclusion
+
+bla

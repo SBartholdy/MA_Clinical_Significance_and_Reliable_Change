@@ -1,0 +1,2088 @@
+---
+author: 'Stephan Bartholdy'
+date: "`r format(Sys.time(), '%B %Y')`"
+institution: 'University of Salzburg'
+advisor: 'Dr. Raphael Schuster'
+altadvisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+department: 'Fachbereich Psychologie'
+#title: 'Optimizing Statistical Power and Precision of Reliable Change in Clinical Trials by Means of Pre--Post EMA'
+title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post EMA'
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: 
+  thesisdown::thesis_pdf: default
+#  thesisdown::thesis_gitbook: default
+#  thesisdown::thesis_word: default
+#  thesisdown::thesis_epub: default
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is 
+# needed on the line after the |.
+acknowledgements: |
+  I want to thank my direct supervisor Dr. Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I´m thankful for all his help with the data, as well. I also want to thank my indirect supervisor Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter for offering his advice and expertise. Last, I want to thank my parents for supporting me unconditionally in every step of my education.
+#preface: |
+#  This is an example of a thesis setup to use the reed thesis document class
+#  (for LaTeX) and the R bookdown package, in general.
+bibliography: bib/thesis.bib
+csl: csl/apa.csl
+lot: true
+lof: true
+#space_between_paragraphs: true
+header-includes:
+- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+-->
+
+<!--
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r include_packages, include=FALSE}
+# This chunk ensures that the thesisdown package is
+# installed and loaded. This thesisdown package includes
+# the template files for the thesis.
+#if(!require(devtools))
+#  install.packages("devtools", repos = "http://cran.rstudio.com")
+#if(!require(thesisdown))
+#  devtools::install_github("ismayc/thesisdown")
+
+# just in case:
+#tinytex::tlmgr_update()
+#update.packages(ask = FALSE, checkBuilt = TRUE)
+
+#library(qgraph) #data generation
+#library(bootnet) #data generation
+#library(copula) #data generation
+#library(reshape) #data generation
+library(rmarkdown)
+library(knitr)
+library(thesisdown)
+library(papaja)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+library(haven)
+library(foreign)
+library(bootstrap)
+library(sjmisc)
+library(lattice)
+library(Rmisc)
+library(methods)
+library(devtools)
+library(psych)
+library(DescTools)
+library(summarytools)
+library(kableExtra)
+library(lubridate)
+library(timetk)
+library(overlapping)
+library(ggplot2)
+library(gghalves)
+library(plot.matrix)
+library(suddengains)
+library(FNN)
+```
+
+<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
+PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
+and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+-->
+
+<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters.
+-->
+
+
+<!--chapter:end:index.Rmd-->
+
+The preface pretty much says it all.
+
+
+
+
+
+
+\par
+
+
+
+
+
+
+
+
+
+**Introduction**: Psychological therapy research is subject to constant quality control in order to provide reliable knowledge. One factor thatis still neglected today is the statistical power. In the fewest studies is this sufficiently calculated or described. Although new trends show an increased interest in the topic, it remains problematic. The new direction of web based therapies offers benefits in this regard. The present work is dedicated to these topics and tries to provide an overview of the present state of affairs. **Method**: 60 randomized controlled trials (RCTs), with a total of 11098 individuals, published between 2014 and 2017, were analyzed for their statistical power. The studies were taken from an already published meta-analysis and refer to therapeutic studies on the treatment of depression, including web based studies. **Results**: In more than half of the cases (55 % of the studies, 33 studies) a priori power analysis was found, but only in 18 % of the cases (11 studies) was sufficiently replicable described. As light time effect has been found over the years (from 0 % to 25 %) and web based studies are higher-powered than conventional ones. **Discussion**: The results of the study are broadly in line with expectations, and the fact that general low power analysis and values are used severely restricts the interpretation. Additional limitations are being considered, as well as the implication that power analysis has become a much-discussed field. \par
+_Keywords_: RCT, depression, statistic power, power analysis, meta-analysis, review
+
+\newpage
+
+
+# Zusammenfassung {-}
+
+
+
+lorem ipsum
+
+
+
+<!--chapter:end:00-abstract.Rmd-->
+
+<!--
+This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
+-->
+
+<!--
+The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.
+-->
+
+# Introduction
+
+
+
+
+
+
+
+<!--chapter:end:01-introduction.Rmd-->
+
+
+# Theoretical Background
+
+
+
+## Assessment of Psychopathology in Clinical Research and Practice
+
+
+
+
+In clinical outcome research, research predominantly focuses mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as t values, Cohen´s d, Hedge´s g, and often the sole reliance on statistical significance, as well. 
+\par
+
+Relevant biases and side effects include placebo effects, the "hello-and-goodbye" effect, response bias, dropout, 
+
+\par
+There is a difference between _efficacy_ research, which studies treatment effects under controlled conditions, and _effectiveness_ research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups [@Anderson.2014], which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
+\par
+There are many variations of the same concept, including the _Clinically Significant Difference_ (CSD), the _Reliable Change Index_ (RCI), the _Minimally _ (MDC), the _Minimally Clinically Important Difference_ (MCID), and the _Minimally Important Difference_ (MID).	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
+
+
+
+## Methods for the Classification of Significant Change in Clinical Research
+
+
+//“Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.” \par
+//First applied in marital counselling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients) \par
+//Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values \par
+- mean differences between pre- and post-timepoints or between treatment and control groups \par
+-	reasonable for cumulating evidence in meta-analyses \par
+-	but results often interpreted only in terms of statistical significance \par
+//“@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.”
+
+
+
+## Digital Mental Health Service
+
+
+
+### Ecological Momentary Assessment (EMA)
+
+_Ecological Momentary Assessment_ (EMA), also known as _Intense Pre-Post Assessment_ (IPA), is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a _"field experiment"_). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high assessment frequencies, it can be applied ecologically and efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort [@Rot.2012; @Shiffman.2008].
+\par
+//oftentimes high sampling frequencies, but still psychometrically ecological and efficient assessment, because it requires little effort from respondents to answer the short scales and gives much information about the construct in the individual [@Rot.2012; @Shiffman.2008]
+
+\par
+
+EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always included in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counselling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before an assessment.
+
+
+
+\par
+//plot shows high mood variability pre-treatment (SD = 3.81) and much lower variability post-treatment (SD = 1.04), as well as a higher pre-treatment mean (M = 9.11) than post-treatment mean (M = 1.86)  
+//plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
+//or imagine assessing depressive symptoms in participant 1 randomly on day 12 pre-treatment (score of about 5) and on day 26 post-treatment (score of 5) -> total difference of 0 points -> useless intervention (possibly worse than placebo)!
+
+
+
+
+
+## Purpose of the Study
+
+Increase statistical power from clinical trials by using multiple baseline and follow-up measurements by the use of ecological momentary assessment
+
+
+\par
+investigate if inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
+
+
+The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology. \par
+
+These methods will be compared for both the classical questionnaire format and the EMA format.
+
+
+
+## Hypotheses
+
+
+
+
+From a clinical perspective, it is expected that the sensitivity of _..._ is high, while the specificity of _..._ is low.
+
+
+
+
+<!--chapter:end:02-theoretical-background.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+# Method {#method}
+
+
+
+
+
+## Study Design
+
+
+
+## Planned Statistical Analyses
+
+
+
+
+## Data Simulation Procedure
+
+All following analyses are based on mathematically simulated datasets that were generated for a previous study by @Schuster.2020. A detailed description of the simulation process can be found in the supplementary material of their article online ^[\url{https://doi.org/10.1016/j.invent.2020.100313}].\par
+
+Estimated parameters and the simulation process will be described in the following sections.
+
+
+
+// The Patient Health Questionnaire-9 (PHQ-9) is used to evaluate changes in degree of depressive symptoms. All items are scored on a 4-point Likert scale (0-3) with a total score of 0-27, with higher scores indicating more severe depression. validation
+
+
+
+### Sample
+
+
+
+clinical sample undergoing treatment for depression
+
+
+### Simulated Scenarios
+
+
+
+
+Datasets for both diagnostic methods showed an overall effect size of Cohen´s _d_ = 0.99 for the symptom change from pre- to post timepoints. Their overall "treatment" effect would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
+
+
+```{r quest_str, echo=FALSE}
+tibble(Variable = c("ID", "PRE1_1", "PRE1_2", "PRE1_3", "PRE1_4", "PRE1_5", "POST1_1", "POST1_2", "POST1_3", "POST1_4", "POST1_5", "PRE_Mean", 
+                    "POST_Mean", "ind.pretestSD", "ind.posttestSD"),
+       Description = c("participant ID", "assessment #1 before treatment", "assessment #2 before treatment", "assessment #3 before treatment", 
+                "assessment #4 before treatment", "assessment #5 before treatment", "assessment #1 after treatment", 
+                "assessment #2 after treatment", "assessment #3 after treatment", "assessment #4 after treatment", 
+                "assessment #5 after treatment", "mean score of pre assessments", "mean score of post assessments", 
+                "standard deviation of pre assessments", "standard deviation of post assessments")) %>% 
+  kable(
+    #col.names = c("Variable", "Description"),
+    caption = "Structure of the Questionnaire-Like Dataset",
+    caption.short = "Structure Questionnaire Dataset",
+    label = "quest-str",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+
+#### Questionnaire-Like Data
+
+PHQ-9 [@Kroenke.2001]
+
+
+
+Frequency of assessments
+
+
+
+
+
+#### EMA-Like Data
+
+
+
+Frequency of assessments
+
+
+
+
+
+
+
+
+## Data Pre-Processing
+
+
+
+
+### Extension of Individual Assessments
+
+As both the questionnaire-like and the EMA-like datasets contained 5-fold assessments (pre and post), they were extended for further analyses in the following manner to obtain 30-fold pre- and post assessment intervals. \par
+In the simulated datasets comprising _N_ = 100.000 participants each, participants with equal interval means and standard deviations were matched using the k-nearest-neighbor search (KNN) algorithm. This was done in R using the k-dimensional tree algorithm inside the function `get.knn()` from the R package _{FNN}_. 
+
+_euclidean nearest neighbor search using the k-d tree (k-dimensional tree) algorithm in the R package {FNN}. Generally the algorithm uses squared distances for comparison to avoid computing square roots._
+_k-nearest-neighbor search (kNNS / NNS)_
+_pattern recognition, machine learning, data mining_
+_"KNN represents a supervised, distance-based classification algorithm that will give new data points accordingly to the k number or the closest data points."_
+_"In k-NN classification, the output is a class membership. An object is classified by a plurality vote of its neighbors, with the object being assigned to the class most common among its k nearest neighbors (k is a positive integer, typically small). If k = 1, then the object is simply assigned to the class of that single nearest neighbor."_
+_"A commonly used distance metric for continuous variables is Euclidean distance"_
+
+In this way, cases with similar average symptom scores and similar _pre-_ and _post_ standard deviations were matched inside each dataset. Thereby, only participants with both (1) similar average score changes from _pre_ to _post_ and (2) similar intra-individual variability were matched together. The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. Both the questionnaire-like and EMA-like datasets were reduced by this procedure by about 32 %, resulting in sample sizes of _N_ = 68.209 (questionnaire) and _N_ = 68.858 (EMA). \par
+
+
+
+### Random Sampling of Assessments from the Intense-Assessment Intervals
+
+
+
+### Exclusion of Cases Without Variance
+
+
+
+### Comparability of the Datasets
+
+
+
+
+
+
+
+## Classification Methods
+
+
+Widespread classification methods will be explored regarding their convergent and divergent validity
+
+
+
+### Percentage Change
+
+
+A detailed description of the Percentage Change _PC_ (or sometimes called Percentage Improvement _PI_) Method is given in @Karin.2018.
+
+<br>
+\begin{equation}
+PC = \Bigl(1 - \frac{\overline{x_{2}}} {\overline{x_{1}}}\Bigr) \cdot 100
+\end{equation}
+
+\noindent $\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+\par
+
+
+The _Percentage Change_ method results in an index that describes a subject´s post-treatment score as a proportion of his or her pre-treatment score. A positive result indicates that the post-treatment score is smaller than the pre-treatment score (i.e., improvement), while a negative result indicates a post-treatment score higher than the pre-treatment score (i.e., deterioration). When applied on a common scoring system for a psychological construct, i.e. including only non-negative scores, the resulting index can assume values smaller than or equal to 100. This is a consequence of the fact that a person can not reduce his or her scores by more than 100 %, as the lower bound of the scale itself is non-negative (most typically 0). But depending on the specific scale, it may well be possible that a subject can increase scores from pre- to post-treatment by more than 100 %, indicated by a post-treatment score greater than two times the size of the pre-treatment score. Hence, the negative limit of the index (i.e., the most extreme expression of deterioration) is not defined a priori, but rather scale- and data-specific, as it is determined by the maximum of the empirical distribution of pre-treatment scores in relation to the highest achievable score on the scale.
+\par
+The PC method is a _proportional_, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be _linear_ in the population, but rather 
+\par
+The assumption of _linear_ change is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated. 
+
+This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
+
+Subjects with a low symptom severity at baseline may not "be able" to show a score reduction >= the pre-defined "meaningful difference", and hence could not be regarded as "meaningfully improved", while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as "meaningfully improved", even though their post-treatment score could still be within the clinical range of scores. 
+
+The main advantage of this approach is _..._
+
+\par
+On the other hand, if a method inherently assumes _proportional_ change, it defines the absolute score difference to be regarded as "meaningfully changed" proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
+
+The main advantage of this approach is _..._
+
+
+[see @Karin.2018]
+
+
+An overview of the interpretation categories for the Percentage Change method is displayed in Table \@ref(tab:pc-int) below.
+
+```{r pc_int, echo=FALSE, results='asis'}
+tibble(PC = c("PC <= -50", "-50 < PC <= -25", "-25 < PC < 25", "25 <= PC < 50", "PC >= 50"),
+       Classification = c(-2L,-1L,0L,1L,2L),
+       Interpretation = c("Strong Deterioration", "Deterioration", "No Change", "Improvement", "Strong Improvement"),
+       Conv_Interpretation = c("Deterioration", "No Change", "No Change", "No Change", "Improvement")) %>% 
+  apa_table(
+    col.names = c("Percentage Change", "Class.", "Interpretation", "Conventional Interpretation"),
+    caption = "Classification and Interpretation Categories for the Percentage Change Method",
+    #caption.short = "PC Interpretation",
+    label = "pc-int",
+    #longtable = TRUE,
+    placement = "htb")
+```
+
+
+
+
+
+### Reliable Change Index
+
+
+The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+\par
+
+
+-	When true changes are expected (e.g., as practice effects in neuropsychological tests), regression-based approaches can be used to correct obtained scores.  
+-	Many normative studies in the literature that report RCIs and cutoff scores for significant change in specific tests and scales.  
+-	“For instance, @Geiser.2000 concluded from their study on psychosomatic patients that RCIs were useful when monitoring the global scale of the Symptom-Checklist-90-R (SCL-90-R), but that it was also important to investigate specific cutoff scores for different groups of diagnoses. Furthermore, @Ekeroth.2014 investigated the concordance of CSIs/RCIs and diagnostic change (as assessed with the DSM-IV) in patients with eating disorders, and found that the calculated indices explained more variance in the measured psychopathological change than the diagnostic change according to DSM-IV.”
+\par
+
+
+#### Reliable Change [@Jacobson.1984; @Jacobson.1991]
+
+
+Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 critized widespread research approaches for the following problems: \par
+- comparisons on a group level ignore intra-individual variability and change  
+- significant group differences are not synonymous with clinical relevance
+\par
+
+
+
+The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $RCI>|1.96|$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
+
+
+<br>
+\begin{equation}
+RCI = \frac{x_{2} - x_{1}}  {s_{diff}}
+\end{equation}
+
+\begin{equation}
+s_{diff} = \sqrt{2 \cdot (S_{E})^2}
+\end{equation}
+
+\begin{equation}
+SE = s_{1} \cdot \sqrt{1 - r_{xx \text{´}}}
+\end{equation}
+<br>
+
+\noindent $x_{2}$ = subject´s posttest score, 
+$x_{1}$ = subject´s pretest score, 
+$s_{diff}$ = standard error of difference between test scores, 
+$SE$ = standard error of measurement, 
+$s_{1}$ = standard deviation of test scores at pretest, 
+$r_{xx \text{´}}$ = reliability of the measure
+\par
+
+
+
+
+\par
+
+Furthermore, @Jacobson.1984 and @Jacobson.1991 offer an additional formula for the calculation of a significance cutoff in raw scores, given by the following formula.
+
+<br>
+\begin{equation}
+significance cutoff = 1.96 \cdot s_{diff} = 1.96 \cdot \sqrt{2 \cdot (s_{1} \cdot \sqrt{1 - r_{xx \text{´}}})^2}
+\end{equation}
+<br>
+
+\noindent $significance cutoff$ = (absolute) cutoff score for reliable change (95%-criterion)
+\par
+
+This formula defines the raw score that an individual would have to gain or lose in the respective scale to be recognized as reliably changed. It is also based on the whole sample´s characteristics.
+
+\par
+These estimates should be calculated using the standard deviation of either a control group, a normal population, or an experimental group at the baseline assessment. It also includes the test-retest reliability, usually obtained from a non-clinical sample, which is oftentimes available in the test manual or in published validation studies.
+
+\par
+Following from the assumption of normally distributed change scores, an individual RCI score could also be interpreted in the sense of percentage ranks, i.e. "assuming normality, it is expected that _X_ % of participants getting the same treatment under the same conditions, would show an improvement/deterioration of at most the same extent".
+\par
+
+
+//“According to @HintonBayre.2000, the RCIJT is appropriate when only pretest data and the test reliability are available and a true change in the construct, independently of treatment effects, is not expected. If normative retest data are available, he argues for the inclusion of the posttest variance. The absence of true change in the construct is a critical precondition because in many assessment contexts there are practice effects, regression toward the mean or divergence from the mean, and natural fluctuations in the construct. If these changes are expected independently of an intervention, they need to be taken into account as error variance [@Busch.2015].”
+
+
+
+#### Defining an Individualized Reliable Change Index
+
+
+The RCI(ind) is proposed as a mathematical adaptation of the originally defined RCI to repeated-measurement data including more that two timepoints, such as data from EMA procedures.
+\par
+
+
+> Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+
+<br>
+\begin{equation}
+RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}}
+\end{equation}
+<br>
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+<br>
+
+
+
+
+
+
+> RCI(ind) using the SD from the individual pre-interval
+
+<br>
+\begin{equation}
+RCI_{ind,preSD} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D,pre}}
+\end{equation}
+
+\begin{equation}
+SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)}
+\end{equation}
+
+\begin{equation}
+\text{significance cutoff} = 1.96 \cdot SE_{D,pre} = 1.96 \cdot \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)}
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D,pre}$ = standard error of difference between the test scores in the individual´s pre interval 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\text{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+> RCI(ind) using pooled SDs from both individual intervals
+
+<br>
+\begin{equation}
+RCI_{ind} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D}}
+\end{equation}
+
+\begin{equation}
+SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})}
+\end{equation}
+
+\begin{equation}
+\text{significance cutoff} = 1.96 \cdot SE_{D} = 1.96 \cdot \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})}
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D}$ = pooled standard error of difference between the test scores 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$s_{y}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\text{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+
+//rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> “individualized RCI”)  
+  //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
+//number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
+  //mean difference standardized by dividing it by standard error of difference SED  
+//here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
+  //“by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.”  
+  //“Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.”
+
+\par
+
+
+
+//RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
+//“subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.”  
+//calculation of cutoff scores for significance of change in a specific test/scale etc.:
+
+
+
+
+
+
+
+### Clinically Significant Improvement, Clinically Significant Change
+
+
+
+
+> "The original validation study of the PHQ-9 defined clinically significant improvement as a post-treatment score of <= 9 combined with improvement of 50%." (McMillan, Gilbody, & Richards, 2010)
+
+```{r csi_int, echo=FALSE}
+tibble(CSI = c("PHQ-9 Post-Score <= 9 & PC >= 50", "PHQ-9 Post-Score > 9 & -50 < PC < 50", 
+             "PHQ-9 Post-Score > 9 & PC <= -50"),
+      Klassifikation = c(-1,0,1),
+      Interpretation = c("klinisch signifikante Verbesserung", "keine klinisch signifikante Veränderung", 
+                         "klinisch signifikante Verschlechterung")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "csi-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+### Confidence Interval Method (Edwards-Nunnally Method)
+
+
+@Edwards.1978
+[@Speer.1992]
+
+<br>
+\begin{equation}
+\bigl[ r_{xx} (X_{pre} - M_{pre}) + M_{pre} \bigr] \pm 2 \cdot S_{pre} \cdot \sqrt{1 - r_{xx}}
+\end{equation}
+
+$r_{xx}$ = reliability of the measure, 
+$X_{pre}$ = individual´s raw score at pre-treatment, 
+$M_{pre}$ = mean of the sample at pre-treatment, 
+$S_{pre}$ = standard deviation of the sample at pre-treatment
+<br>
+
+> Interpretation der Post-Ausprägung nach EN-Intervall-Methode
+
+```{r en_int, echo=FALSE}
+tibble(EN = c("PHQ POST < [EN-Intervall]","PHQ POST im [EN-Intervall]","PHQ POST > [EN-Intervall]"),
+              Klassifikation = c(-1,0,1), Interpretation = c("signifikante Verbesserung",
+                      "keine signifikante Veränderung","signifikante Verschlechterung")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+
+### Sudden Gains and Losses
+
+> Sudden Gain/Loss-Klassifikation vom Pre- zum Post-Intervall mithilfe des R-Packages "suddengains"
+
+> 3 Kriterien nach Tang & DeRubeis (1999):
+  > bedeutende absolute Veränderung: Über-/Unterschreitung eines definierten Cutoff-Scores (z.B. RCI), hier PHQ-9-Score <= 9
+  > bedeutende relative Veränderung: Reduktion/Zuwachs von Pre zu Post um >= 25%
+  > bedeutende Veränderung relativ zur Symptom-Fluktuation: 
+
+\begin{equation}
+M_{pre} - M_{post} > \text{critical value} \cdot \sqrt{\frac{\left(n_{pre} - 1 \right) \cdot SD^2_{pre} + \left(n_{post} - 1 \right) \cdot SD^2_{post}} {n_{pre} + n_{post} - 2}}
+\end{equation}
+
+<br>
+$M_{pre}$ = mean of the subject´s scores before a potential gain/loss, 
+$M_{post}$ = mean of the subject´s scores after a potential gain/loss, 
+$\text{critical value}$ = 2.776 = two-tailed t statistic for $\alpha$ = 0.05 and df = 4, 
+$n_{pre}$ = number of measurement points before a potential gain/loss, 
+$n_{post}$ = number of measurement points after a potential gain/loss, 
+$SD^2_{pre}$ = standard deviation of the subject´s scores before a potential gain/loss, 
+$SD^2_{post}$ = standard deviation of the subject´s scores after a potential gain/loss
+<br>
+
+```{r sg_int, echo=FALSE}
+tibble(SG = c("PHQ-9 Post-Mean <= 9 & (Mean) PC >= 25 & Mean Diff. > (absolute) critical fluctuation", 
+                     "every other combination of conditions", 
+                     "PHQ-9 Post-Mean > 9 & (Mean) PC <= -25 & Mean Diff. > (absolute) critical fluctuation"),
+              Klassifikation = c(-1,0,1),
+              Interpretation = c("sudden gain", "no sudden change", "sudden loss")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+<!--
+### Personalized Advantage Index (PAI, DeRubeis)
+
+### Hierarchical Linear Models (HLM)
+
+multiwave-data approach using growth-curve modeling sensu @Speer.1992
+
+### Regression-Based Methods
+
+### Gulliksen-Lord-Novick Method [@Hsu.1989; @Hsu.1999]
+
+### Time Series-Based Analyses [e.g., @Holmes.2016]
+
+### Significant Change sensu @Christensen.1986
+
+### RCI(indiv) sensu @Hageman.1993
+
+### Method of 2 SEMs/2 SDs
+
+### ANCOVAs
+-->
+
+
+## Statistical Power
+
+- probability to detect an effect with a specific method when it really exists in the population
+- higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
+- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
+\par
+
+<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
+Specificity = $\frac{TN}{TN + FP}$, Sensitivity = $\dfrac{TP}{TP+FN}$, $\alpha=\dfrac {FP}{FP+TN}$, $\beta=\frac{FN}{FN+TP}$, Power = $1-\beta$. Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively. Note that the two alternative definitions of power are equivalent: Power = $1-\beta = 1-\frac{FN}{FN+TP}$ and Power = Sensitivity. This is because power = $1-\beta=1-\frac{FN}{FN+TP}=\frac{FN+TP}{FN+TP} - \frac{FN}{FN+TP}=\frac{TP}{FN+TP}$ = sensitivity.
+
+
+
+
+## Analyses of Sensitivity and Specificity
+
+
+
+
+
+
+
+
+## Jackknife-Bootstrapping of Parameter Estimates
+
+
+
+
+
+
+
+<!--chapter:end:03-method.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+# Results {#results}
+
+
+All steps of data preparation and statistical analyses were performed using the statistical programming language R [@RCoreTeam.2020].
+
+
+
+## Clinical Interpretation of PHQ-9 Scores
+
+[@Karin.2018b; @Kroenke.2001]
+
+```{r phq_int, echo=FALSE}
+tibble(PHQ_Score = c("0-4","5-9","10-14","15-19","20-27"),
+       Classification = c(0,1,2,3,4),
+       Interpretation = c("Minimal or none","Mild","Moderate","Moderately severe","Severe")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+See Table \@ref(tab:phq-int).
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Reliability and Intra-Individual Autocorrelation
+
+
+
+@Titov.2011 found an internal consistency of PHQ-9 scores of $\alpha$ = .74 (pre treatment) and $\alpha$ = .81 (post treatment).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Pre-Post Differences in Symptom Scores
+
+
+Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pretreatment (in light bars) and posttreatment scores (in dark bars).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Comparison of Classification Methods
+
+
+### Paper-Pencil Scenario
+
+Standard Questionnaire vs. Intense Questionnaire
+
+
+### EMA Scenario
+
+Standard EMA vs. Intense EMA
+
+
+<!-- next section -->
+
+
+## Baseline Dependence by Method
+
+
+Barplot with 95% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI...
+
+
+
+<!-- next section -->
+
+## False-Positive Rates and Specificity
+
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+<!-- next section -->
+
+## Jackknife-Bootstrapping of Parameter Estimates
+
+
+
+Within the same assessment frequency, the method bias of classifications was up to 19 % (of non-agreement).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+
+
+
+<!--chapter:end:04-results.Rmd-->
+
+
+# Discussion
+
+
+
+
+
+## Discussion of Results
+
+
+
+
+
+Table Pros and Cons of Assessment Formats
+Table Pros and Cons of Classification Methods
+
+
+## Implications of Findings
+
+
+
+Potential uses of all the investigated methods include:
+- reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
+- potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
+- routine outcome monitoring, feedback and evaluation tool for treatment
+- to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
+- easy visualization of symptom changes for patients and practitioners
+- [@Bauer.2004b]: clinical significance important for:
+* dose-response research
+* outcome-management systems (as a marker for remission/deterioration)
+* calculating relative improvement for comparison of new treatments with TAU
+
+
+
+## Strengths and Limitations
+
+
+
+
+external validity of findings
+
+
+
+
+## Conclusion
+
+
+
+
+<!--chapter:end:05-discussion.Rmd-->
+
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
+# Additional Analyses
+
+This first appendix includes the output from additional analyses described in the thesis.
+
+```{r}
+
+
+```
+
+
+
+
+
+# R Code
+
+The second appendix contains information about the R version and packages that were used to prepare and process the data analysed in this thesis. Additionally, the R code for the most important pre-processing steps is provided below.
+
+\noindent
+**Session information of used R packages:**
+
+```{r session_info, results='asis', echo=TRUE}
+toLatex(sessionInfo())
+```
+
+\par
+\noindent
+
+**k-nearest-neighbor search and extension of assessment intervals:**
+
+```{r knn_extension, eval=FALSE}
+
+```
+
+\par
+\noindent
+
+**R code for the calculation of the described change methods:**
+
+```{r}
+
+```
+
+
+
+
+<!--chapter:end:06-appendix.Rmd-->
+
+
+\backmatter
+
+<!-- 
+If you'd like to change the name of the bibliography to something else,
+delete "References" and replace it.
+-->
+
+# References
+<!--
+This manually sets the header for this unnumbered chapter.
+-->
+\markboth{References}{References}
+<!-- \hypertarget{refs}{} ? -->
+
+<!--
+To remove the indentation of the first entry.
+-->
+\noindent
+
+<!--
+To create a hanging indent and spacing between entries.  These three lines may need to be removed for styles that don't require the hanging indent.
+-->
+
+\setlength{\parindent}{-0.20in}
+\setlength{\leftskip}{0.20in}
+\setlength{\parskip}{8pt}
+
+
+<!--
+This is just for testing with more citations for the bibliography at the end.  Add other entries into the list here if you'd like them to appear in the bibliography even if they weren't explicitly cited in the document.
+
+---
+nocite: | 
+  @angel2000, @angel2001, @angel2002a
+...
+-->
+
+<!--chapter:end:07-references.Rmd-->
+
+---
+author: 'Stephan Bartholdy'
+date: "`r format(Sys.time(), '%B %Y')`"
+institution: 'University of Salzburg'
+advisor: 'Dr. Raphael Schuster'
+altadvisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+department: 'Fachbereich Psychologie'
+#title: 'Optimizing Statistical Power and Precision of Reliable Change in Clinical Trials by Means of Pre--Post EMA'
+title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post EMA'
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: 
+  thesisdown::thesis_pdf: default
+#  thesisdown::thesis_gitbook: default
+#  thesisdown::thesis_word: default
+#  thesisdown::thesis_epub: default
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is 
+# needed on the line after the |.
+acknowledgements: |
+  I want to thank a my direct supervisor Dr. Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I´m thankful for all his help with the data, as well. I also want to thank my indirect supervisor Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter for offering his advice and expertise. Last, I want to thank my parents for supporting me unconditionally in every step of my education.
+#preface: |
+#  This is an example of a thesis setup to use the reed thesis document class
+#  (for LaTeX) and the R bookdown package, in general.
+bibliography: bib/thesis.bib
+csl: csl/apa.csl
+lot: true
+lof: true
+#space_between_paragraphs: true
+header-includes:
+- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+-->
+
+<!--
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r include_packages, include=FALSE}
+# This chunk ensures that the thesisdown package is
+# installed and loaded. This thesisdown package includes
+# the template files for the thesis.
+#if(!require(devtools))
+#  install.packages("devtools", repos = "http://cran.rstudio.com")
+#if(!require(thesisdown))
+#  devtools::install_github("ismayc/thesisdown")
+
+# just in case:
+#tinytex::tlmgr_update()
+#update.packages(ask = FALSE, checkBuilt = TRUE)
+
+#library(qgraph) #data generation
+#library(bootnet) #data generation
+#library(copula) #data generation
+#library(reshape) #data generation
+library(rmarkdown)
+library(knitr)
+library(thesisdown)
+library(papaja)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+library(haven)
+library(foreign)
+library(bootstrap)
+library(sjmisc)
+library(lattice)
+library(Rmisc)
+library(methods)
+library(devtools)
+library(psych)
+library(DescTools)
+library(summarytools)
+library(kableExtra)
+library(lubridate)
+library(timetk)
+library(overlapping)
+library(ggplot2)
+library(gghalves)
+library(plot.matrix)
+library(suddengains)
+library(FNN)
+```
+
+<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
+PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
+and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+-->
+
+<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters.
+-->
+
+
+<!--chapter:end:index.Rmd-->
+
+<!--
+This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
+-->
+
+<!--
+The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.
+-->
+
+# Introduction
+
+
+
+
+
+
+
+<!--chapter:end:01-introduction.Rmd-->
+
+
+# Theoretical Background
+
+
+
+## Assessment of Psychopathology in Clinical Research and Practice
+
+
+
+
+In clinical outcome research, research predominantly focuses mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as t values, Cohen´s d, Hedge´s g, and often the sole reliance on statistical significance, as well. 
+\par
+
+Relevant biases and side effects include placebo effects, the "hello-and-goodbye" effect, response bias, dropout, 
+
+\par
+There is a difference between _efficacy_ research, which studies treatment effects under controlled conditions, and _effectiveness_ research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups [@Anderson.2014], which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
+\par
+There are many variations of the same concept, including the _Clinically Significant Difference_ (CSD), the _Reliable Change Index_ (RCI), the _Minimally _ (MDC), the _Minimally Clinically Important Difference_ (MCID), and the _Minimally Important Difference_ (MID).	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
+
+
+
+## Methods for the Classification of Significant Change in Clinical Research
+
+
+//“Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.” \par
+//First applied in marital counselling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients) \par
+//Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values \par
+- mean differences between pre- and post-timepoints or between treatment and control groups \par
+-	reasonable for cumulating evidence in meta-analyses \par
+-	but results often interpreted only in terms of statistical significance \par
+//“@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.”
+
+
+
+## Digital Mental Health Service
+
+
+
+### Ecological Momentary Assessment (EMA)
+
+_Ecological Momentary Assessment_ (EMA), also known as _Intense Pre-Post Assessment_ (IPA), is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a _"field experiment"_). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high assessment frequencies, it can be applied ecologically and efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort [@Rot.2012; @Shiffman.2008].
+\par
+//oftentimes high sampling frequencies, but still psychometrically ecological and efficient assessment, because it requires little effort from respondents to answer the short scales and gives much information about the construct in the individual [@Rot.2012; @Shiffman.2008]
+
+\par
+
+EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always included in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counselling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before an assessment.
+
+
+
+\par
+//plot shows high mood variability pre-treatment (SD = 3.81) and much lower variability post-treatment (SD = 1.04), as well as a higher pre-treatment mean (M = 9.11) than post-treatment mean (M = 1.86)  
+//plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
+//or imagine assessing depressive symptoms in participant 1 randomly on day 12 pre-treatment (score of about 5) and on day 26 post-treatment (score of 5) -> total difference of 0 points -> useless intervention (possibly worse than placebo)!
+
+
+
+
+
+## Purpose of the Study
+
+Increase statistical power from clinical trials by using multiple baseline and follow-up measurements by the use of ecological momentary assessment
+
+
+\par
+investigate if inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
+
+
+The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology. \par
+
+These methods will be compared for both the classical questionnaire format and the EMA format.
+
+
+
+## Hypotheses
+
+
+
+
+From a clinical perspective, it is expected that the sensitivity of _..._ is high, while the specificity of _..._ is low.
+
+
+
+
+<!--chapter:end:02-theoretical-background.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+# Method {#method}
+
+
+
+
+
+## Study Design
+
+
+
+## Planned Statistical Analyses
+
+
+
+
+## Data Simulation Procedure
+
+All following analyses are based on mathematically simulated datasets that were generated for a previous study by @Schuster.2020. A detailed description of the simulation process can be found in the supplementary material of their article online ^[\url{https://doi.org/10.1016/j.invent.2020.100313}].\par
+
+Estimated parameters and the simulation process will be described in the following sections.
+
+
+
+// The Patient Health Questionnaire-9 (PHQ-9) is used to evaluate changes in degree of depressive symptoms. All items are scored on a 4-point Likert scale (0-3) with a total score of 0-27, with higher scores indicating more severe depression. validation
+
+
+
+### Sample
+
+
+
+clinical sample undergoing treatment for depression
+
+
+### Simulated Scenarios
+
+
+
+
+Datasets for both diagnostic methods showed an overall effect size of Cohen´s _d_ = 0.99 for the symptom change from pre- to post timepoints. Their overall "treatment" effect would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
+
+
+```{r quest_str, echo=FALSE}
+tibble(Variable = c("ID", "PRE1_1", "PRE1_2", "PRE1_3", "PRE1_4", "PRE1_5", "POST1_1", "POST1_2", "POST1_3", "POST1_4", "POST1_5", "PRE_Mean", 
+                    "POST_Mean", "ind.pretestSD", "ind.posttestSD"),
+       Description = c("participant ID", "assessment #1 before treatment", "assessment #2 before treatment", "assessment #3 before treatment", 
+                "assessment #4 before treatment", "assessment #5 before treatment", "assessment #1 after treatment", 
+                "assessment #2 after treatment", "assessment #3 after treatment", "assessment #4 after treatment", 
+                "assessment #5 after treatment", "mean score of pre assessments", "mean score of post assessments", 
+                "standard deviation of pre assessments", "standard deviation of post assessments")) %>% 
+  kable(
+    #col.names = c("Variable", "Description"),
+    caption = "Structure of the Questionnaire-Like Dataset",
+    caption.short = "Structure Questionnaire Dataset",
+    label = "quest-str",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+
+#### Questionnaire-Like Data
+
+PHQ-9 [@Kroenke.2001]
+
+
+
+Frequency of assessments
+
+
+
+
+
+#### EMA-Like Data
+
+
+
+Frequency of assessments
+
+
+
+
+
+
+
+
+## Data Pre-Processing
+
+
+
+
+### Extension of Individual Assessments
+
+As both the questionnaire-like and the EMA-like datasets contained 5-fold assessments (pre and post), they were extended for further analyses in the following manner to obtain 30-fold pre- and post assessment intervals. \par
+In the simulated datasets comprising _N_ = 100.000 participants each, participants with equal interval means and standard deviations were matched using the k-nearest-neighbor search (KNN) algorithm. This was done in R using the k-dimensional tree algorithm inside the function `get.knn()` from the R package _{FNN}_. 
+
+_euclidean nearest neighbor search using the k-d tree (k-dimensional tree) algorithm in the R package {FNN}. Generally the algorithm uses squared distances for comparison to avoid computing square roots._
+_k-nearest-neighbor search (kNNS / NNS)_
+_pattern recognition, machine learning, data mining_
+_"KNN represents a supervised, distance-based classification algorithm that will give new data points accordingly to the k number or the closest data points."_
+_"In k-NN classification, the output is a class membership. An object is classified by a plurality vote of its neighbors, with the object being assigned to the class most common among its k nearest neighbors (k is a positive integer, typically small). If k = 1, then the object is simply assigned to the class of that single nearest neighbor."_
+_"A commonly used distance metric for continuous variables is Euclidean distance"_
+
+In this way, cases with similar average symptom scores and similar _pre-_ and _post_ standard deviations were matched inside each dataset. Thereby, only participants with both (1) similar average score changes from _pre_ to _post_ and (2) similar intra-individual variability were matched together. The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. Both the questionnaire-like and EMA-like datasets were reduced by this procedure by about 32 %, resulting in sample sizes of _N_ = 68.209 (questionnaire) and _N_ = 68.858 (EMA). \par
+
+
+
+### Random Sampling of Assessments from the Intense-Assessment Intervals
+
+
+
+### Exclusion of Cases Without Variance
+
+
+
+### Comparability of the Datasets
+
+
+
+
+
+
+
+## Classification Methods
+
+
+Widespread classification methods will be explored regarding their convergent and divergent validity
+
+
+
+### Percentage Change
+
+
+A detailed description of the Percentage Change _PC_ (or sometimes called Percentage Improvement _PI_) Method is given in @Karin.2018.
+
+<br>
+\begin{equation}
+PC = \Bigl(1 - \frac{\overline{x_{2}}} {\overline{x_{1}}}\Bigr) \cdot 100
+\end{equation}
+
+\noindent $\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+\par
+
+
+The _Percentage Change_ method results in an index that describes a subject´s post-treatment score as a proportion of his or her pre-treatment score. A positive result indicates that the post-treatment score is smaller than the pre-treatment score (i.e., improvement), while a negative result indicates a post-treatment score higher than the pre-treatment score (i.e., deterioration). When applied on a common scoring system for a psychological construct, i.e. including only non-negative scores, the resulting index can assume values smaller than or equal to 100. This is a consequence of the fact that a person can not reduce his or her scores by more than 100 %, as the lower bound of the scale itself is non-negative (most typically 0). But depending on the specific scale, it may well be possible that a subject can increase scores from pre- to post-treatment by more than 100 %, indicated by a post-treatment score greater than two times the size of the pre-treatment score. Hence, the negative limit of the index (i.e., the most extreme expression of deterioration) is not defined a priori, but rather scale- and data-specific, as it is determined by the maximum of the empirical distribution of pre-treatment scores in relation to the highest achievable score on the scale.
+\par
+The PC method is a _proportional_, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be _linear_ in the population, but rather 
+\par
+The assumption of _linear_ change is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated. 
+
+This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
+
+Subjects with a low symptom severity at baseline may not "be able" to show a score reduction >= the pre-defined "meaningful difference", and hence could not be regarded as "meaningfully improved", while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as "meaningfully improved", even though their post-treatment score could still be within the clinical range of scores. 
+
+The main advantage of this approach is _..._
+
+\par
+On the other hand, if a method inherently assumes _proportional_ change, it defines the absolute score difference to be regarded as "meaningfully changed" proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
+
+The main advantage of this approach is _..._
+
+
+[see @Karin.2018]
+
+
+An overview of the interpretation categories for the Percentage Change method is displayed in Table \@ref(tab:pc-int) below.
+
+```{r pc_int, echo=FALSE}
+tibble(PC = c("PC <= -50", "-50 < PC <= -25", "-25 < PC < 25", "25 <= PC < 50", "PC >= 50"),
+       Classification = c(-2L,-1L,0L,1L,2L),
+       Interpretation = c("Strong Deterioration", "Deterioration", "No Change", "Improvement", "Strong Improvement"),
+       Conv_Interpretation = c("Deterioration", "No Change", "No Change", "No Change", "Improvement")) %>% 
+  apa_table(
+    col.names = c("Percentage Change", "Class.", "Interpretation", "Conventional Interpretation"),
+    caption = "Classification and Interpretation Categories for the Percentage Change Method",
+    #caption.short = "PC Interpretation",
+    label = "pc-int",
+    #longtable = TRUE,
+    placement = "htb")
+```
+
+
+
+
+
+### Reliable Change Index
+
+
+The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+\par
+
+
+-	When true changes are expected (e.g., as practice effects in neuropsychological tests), regression-based approaches can be used to correct obtained scores.  
+-	Many normative studies in the literature that report RCIs and cutoff scores for significant change in specific tests and scales.  
+-	“For instance, @Geiser.2000 concluded from their study on psychosomatic patients that RCIs were useful when monitoring the global scale of the Symptom-Checklist-90-R (SCL-90-R), but that it was also important to investigate specific cutoff scores for different groups of diagnoses. Furthermore, @Ekeroth.2014 investigated the concordance of CSIs/RCIs and diagnostic change (as assessed with the DSM-IV) in patients with eating disorders, and found that the calculated indices explained more variance in the measured psychopathological change than the diagnostic change according to DSM-IV.”
+\par
+
+
+#### Reliable Change [@Jacobson.1984; @Jacobson.1991]
+
+
+Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 critized widespread research approaches for the following problems: \par
+- comparisons on a group level ignore intra-individual variability and change  
+- significant group differences are not synonymous with clinical relevance
+\par
+
+
+
+The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $RCI>|1.96|$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
+
+
+<br>
+\begin{equation}
+RCI = \frac{x_{2} - x_{1}}  {s_{diff}}
+\end{equation}
+
+\begin{equation}
+s_{diff} = \sqrt{2 \cdot (S_{E})^2}
+\end{equation}
+
+\begin{equation}
+SE = s_{1} \cdot \sqrt{1 - r_{xx \text{´}}}
+\end{equation}
+<br>
+
+\noindent $x_{2}$ = subject´s posttest score, 
+$x_{1}$ = subject´s pretest score, 
+$s_{diff}$ = standard error of difference between test scores, 
+$SE$ = standard error of measurement, 
+$s_{1}$ = standard deviation of test scores at pretest, 
+$r_{xx \text{´}}$ = reliability of the measure
+\par
+
+
+
+
+\par
+
+Furthermore, @Jacobson.1984 and @Jacobson.1991 offer an additional formula for the calculation of a significance cutoff in raw scores, given by the following formula.
+
+<br>
+\begin{equation}
+significance cutoff = 1.96 \cdot s_{diff} = 1.96 \cdot \sqrt{2 \cdot (s_{1} \cdot \sqrt{1 - r_{xx \text{´}}})^2}
+\end{equation}
+<br>
+
+\noindent $significance cutoff$ = (absolute) cutoff score for reliable change (95%-criterion)
+\par
+
+This formula defines the raw score that an individual would have to gain or lose in the respective scale to be recognized as reliably changed. It is also based on the whole sample´s characteristics.
+
+\par
+These estimates should be calculated using the standard deviation of either a control group, a normal population, or an experimental group at the baseline assessment. It also includes the test-retest reliability, usually obtained from a non-clinical sample, which is oftentimes available in the test manual or in published validation studies.
+
+\par
+Following from the assumption of normally distributed change scores, an individual RCI score could also be interpreted in the sense of percentage ranks, i.e. "assuming normality, it is expected that _X_ % of participants getting the same treatment under the same conditions, would show an improvement/deterioration of at most the same extent".
+\par
+
+
+//“According to @HintonBayre.2000, the RCIJT is appropriate when only pretest data and the test reliability are available and a true change in the construct, independently of treatment effects, is not expected. If normative retest data are available, he argues for the inclusion of the posttest variance. The absence of true change in the construct is a critical precondition because in many assessment contexts there are practice effects, regression toward the mean or divergence from the mean, and natural fluctuations in the construct. If these changes are expected independently of an intervention, they need to be taken into account as error variance [@Busch.2015].”
+
+
+
+#### Defining an Individualized Reliable Change Index
+
+
+The RCI(ind) is proposed as a mathematical adaptation of the originally defined RCI to repeated-measurement data including more that two timepoints, such as data from EMA procedures.
+\par
+
+
+> Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+
+<br>
+\begin{equation}
+RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}}
+\end{equation}
+<br>
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores
+<br>
+
+
+
+
+
+
+> RCI(ind) using the SD from the individual pre-interval
+
+<br>
+\begin{equation}
+RCI_{ind,preSD} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D,pre}}
+\end{equation}
+
+\begin{equation}
+SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)}
+\end{equation}
+
+\begin{equation}
+\text{significance cutoff} = 1.96 \cdot SE_{D,pre} = 1.96 \cdot \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)}
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D,pre}$ = standard error of difference between the test scores in the individual´s pre interval 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\text{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+> RCI(ind) using pooled SDs from both individual intervals
+
+<br>
+\begin{equation}
+RCI_{ind} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D}}
+\end{equation}
+
+\begin{equation}
+SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})}
+\end{equation}
+
+\begin{equation}
+\text{significance cutoff} = 1.96 \cdot SE_{D} = 1.96 \cdot \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})}
+\end{equation}
+
+$\overline{x_{2}}$ = mean of subject´s posttest scores, 
+$\overline{x_{1}}$ = mean of subject´s pretest scores, 
+$SE_{D}$ = pooled standard error of difference between the test scores 
+$s_{x}$ = individual standard deviation of pretest time points, 
+$s_{y}$ = individual standard deviation of pretest time points, 
+$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
+$\text{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+<br>
+
+
+
+
+
+
+//rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> “individualized RCI”)  
+  //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
+//number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
+  //mean difference standardized by dividing it by standard error of difference SED  
+//here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
+  //“by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.”  
+  //“Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.”
+
+\par
+
+
+
+//RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
+//“subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.”  
+//calculation of cutoff scores for significance of change in a specific test/scale etc.:
+
+
+
+
+
+
+
+### Clinically Significant Improvement, Clinically Significant Change
+
+
+
+
+> "The original validation study of the PHQ-9 defined clinically significant improvement as a post-treatment score of <= 9 combined with improvement of 50%." (McMillan, Gilbody, & Richards, 2010)
+
+```{r csi_int, echo=FALSE}
+tibble(CSI = c("PHQ-9 Post-Score <= 9 & PC >= 50", "PHQ-9 Post-Score > 9 & -50 < PC < 50", 
+             "PHQ-9 Post-Score > 9 & PC <= -50"),
+      Klassifikation = c(-1,0,1),
+      Interpretation = c("klinisch signifikante Verbesserung", "keine klinisch signifikante Veränderung", 
+                         "klinisch signifikante Verschlechterung")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "csi-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+### Confidence Interval Method (Edwards-Nunnally Method)
+
+
+@Edwards.1978
+[@Speer.1992]
+
+<br>
+\begin{equation}
+\bigl[ r_{xx} (X_{pre} - M_{pre}) + M_{pre} \bigr] \pm 2 \cdot S_{pre} \cdot \sqrt{1 - r_{xx}}
+\end{equation}
+
+$r_{xx}$ = reliability of the measure, 
+$X_{pre}$ = individual´s raw score at pre-treatment, 
+$M_{pre}$ = mean of the sample at pre-treatment, 
+$S_{pre}$ = standard deviation of the sample at pre-treatment
+<br>
+
+> Interpretation der Post-Ausprägung nach EN-Intervall-Methode
+
+```{r en_int, echo=FALSE}
+tibble(EN = c("PHQ POST < [EN-Intervall]","PHQ POST im [EN-Intervall]","PHQ POST > [EN-Intervall]"),
+              Klassifikation = c(-1,0,1), Interpretation = c("signifikante Verbesserung",
+                      "keine signifikante Veränderung","signifikante Verschlechterung")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+
+
+### Sudden Gains and Losses
+
+> Sudden Gain/Loss-Klassifikation vom Pre- zum Post-Intervall mithilfe des R-Packages "suddengains"
+
+> 3 Kriterien nach Tang & DeRubeis (1999):
+  > bedeutende absolute Veränderung: Über-/Unterschreitung eines definierten Cutoff-Scores (z.B. RCI), hier PHQ-9-Score <= 9
+  > bedeutende relative Veränderung: Reduktion/Zuwachs von Pre zu Post um >= 25%
+  > bedeutende Veränderung relativ zur Symptom-Fluktuation: 
+
+\begin{equation}
+M_{pre} - M_{post} > \text{critical value} \cdot \sqrt{\frac{\left(n_{pre} - 1 \right) \cdot SD^2_{pre} + \left(n_{post} - 1 \right) \cdot SD^2_{post}} {n_{pre} + n_{post} - 2}}
+\end{equation}
+
+<br>
+$M_{pre}$ = mean of the subject´s scores before a potential gain/loss, 
+$M_{post}$ = mean of the subject´s scores after a potential gain/loss, 
+$\text{critical value}$ = 2.776 = two-tailed t statistic for $\alpha$ = 0.05 and df = 4, 
+$n_{pre}$ = number of measurement points before a potential gain/loss, 
+$n_{post}$ = number of measurement points after a potential gain/loss, 
+$SD^2_{pre}$ = standard deviation of the subject´s scores before a potential gain/loss, 
+$SD^2_{post}$ = standard deviation of the subject´s scores after a potential gain/loss
+<br>
+
+```{r sg_int, echo=FALSE}
+tibble(SG = c("PHQ-9 Post-Mean <= 9 & (Mean) PC >= 25 & Mean Diff. > (absolute) critical fluctuation", 
+                     "every other combination of conditions", 
+                     "PHQ-9 Post-Mean > 9 & (Mean) PC <= -25 & Mean Diff. > (absolute) critical fluctuation"),
+              Klassifikation = c(-1,0,1),
+              Interpretation = c("sudden gain", "no sudden change", "sudden loss")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+
+<!--
+### Personalized Advantage Index (PAI, DeRubeis)
+
+### Hierarchical Linear Models (HLM)
+
+multiwave-data approach using growth-curve modeling sensu @Speer.1992
+
+### Regression-Based Methods
+
+### Gulliksen-Lord-Novick Method [@Hsu.1989; @Hsu.1999]
+
+### Time Series-Based Analyses [e.g., @Holmes.2016]
+
+### Significant Change sensu @Christensen.1986
+
+### RCI(indiv) sensu @Hageman.1993
+
+### Method of 2 SEMs/2 SDs
+
+### ANCOVAs
+-->
+
+
+## Statistical Power
+
+- probability to detect an effect with a specific method when it really exists in the population
+- higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
+- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
+\par
+
+<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
+Specificity = $\frac{TN}{TN + FP}$, Sensitivity = $\dfrac{TP}{TP+FN}$, $\alpha=\dfrac {FP}{FP+TN}$, $\beta=\frac{FN}{FN+TP}$, Power = $1-\beta$. Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively. Note that the two alternative definitions of power are equivalent: Power = $1-\beta = 1-\frac{FN}{FN+TP}$ and Power = Sensitivity. This is because power = $1-\beta=1-\frac{FN}{FN+TP}=\frac{FN+TP}{FN+TP} - \frac{FN}{FN+TP}=\frac{TP}{FN+TP}$ = sensitivity.
+
+
+
+
+## Analyses of Sensitivity and Specificity
+
+
+
+
+
+
+
+
+## Jackknife-Bootstrapping of Parameter Estimates
+
+
+
+
+
+
+
+<!--chapter:end:03-method.Rmd-->
+
+<!-- Required to number equations in HTML files -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+# Results {#results}
+
+
+All steps of data preparation and statistical analyses were performed using the statistical programming language R [@RCoreTeam.2020].
+
+
+
+## Clinical Interpretation of PHQ-9 Scores
+
+[@Karin.2018b; @Kroenke.2001]
+
+```{r phq_int, echo=FALSE}
+tibble(PHQ_Score = c("0-4","5-9","10-14","15-19","20-27"),
+       Classification = c(0,1,2,3,4),
+       Interpretation = c("Minimal or none","Mild","Moderate","Moderately severe","Severe")) %>% 
+  kable(
+    col.names = c("PHQ-9 Score", "Classification", "Interpretation"),
+    caption = "Clinical Interpretation of PHQ-9 Scores",
+    caption.short = "PHQ-9 Score Interpretation",
+    label = "phq-int",
+    longtable = TRUE,
+    booktabs = TRUE)
+```
+
+See Table \@ref(tab:phq-int).
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Reliability and Intra-Individual Autocorrelation
+
+
+
+@Titov.2011 found an internal consistency of PHQ-9 scores of $\alpha$ = .74 (pre treatment) and $\alpha$ = .81 (post treatment).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Pre-Post Differences in Symptom Scores
+
+
+Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pretreatment (in light bars) and posttreatment scores (in dark bars).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+<!-- next section -->
+
+## Comparison of Classification Methods
+
+
+### Paper-Pencil Scenario
+
+Standard Questionnaire vs. Intense Questionnaire
+
+
+### EMA Scenario
+
+Standard EMA vs. Intense EMA
+
+
+<!-- next section -->
+
+
+## Baseline Dependence by Method
+
+
+Barplot with 95% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI...
+
+
+
+<!-- next section -->
+
+## False-Positive Rates and Specificity
+
+
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+<!-- next section -->
+
+## Jackknife-Bootstrapping of Parameter Estimates
+
+
+
+Within the same assessment frequency, the method bias of classifications was up to 19 % (of non-agreement).
+
+
+### Paper-Pencil Scenario
+
+
+
+
+### EMA Scenario
+
+
+
+
+
+
+
+
+<!--chapter:end:04-results.Rmd-->
+
+
+# Discussion
+
+
+
+
+
+## Discussion of Results
+
+
+
+
+
+Table Pros and Cons of Assessment Formats
+Table Pros and Cons of Classification Methods
+
+
+## Implications of Findings
+
+
+
+Potential uses of all the investigated methods include:
+- reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
+- potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
+- routine outcome monitoring, feedback and evaluation tool for treatment
+- to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
+- easy visualization of symptom changes for patients and practitioners
+- [@Bauer.2004b]: clinical significance important for:
+* dose-response research
+* outcome-management systems (as a marker for remission/deterioration)
+* calculating relative improvement for comparison of new treatments with TAU
+
+
+
+## Strengths and Limitations
+
+
+
+
+external validity of findings
+
+
+
+
+## Conclusion
+
+
+
+
+<!--chapter:end:05-discussion.Rmd-->
+
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
+# Additional Analyses
+
+This first appendix includes the output from additional analyses described in the thesis.
+
+```{r}
+
+
+```
+
+
+
+
+
+# R Code
+
+The second appendix contains information about the R version and packages that were used to prepare and process the data analysed in this thesis. Additionally, the R code for the most important pre-processing steps is provided below.
+
+\noindent
+**Session information of used R packages:**
+
+```{r session_info, results='asis', echo=TRUE}
+toLatex(sessionInfo())
+```
+
+\par
+\noindent
+
+**k-nearest-neighbor search and extension of assessment intervals:**
+
+```{r knn_extension, eval=FALSE}
+
+```
+
+\par
+\noindent
+
+**R code for the calculation of the described change methods:**
+
+```{r}
+
+```
+
+
+
+
+<!--chapter:end:06-appendix.Rmd-->
+
+
+\backmatter
+
+<!-- 
+If you'd like to change the name of the bibliography to something else,
+delete "References" and replace it.
+-->
+
+# References {-}
+<!--
+This manually sets the header for this unnumbered chapter.
+-->
+\markboth{References}{References}
+<!-- \hypertarget{refs}{} ? -->
+
+<!--
+To remove the indentation of the first entry.
+-->
+\noindent
+
+<!--
+To create a hanging indent and spacing between entries.  These three lines may need to be removed for styles that don't require the hanging indent.
+-->
+
+\setlength{\parindent}{-0.20in}
+\setlength{\leftskip}{0.20in}
+\setlength{\parskip}{8pt}
+
+
+<!--
+This is just for testing with more citations for the bibliography at the end.  Add other entries into the list here if you'd like them to appear in the bibliography even if they weren't explicitly cited in the document.
+
+---
+nocite: | 
+  @angel2000, @angel2001, @angel2002a
+...
+-->
+
+<!--chapter:end:07-references.Rmd-->
+
+
+<!--chapter:end:thesis.Rmd-->
+

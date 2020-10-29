@@ -1,0 +1,1879 @@
+% This is the Reed College LaTeX thesis template. Most of the work
+% for the document class was done by Sam Noble (SN), as well as this
+% template. Later comments etc. by Ben Salzberg (BTS). Additional
+% restructuring and APA support by Jess Youngberg (JY).
+% Your comments and suggestions are more than welcome; please email
+% them to cus@reed.edu
+%
+% See http://web.reed.edu/cis/help/latex.html for help. There are a
+% great bunch of help pages there, with notes on
+% getting started, bibtex, etc. Go there and read it if you're not
+% already familiar with LaTeX.
+%
+% Any line that starts with a percent symbol is a comment.
+% They won't show up in the document, and are useful for notes
+% to yourself and explaining commands.
+% Commenting also removes a line from the document;
+% very handy for troubleshooting problems. -BTS
+
+% As far as I know, this follows the requirements laid out in
+% the 2002-2003 Senior Handbook. Ask a librarian to check the
+% document before binding. -SN
+
+%%
+%% Preamble
+%%
+% \documentclass{<something>} must begin each LaTeX document
+\documentclass[12pt,twoside]{reedthesis}
+
+% Packages are extensions to the basic LaTeX functions. Whatever you
+% want to typeset, there is probably a package out there for it.
+% Chemistry (chemtex), screenplays, you name it.
+% Check out CTAN to see: http://www.ctan.org/
+%%
+\usepackage{graphicx,latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{longtable,booktabs,setspace}
+%\usepackage{chemarr} %% Useful for one reaction arrow, useless if you're not a chem major
+\usepackage[hyphens]{url}
+% Added by CII
+\usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage{float}
+\floatplacement{figure}{H}
+% End of CII addition
+\usepackage{rotating}
+
+
+%% package apa7 class for table formatting
+%%\documentclass[jou]{apa7}
+%\usepackage[american]{babel}
+\usepackage{csquotes} % generally useful for quotation marks using \enquote{} [SB]
+%\usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+%\DeclareLanguageMapping{american}{american-apa}
+%\addbibresource{bibliography.bib}
+%\usepackage{apa7} % (geraten)
+%% package apa7 class for table formatting
+
+
+
+%% Packages used by the R package kableExtra for RMarkdown formatting:
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+%\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+%% End: Packages used by the R package kableExtra for RMarkdown formatting.
+
+%% Package needed to insert blank pages wherever wanted
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+%% Package needed to insert blank pages wherever wanted
+
+% Next line commented out by CII
+%%% \usepackage{natbib}
+% Comment out the natbib line above and uncomment the following two lines to use the new
+% biblatex-chicago style, for Chicago A. Also make some changes at the end where the
+% bibliography is included.
+%\usepackage{biblatex-chicago}
+%\bibliography{thesis}
+
+
+% Added by CII (Thanks, Hadley!)
+% Use ref for internal links
+\renewcommand{\hyperref}[2][???]{\autoref{#1}}
+\def\chapterautorefname{Chapter}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+% End of CII addition
+
+% Added by CII
+\usepackage{caption}
+\captionsetup{labelfont=bf,labelsep=newline}
+%? width=5in,belowskip=2em,labelfont=bf,doublespacing,justification=raggedright,textfont=it
+\DeclareCaptionJustification{raggedright}{\raggedright} % ausprobieren, falls es sich nicht im captionsetup einstellen lässt [SB]
+
+%\captionsetup[threeparttable]{justification=raggedright} %%%%%%%%%%%%%%%%%%%% test if this sets table captions left-aligned [SB]
+%\SetCaptionDefault{justification}{raggedleft} %%%%%%%%%%%%%%%%%%%% test if this sets table captions left-aligned [SB]
+%\DeclareCaptionJustification[threeparttable]{justification=raggedleft} %%%%%%%%%%%%%%%%%%%% test if this sets table captions left-aligned [SB]
+%\DeclareCaptionJustification{justification}{raggedleft} %%%%%%%%%%%%%%%%%%%% test if this sets table captions left-aligned [SB]
+% End of CII addition
+
+% \usepackage{times} % other fonts are available like times, bookman, charter, palatino
+
+% Syntax highlighting #22
+  \usepackage{color}
+  \usepackage{fancyvrb}
+  \newcommand{\VerbBar}{|}
+  \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+  % Add ',fontsize=\small' for more characters per line
+  \usepackage{framed}
+  \definecolor{shadecolor}{RGB}{248,248,248}
+  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+  \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+  \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+  \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\BuiltInTok}[1]{#1}
+  \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+  \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+  \newcommand{\ExtensionTok}[1]{#1}
+  \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\ImportTok}[1]{#1}
+  \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\NormalTok}[1]{#1}
+  \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+  \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+  \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\RegionMarkerTok}[1]{#1}
+  \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% To pass between YAML and LaTeX the dollar signs are added by CII
+\title{Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post Ecological Momentary Assessment}
+\author{Stephan Bartholdy}
+% The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
+\date{Oktober 2020}
+\department{Fachbereich Psychologie}
+\advisor{Dr.~Raphael Schuster}
+\altadvisor{Ao. Univ.--Prof.~Dr.~Anton--Rupert Laireiter} %hierher nach oben gezogen (von 6 Zeilen weiter unten)
+%\institution{University of Salzburg}
+%\degree{}
+%If you have two advisors for some reason, you can use the following
+% Uncommented out by CII
+%%\altadvisor{Ao. Univ.--Prof.~Dr.~Anton--Rupert Laireiter}
+%
+% End of CII addition
+
+%%% Remember to use the correct department!
+\department{Fachbereich Psychologie}
+% if you're writing a thesis in an interdisciplinary major,
+% uncomment the line below and change the text as appropriate.
+% check the Senior Handbook if unsure.
+%\thedep{The Established Interdisciplinary Committee for}
+% if you want the approval page to say "Approved for the Committee",
+% uncomment the next line
+%\approvedforthe{Committee}
+
+% Added by CII
+%%% Copied from knitr
+%% maxwidth is the original width if it's less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\renewcommand{\contentsname}{Table of Contents}
+% End of CII addition
+
+\setlength{\parskip}{0pt}
+
+% Added by CII
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\Acknowledgements{
+I want to thank my direct supervisor Dr.~Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I also want to thank my indirect supervisor Ao. Univ.--Prof.~Dr.~Anton--Rupert Laireiter for always offering his advice and expertise.
+
+\par
+
+Apart from the excellent supervision, I´m thankful to Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton Rupert Laireiter, and Wolfgang Trutschnig for providing me with simulated data sets which they generated for their recent study on statistical power of Intense Pre-Post Assessment approaches.
+
+\par
+
+This thesis was written using the \emph{Salzburgthesisdown} template\footnote{\url{https://github.com/irmingard/salzburgthesisdown}} by Veronika Priesner. Based on the \emph{Thesisdown} package\footnote{\url{https://github.com/ismayc/thesisdown}} (Ismay \& Solomon, 2020), this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX~syntax.
+}
+
+% commented out by Veronika Priesner
+%\Dedication{
+%
+%}
+
+%\Preface{
+%
+%}
+
+\Abstract{
+The preface pretty much says it all.
+
+\par
+
+\textbf{Introduction}: Psychological therapy research is subject to constant quality control in order to provide reliable knowledge. One factor thatis still neglected today is the statistical power. In the fewest studies is this sufficiently calculated or described. Although new trends show an increased interest in the topic, it remains problematic. The new direction of web based therapies offers benefits in this regard. The present work is dedicated to these topics and tries to provide an overview of the present state of affairs. \textbf{Method}: 60 randomized controlled trials (RCTs), with a total of 11098 individuals, published between 2014 and 2017, were analyzed for their statistical power. The studies were taken from an already published meta-analysis and refer to therapeutic studies on the treatment of depression, including web based studies. \textbf{Results}: In more than half of the cases (55 \% of the studies, 33 studies) a priori power analysis was found, but only in 18 \% of the cases (11 studies) was sufficiently replicable described. As light time effect has been found over the years (from 0 \% to 25 \%) and web based studies are higher-powered than conventional ones. \textbf{Discussion}: The results of the study are broadly in line with expectations, and the fact that general low power analysis and values are used severely restricts the interpretation. Additional limitations are being considered, as well as the implication that power analysis has become a much-discussed field.
+
+\par
+
+\emph{Keywords}: RCT, depression, statistic power, power analysis, meta-analysis, review
+}
+
+\Zusammenfassung{
+lorem ipsum
+}
+
+	\usepackage{tikz}
+	\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+% End of CII addition
+%%
+%% End Preamble
+%%
+%
+\begin{document}
+
+% Everything below added by CII
+  \maketitle
+
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+
+\afterpage{\blankpage} % hinzugefügt, um Ackknowledgements nicht rechtsseitig anzufangen [SB]
+
+\frontmatter % this stuff will be roman-numbered
+\pagestyle{empty} % this removes page numbers from the frontmatter
+  \begin{acknowledgements}
+    I want to thank my direct supervisor Dr.~Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I also want to thank my indirect supervisor Ao. Univ.--Prof.~Dr.~Anton--Rupert Laireiter for always offering his advice and expertise.
+    
+    \par
+    
+    Apart from the excellent supervision, I´m thankful to Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton Rupert Laireiter, and Wolfgang Trutschnig for providing me with simulated data sets which they generated for their recent study on statistical power of Intense Pre-Post Assessment approaches.
+    
+    \par
+    
+    This thesis was written using the \emph{Salzburgthesisdown} template\footnote{\url{https://github.com/irmingard/salzburgthesisdown}} by Veronika Priesner. Based on the \emph{Thesisdown} package\footnote{\url{https://github.com/ismayc/thesisdown}} (Ismay \& Solomon, 2020), this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX~syntax.
+  \end{acknowledgements}
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+
+%
+  \hypersetup{linkcolor=black}
+  \setcounter{tocdepth}{2}
+  \tableofcontents
+
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+
+  \listoftables
+
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+
+  \listoffigures
+
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+  \begin{abstract}
+    The preface pretty much says it all.
+    
+    \par
+    
+    \textbf{Introduction}: Psychological therapy research is subject to constant quality control in order to provide reliable knowledge. One factor thatis still neglected today is the statistical power. In the fewest studies is this sufficiently calculated or described. Although new trends show an increased interest in the topic, it remains problematic. The new direction of web based therapies offers benefits in this regard. The present work is dedicated to these topics and tries to provide an overview of the present state of affairs. \textbf{Method}: 60 randomized controlled trials (RCTs), with a total of 11098 individuals, published between 2014 and 2017, were analyzed for their statistical power. The studies were taken from an already published meta-analysis and refer to therapeutic studies on the treatment of depression, including web based studies. \textbf{Results}: In more than half of the cases (55 \% of the studies, 33 studies) a priori power analysis was found, but only in 18 \% of the cases (11 studies) was sufficiently replicable described. As light time effect has been found over the years (from 0 \% to 25 \%) and web based studies are higher-powered than conventional ones. \textbf{Discussion}: The results of the study are broadly in line with expectations, and the fact that general low power analysis and values are used severely restricts the interpretation. Additional limitations are being considered, as well as the implication that power analysis has become a much-discussed field.
+    
+    \par
+    
+    \emph{Keywords}: RCT, depression, statistic power, power analysis, meta-analysis, review
+  \end{abstract}
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+  \begin{zusammenfassung}
+    lorem ipsum
+  \end{zusammenfassung}
+%\let\cleardoublepage\clearpage % added to suppress empty pages (from two-sided layout) manually [SB]
+
+%
+\mainmatter % here the regular arabic numbering starts
+\pagestyle{fancyplain} % turns page numbering back on
+
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+bla
+
+\hypertarget{theoretical-background}{%
+\chapter{Theoretical Background}\label{theoretical-background}}
+
+\hypertarget{assessment-of-psychopathology-in-clinical-research-and-practice}{%
+\section{Assessment of Psychopathology in Clinical Research and Practice}\label{assessment-of-psychopathology-in-clinical-research-and-practice}}
+
+In clinical outcome research, research predominantly focuses mean differences on a group level, i.e.~between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as \emph{t} values, Cohen´s \emph{d}, Hedge´s \emph{g}, and often the sole reliance on statistical significance, as well.
+
+\par
+
+Relevant biases and side effects include placebo effects, the \enquote{hello-and-goodbye} effect, response bias, dropout,
+
+\par
+
+There is a difference between \emph{efficacy} research, which studies treatment effects under controlled conditions, and \emph{effectiveness} research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups (Anderson et al., 2014), which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
+
+\par
+
+There are many variations of the same concept, including the \emph{Clinically Significant Difference (CSD)}, the \emph{Reliable Change Index (RCI)}, the \emph{Minimal Detectable Change (MDC)}, the \emph{Minimal Clinically Important Difference (MCID)}, and the \emph{Minimal Important Difference (MID)}. These methods can be roughly divided into two approaches: \emph{distribution-based} (change scores in relation to an underlying distribution of test scores in a given sample) and \emph{anchor-based} methods (involve external criteria as references for clinically meaningful change) (Haley \& Fragala-Pinkham, 2006).
+
+\hypertarget{methods-for-the-classification-of-significant-change-in-clinical-research}{%
+\section{Methods for the Classification of Significant Change in Clinical Research}\label{methods-for-the-classification-of-significant-change-in-clinical-research}}
+
+\hypertarget{digital-mental-health-service}{%
+\section{Digital Mental Health Service}\label{digital-mental-health-service}}
+
+\hypertarget{ecological-momentary-assessment-ema}{%
+\subsection{Ecological Momentary Assessment (EMA)}\label{ecological-momentary-assessment-ema}}
+
+\emph{Ecological Momentary Assessment (EMA)}, also known as \emph{Intense Pre-Post Assessment (IPA)}, is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a \enquote{\textit{field experiment}}). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high sampling frequencies, it can be applied efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort. Longitudinal EMA designs typically consist of a small number of psychometrically reliable items that require minimal effort and time for the respondents to answer (Rot et al., 2012; Shiffman et al., 2008). As these short self-reports can be presented in smartphone apps or computer programs, this approach forms a powerful, yet feasible opportunity to study the progression of affective states and behaviors on an individual level.
+
+\par
+
+This diagnostic tool could be seen as a bridge between empirical research and clinical practice: Research commonly finds insights from comparisons between groups of subjects, while the knowledge that is needed for the interaction with patients and clients is much more centered around them as individuals. Any practical work with them is in itself a study of processes within each person. EMA formats can benefit both fields by facilitating a deeper understanding of complex psychological processes.
+
+\par
+
+\emph{//introducing, offering, alternative, discover, yield, capture}
+
+\par
+
+For instance, EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders (e.g., Holmes et al., 2016) or fluctuating symptoms of depression (e.g., Armey et al., 2015; Silk et al., 2011). Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always embedded in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counseling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before each assessment.
+
+\par
+
+\hypertarget{purpose-of-the-study}{%
+\section{Purpose of the Study}\label{purpose-of-the-study}}
+
+The present thesis forms an in-depth investigation of the theoretically expectable increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
+
+\par
+
+investigated if the inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
+
+The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology.
+
+\par
+
+These methods will be compared for both the classical questionnaire format and the EMA format.
+
+\hypertarget{hypotheses}{%
+\section{Hypotheses}\label{hypotheses}}
+
+From a clinical perspective, it is expected that the sensitivity of \emph{\ldots{}} is high, while the specificity of \emph{\ldots{}} is low.
+
+\hypertarget{method}{%
+\chapter{Method}\label{method}}
+
+\hypertarget{study-design}{%
+\section{Study Design}\label{study-design}}
+
+\hypertarget{planned-statistical-analyses}{%
+\section{Planned Statistical Analyses}\label{planned-statistical-analyses}}
+
+\hypertarget{data-simulation-procedure}{%
+\section{Data Simulation Procedure}\label{data-simulation-procedure}}
+
+All following analyses are based on mathematically simulated data sets that were generated for a previous study by Schuster et al. (2020). A detailed description of the simulation process can be found in the supplementary material of their article online.\footnote{\url{https://doi.org/10.1016/j.invent.2020.100313}}
+
+\par
+
+Estimated parameters and the simulation process will be described in the following sections.
+
+\hypertarget{sample}{%
+\subsection{Sample}\label{sample}}
+
+clinical sample undergoing treatment for depression
+
+\hypertarget{simulated-scenarios}{%
+\subsection{Simulated Scenarios}\label{simulated-scenarios}}
+
+Data sets for both diagnostic methods showed an overall effect size of Cohen´s \emph{d} between 0.88 (EMA) and 0.91 (questionnaire) for the symptom change from pre- to post timepoints. Their overall \enquote{treatment effect} would therefore be considered large (Cohen, 2013), lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by Cuijpers et al. (2010) on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s \emph{d} = 0.68.
+
+\par
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Structure of the Questionnaire-Like Data Set}}
+  \label{tab:quest-str}
+  \begin{tabular}{@{}cc@{}}
+  \toprule
+  Variable & Description\\ \midrule
+  ID & participant ID\\
+  PRE1\_1 & assessment \#1 before treatment\\
+  PRE1\_2 & assessment \#2 before treatment\\
+  PRE1\_3 & assessment \#3 before treatment\\
+  PRE1\_4 & assessment \#4 before treatment\\
+  PRE1\_5 & assessment \#5 before treatment\\
+  POST1\_1 & assessment \#1 after treatment\\
+  POST1\_2 & assessment \#2 after treatment\\
+  POST1\_3 & assessment \#3 after treatment\\
+  POST1\_4 & assessment \#4 after treatment\\
+  POST1\_5 & assessment \#5 after treatment\\
+  PRE\_Mean & mean score of pre assessments\\
+  POST\_Mean & mean score of post assessments\\
+  ind.pretestSD & standard deviation of pre assessments\\
+  ind.posttestSD & standard deviation of post assessments\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+\hypertarget{questionnaire-like-data}{%
+\subsubsection{Questionnaire-Like Data}\label{questionnaire-like-data}}
+
+PHQ-9 (Kroenke et al., 2001)
+
+Frequency of assessments
+
+\hypertarget{ema-like-data}{%
+\subsubsection{EMA-Like Data}\label{ema-like-data}}
+
+Frequency of assessments
+
+\hypertarget{data-pre-processing}{%
+\section{Data Pre-Processing}\label{data-pre-processing}}
+
+\hypertarget{extension-of-individual-assessments}{%
+\subsection{Extension of Individual Assessments}\label{extension-of-individual-assessments}}
+
+\hypertarget{k-nearest-neighbor-search}{%
+\subsubsection{K-Nearest-Neighbor Search}\label{k-nearest-neighbor-search}}
+
+In order to investigate the sensitivity and specificity of estimates obtained through single and short-interval assessment formats in comparison to each subject´s respective \emph{true symptom levels} -- defined by the score changes in their underlying structure of daily assessments--, it was necessary to extend the originally simulated assessment intervals. As both the questionnaire and EMA scenarios were first modeled for 5-fold intervals, they were extended for further analyses to obtain 30-fold pre- and post assessment intervals. This was achieved with the following approach (R code is provided in Appendix \ref{r-knn-search}).
+
+\par
+
+In both simulated data sets comprising \emph{N} = 100.000 participants each, subjects with equal interval means and standard deviations were matched using a k-nearest-neighbor (KNN) search algorithm. In particular, this was done using the k-dimensional tree algorithm within the function \texttt{get.knn()} from the R package \emph{FNN} (Beygelzimer et al., 2019). This KNN-search method compares all cases to one another on one or more dimensions of interest by computing the Euclidian distances between them.
+
+\par
+
+For instance, to compare two participants \(p = (p_{1},p_{2})\) and \(q = (q_{1},q_{2})\) regarding the symptom severity and variability within their baseline assessments, with \(p_{1}\) and \(q_{1}\) denoting the mean scores and \(p_{2}\) and \(q_{2}\) denoting the standard deviations of their respective baseline intervals, the Euclidian distance \emph{d} between them is given by Equation \eqref{eq:eucl-dist}:
+\begin{equation}
+d(p,q) = \sqrt{(q_{1} - p_{1})^2 + (q_{2} - p_{2})^2} \label{eq:eucl-dist}
+\end{equation}
+Cases were matched separately by pre- and post-treatment intervals to ensure an appropriate balance between (1) within-interval similarity and (2) individual between-interval changes.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  within-interval similarity between matched cases: cases need to have a similar mean score and fluctuation within the respective interval
+\item
+  individual between-interval changes: matched cases do not need to have similar score changes between their pre- and their post-treatment intervals
+\end{enumerate}
+\par
+
+By specifying the KNN-search function with \emph{k} = 5, it calculates the similarity of all cases to each other and matches each case with its 5 nearest neighbors, resulting in lists of 6 matched case IDs for each specific (observed) combination of interval means and standard deviations. In this way, cases with similar average symptom scores and similar \emph{pre-} and \emph{post} standard deviations were matched inside each data set (questionnaire and EMA). Thereby, only participants with both (1) similar average score changes from \emph{pre} to \emph{post} and (2) similar intra-individual variability were matched together.
+
+\hypertarget{generation-of-30-fold-individual-assessment-intervals}{%
+\subsubsection{Generation of 30-fold Individual Assessment Intervals}\label{generation-of-30-fold-individual-assessment-intervals}}
+
+The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. In detail, for each combination of 6 perfect neighbors regarding the pre-treatment interval, the IDs of these neighbors were used to bind their 5-fold pre-treatment intervals together to obtain a table of cases with 30-fold pre-treatment intervals. Within this data set of matched pre-case IDs, cases were first sorted within each set of 6 matched IDs (i.e., within rows), then sorted by rows (i.e., by the lowest ID in each row), and then filtered to contain only unique combinations of matched case IDs. The same was also done for all cases that were matched by their post-treatment intervals.
+
+\par
+
+Finally, pre- and post-KNN lists were joined by the first, and therefore lowest, ID in each case row. Hence, the number of cases was further filtered to comprise only cases which contained both 6-fold pre- and 6-fold post-case IDs, i.e.~only cases with 6 pre-nearest neighbors and 6 post-nearest neighbors, which could be linked together by their lowest ID. For instance, if the KNN search had found 6 cases that perfectly matched on their pre-treatment intervals, \emph{PreIDs} = \{1; 63; 411; 482; 1072; 4315\}, and 6 cases that perfectly matched on their post-treatment intervals, \emph{PostIDs} = \{1; 28; 369; 472; 983; 2365\}, then these pre- and post-IDs would be joined together by the lowest ID that they had in common (i.e., 1): \emph{IDs} = \{\{1; 63; 411; 482; 1072; 4315\};\{1; 28; 369; 472; 983; 2365\}\}.
+
+\par
+
+Using this KNN-search information, the final 30-fold assessment intervals were then created by concatenating the assessments of matched cases from the originally simulated questionnaire- and EMA-like data sets. Both the questionnaire-like and EMA-like samples were reduced by the extension process by about 92 \%, resulting in sample sizes of \emph{N} = 8240 (questionnaire) and \emph{N} = \textbf{\ldots\ldots..8087\ldots\ldots..} (EMA). R code for this procedure is provided in the Appendices \ref{r-knn-search} and \ref{r-extension}.
+
+\par
+
+It should be noted that this strategy to extend assessment intervals, i.e.~by stringing together 5-fold intervals from multiple different cases, was only considered appropriate because the originally simulated data presented no signs of autoregressive effects within individual intervals, i.e.~neither systematic longitudinal effects between consecutive assessments (i.e., overall improvement or deterioration of symptoms within an interval) nor systematic variability (i.e., regression towards the mean or regression towards the tail). These assumptions can be confirmed, for instance, from the correlation matrix given in Section \ref{reliability}.
+
+\hypertarget{random-sampling-of-assessments-from-the-intense-assessment-intervals}{%
+\subsection{Random Sampling of Assessments from the Intense-Assessment Intervals}\label{random-sampling-of-assessments-from-the-intense-assessment-intervals}}
+
+In order to realistically simulate drawing arbitrary 5-fold (EMA-like) samples of assessments from each subject´s 30-fold intervals, the following approach was taken exclusively within the EMA data set (see the R code in Appendix \ref{r-random-sampling}).
+
+\par
+
+For each subject individually, 5-fold \emph{windows} of pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \textbackslash enquote\{EMA\_5.5\_Window\}. This scenario simulates a study design in which participants are monitored via EMA on 5 consecutive days before and after receiving a treatment.
+
+\par
+
+Furthermore, for each subject individually, 5 single pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \textbackslash enquote\{EMA\_5.5\_Days\}. This scenario simulates a study design in which participants are monitored via EMA on 5 arbitrary and not necessarily consecutive days before and after receiving a treatment.
+
+\hypertarget{exclusion-of-cases-without-variance}{%
+\subsection{Exclusion of Cases Without Variance}\label{exclusion-of-cases-without-variance}}
+
+Cases with no symptom variability, i.e.~with constant scores, throughout one or both of their assessment intervals were excluded from all analyses. This criterion for exclusion was formulated because it was deemed improbable for participants to show no fluctuation in PHQ-9 scores over 5-fold, or even more improbable, over 30-fold assessments. Including these cases would also have affected the outcomes of all clinical change methods which incorporate individual standard deviations as estimates of within-subject fluctuations, e.g., by yielding infinite values (see Section \ref{class-methods} below).
+
+\par
+
+\emph{n} = 14 cases were excluded from questionnaire scenarios and \emph{N} = \textbf{\ldots\ldots\ldots\ldots{}} cases were excluded from EMA scenarios, resulting in final samples comprising \emph{N} = 8226 participants with questionnaire assessments and \emph{N} = \textbf{\ldots\ldots\ldots\ldots{}} participants with EMA assessments.
+
+\hypertarget{comparability-of-the-data-sets}{%
+\subsection{Comparability of the Data Sets}\label{comparability-of-the-data-sets}}
+
+\hypertarget{reliability}{%
+\section{Reliability and Intra-Individual Autocorrelation}\label{reliability}}
+
+Titov et al. (2011) found an internal consistency of PHQ-9 scores of \(\alpha\) = .74 (pre treatment) and \(\alpha\) = .81 (post treatment).
+
+\hypertarget{paper-pencil-scenario}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario}}
+
+\hypertarget{intense-5-fold-assessment-intervals}{%
+\subsubsection{Intense 5-fold Assessment Intervals}\label{intense-5-fold-assessment-intervals}}
+
+The correlation matrix of pre- and post assessments is shown in Table @ref(tab:cor-fb5.5). The Fisher-z transformed average correlation coefficient of subsequent assessments was equal for pre- and post intervals, \emph{r} = .68. The average internal consistency Cronbach´s \(\alpha\) between both pre- and post intervals was \(\alpha\) = .84.
+
+\hypertarget{intense-30-fold-assessment-intervals}{%
+\subsubsection{Intense 30-fold Assessment Intervals}\label{intense-30-fold-assessment-intervals}}
+
+\hypertarget{standard-single-pre-post-assessments}{%
+\subsubsection{Standard Single Pre-Post Assessments}\label{standard-single-pre-post-assessments}}
+
+\hypertarget{ema-scenario}{%
+\subsection{EMA Scenario}\label{ema-scenario}}
+
+\hypertarget{clinical-interpretation-of-phq-9-scores}{%
+\section{Clinical Interpretation of PHQ-9 Scores}\label{clinical-interpretation-of-phq-9-scores}}
+
+(Karin, Dear, Heller, Gandy, et al., 2018; Kroenke et al., 2001)
+
+\par
+
+The clinical interpretation categories of the PHQ-9 and their classification frequencies among both data sets are shown below in Table \ref{tab:phq-int}.
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Clinical Interpretation of PHQ-9 Scores}}
+  \label{tab:phq-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  PHQ-9 Score & Classification & Interpretation\\ \midrule
+  0-4 & 0 & Minimal or none\\
+  5-9 & 1 & Mild\\
+  10-14 & 2 & Moderate\\
+  15-19 & 3 & Moderately severe\\
+  20-27 & 4 & Severe\\
+  \bottomrule
+  \end{tabular}
+  \end{threeparttable}
+\end{table}
+\hypertarget{class-methods}{%
+\section{Classification Methods}\label{class-methods}}
+
+Widespread classification methods will be explored regarding their convergent and divergent validity
+
+\hypertarget{percentage-change}{%
+\subsection{Percentage Change}\label{percentage-change}}
+
+A detailed description of the Percentage Change \emph{PC} (or sometimes called Percentage Improvement, \emph{PI}) Method is given in Karin, Dear, Heller, Crane, et al. (2018).
+\begin{equation}
+PC = \Bigl(1 - \frac{\overline{x_{2}}} {\overline{x_{1}}}\Bigr) \cdot 100 \label{eq:pc}
+\end{equation}
+\noindent
+\(\overline{x_{2}}\) = mean of subject´s posttest scores,
+\(\overline{x_{1}}\) = mean of subject´s pretest scores
+
+\par
+
+The \emph{Percentage Change} method results in an index that describes a subject´s post-treatment score as a proportion of his or her pre-treatment score. A positive result indicates that the post-treatment score is smaller than the pre-treatment score (i.e., improvement), while a negative result indicates a post-treatment score higher than the pre-treatment score (i.e., deterioration). When applied on a common scoring system for a psychological construct, i.e.~including only non-negative scores, the resulting index can assume values smaller than or equal to 100. This is a consequence of the fact that a person can not reduce his or her scores by more than 100 \%, as the lower bound of the scale itself is non-negative (most typically 0). But depending on the specific scale, it may well be possible that a subject can increase scores from pre- to post-treatment by more than 100 \%, indicated by a post-treatment score greater than two times the size of the pre-treatment score. Hence, the negative limit of the index (i.e., the most extreme expression of deterioration) is not defined a priori, but rather scale- and data-specific, as it is determined by the maximum of the empirical distribution of pre-treatment scores in relation to the highest achievable score on the scale.
+
+\par
+
+The PC method is a \emph{proportional}, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be \emph{linear} in the population, but rather
+
+\par
+
+The assumption of \emph{linear} change is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated.
+
+This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment.
+
+Subjects with a low symptom severity at baseline may not be able to show a score reduction \(\geq\) the pre-defined meaningful difference, and hence could not be regarded as meaningfully improved, while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as meaningfully improved, even though their post-treatment score could still be within the clinical range of scores.
+
+The main advantage of this approach is \emph{\ldots{}}
+
+\par
+
+On the other hand, if a method inherently assumes \emph{proportional} change, it defines the absolute score difference to be regarded as meaningfully changed proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
+
+The main advantage of this approach is \emph{\ldots{}}
+
+(see Karin, Dear, Heller, Crane, et al., 2018)
+
+\par
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Percentage Change Interpretation of PHQ-9 Scores}}
+  \label{tab:pc-int}
+  \begin{tabular}{@{}cccc@{}}
+  \toprule
+  PC Criteria & Class. & Interpretation & Conventional Interpretation\\ \midrule
+  PC $\leq$ -50 & -2 & Strong Deterioration & Deterioration\\
+  -50 < PC $\leq$ -25 & -1 & Deterioration & No Change\\
+  -25 < PC < 25 & 0 & No Change & No Change\\
+  25 $\leq$ PC < 50 & 1 & Improvement & No Change\\
+  PC $\geq$ 50 & 2 & Strong Improvement & Improvement\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+An overview of the interpretation categories for the Percentage Change method is displayed in Table \ref{tab:pc-int} above.
+
+\hypertarget{clinically-significant-improvement-clinically-significant-change}{%
+\subsection{Clinically Significant Improvement, Clinically Significant Change}\label{clinically-significant-improvement-clinically-significant-change}}
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Clinically Significant Change Interpretation of PHQ-9 Scores}}
+  \label{tab:csi-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  Clinically Significant Change Criteria & Classification & Interpretation\\ \midrule
+  PHQ-9 Post-Score $\leq$ 9 \& PC $\geq$ 50 & -1 & Significant Improvement\\
+  PHQ-9 Post-Score > 9 \& -50 < PC < 50 & 0 & No Significant Change\\
+  PHQ-9 Post-Score > 9 \& PC $\leq$ -50 & 1 & Significant Deterioration\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+\hypertarget{reliable-change-index}{%
+\subsection{Reliable Change Index}\label{reliable-change-index}}
+
+The \emph{Reliable Change Index (RCI)} was first introduced by Jacobson et al. (1984) and Jacobson \& Truax (1991). It is defined as a standardized difference score that determines whether a score difference is statistically significant, i.e.~exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+
+\par
+
+\par
+
+\hypertarget{reliable-change-jacobson.1984-jacobson.1991}{%
+\subsubsection{Reliable Change (Jacobson et al., 1984; Jacobson \& Truax, 1991)}\label{reliable-change-jacobson.1984-jacobson.1991}}
+
+Contemplating the sole reliance on statistical significance of tests, Jacobson \& Truax (1991) critized widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
+
+\par
+
+They
+
+\par
+
+The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is \(RCI>|1.96|\), given by the z score for 95 \% confidence, i.e.~a two-sided \(\alpha\) probability \textless.05.
+
+\par
+\begin{equation}
+RCI = \frac{x_{2} - x_{1}}  {s_{diff}} \label{eq:rci-jt}
+\end{equation}
+\begin{equation}
+s_{diff} = \sqrt{2 \cdot (S_{E})^2} \label{eq:rci-jt-sdiff}
+\end{equation}
+\begin{equation}
+SE = s_{1} \cdot \sqrt{1 - r_{xx \text{´}}} \label{eq:rci-jt-se}
+\end{equation}
+\noindent \(x_{2}\) = subject´s posttest score,
+\(x_{1}\) = subject´s pretest score,
+\(s_{diff}\) = standard error of difference between test scores,
+\(SE\) = standard error of measurement,
+\(s_{1}\) = standard deviation of test scores at pretest,
+\(r_{xx \text{´}}\) = reliability of the measure
+
+\par
+
+For instance, a significant RC index of \(|2|\) would show that the score difference was equal to two standard deviations which were weighted by the reliability of the method.
+
+\par
+
+Furthermore, Jacobson et al. (1984) and Jacobson \& Truax (1991) offer an additional formula for the calculation of a significance cutoff in raw scores, given by the following formula.
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot s_{diff} = 1.96 \cdot \sqrt{2 \cdot (s_{1} \cdot \sqrt{1 - r_{xx \text{´}}})^2} \label{eq:rci-jt-cut}
+\end{equation}
+\noindent \(\textit{significance cutoff}\) = (absolute) cutoff score for reliable change (95\%-criterion)
+
+\par
+
+This formula defines the raw score that an individual would have to gain or lose in the respective scale to be recognized as reliably changed. It is also based on the whole sample´s characteristics.
+
+\par
+
+These estimates should be calculated using the standard deviation of either a control group, a normal population, or an experimental group at the baseline assessment. It also includes the test-retest reliability, usually obtained from a non-clinical sample, which is oftentimes available in the test manual or in published validation studies.
+
+\par
+
+Following from the assumption of normally distributed change scores, an individual RCI score could also be interpreted in the sense of percentage ranks, i.e.~
+assuming normality, it is expected that \emph{X} \% of participants getting the same treatment under the same conditions, would show an improvement/deterioration of at most the same extent.
+
+\par
+
+\hypertarget{defining-an-individualized-reliable-change-index}{%
+\subsubsection{Defining an Individualized Reliable Change Index}\label{defining-an-individualized-reliable-change-index}}
+
+The RCI(ind) is proposed as a mathematical adaptation of the originally defined RCI to repeated-measurement data including more that two timepoints, such as data from EMA procedures.
+
+\par
+\begin{quote}
+Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+\end{quote}
+\begin{equation}
+RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}} \label{eq:rci-step}
+\end{equation}
+\(\overline{x_{2}}\) = mean of subject´s posttest scores,
+\(\overline{x_{1}}\) = mean of subject´s pretest scores
+\begin{quote}
+RCI(ind) using the SD from the individual pre-interval
+\end{quote}
+\begin{equation}
+RCI_{\textit{ind, pre SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D,pre}} \label{eq:rci-ind-presd}
+\end{equation}
+\begin{equation}
+SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} \label{eq:rci-ind-presd-se}
+\end{equation}
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot SE_{D,pre} = 1.96 \cdot \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} \label{eq:rci-ind-presd-cut}
+\end{equation}
+\(\overline{x_{2}}\) = mean of subject´s posttest scores,
+\(\overline{x_{1}}\) = mean of subject´s pretest scores,
+\(SE_{D,pre}\) = standard error of difference between the test scores in the individual´s pre interval
+\(s_{x}\) = individual standard deviation of pretest time points,
+\(r_{xy}\) = reliability (internal consistency Cronbach´s \(\alpha\)) of the measure,
+\(\textit{significance cutoff}\) = (absolute) cutoff score for reliable change (95\%-criterion)
+\begin{quote}
+RCI(ind) using pooled SDs from both individual intervals
+\end{quote}
+\begin{equation}
+RCI_{\textit{ind, pooled SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D}} \label{eq:rci-ind-pooledsd}
+\end{equation}
+\begin{equation}
+SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} \label{eq:rci-ind-pooledsd-se}
+\end{equation}
+\begin{equation}
+\textit{significance cutoff} = 1.96 \cdot SE_{D} = 1.96 \cdot \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} \label{eq:rci-ind-pooledsd-cut}
+\end{equation}
+\(\overline{x_{2}}\) = mean of subject´s posttest scores,
+\(\overline{x_{1}}\) = mean of subject´s pretest scores,
+\(SE_{D}\) = pooled standard error of difference between the test scores
+\(s_{x}\) = individual standard deviation of pretest time points,
+\(s_{y}\) = individual standard deviation of pretest time points,
+\(r_{xy}\) = reliability (internal consistency Cronbach´s \(\alpha\)) of the measure,
+\(\textit{significance cutoff}\) = (absolute) cutoff score for reliable change (95\%-criterion)
+
+\hypertarget{confidence-interval-method-edwards-nunnally-method}{%
+\subsection{Confidence Interval Method (Edwards-Nunnally Method)}\label{confidence-interval-method-edwards-nunnally-method}}
+
+Edwards et al. (1978; Speer, 1992)
+\begin{equation}
+\textit{EN Interval} = \bigl[ r_{xx} (X_{pre} - M_{pre}) + M_{pre} \bigr] \pm 2 \cdot S_{pre} \cdot \sqrt{1 - r_{xx}} \label{eq:en}
+\end{equation}
+\(r_{xx}\) = reliability of the measure,
+\(X_{pre}\) = individual´s raw score at pre-treatment,
+\(M_{pre}\) = mean of the sample at pre-treatment,
+\(S_{pre}\) = standard deviation of the sample at pre-treatment
+\begin{quote}
+Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval method:
+\end{quote}
+\par
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Edwards-Nunnally Method Change Interpretation of PHQ-9 Scores}}
+  \label{tab:en-int}
+  \begin{tabular}{@{}ccc@{}}
+  \toprule
+  Edwards-Nunnally Criteria & Classification & Interpretation\\ \midrule
+  PHQ POST < [EN Interval] & -1 & Significant Improvement\\
+  PHQ POST $\in$ [EN Interval] & 0 & No Significant Change\\
+  PHQ POST > [EN Interval] & 1 & Significant Deterioration\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+\hypertarget{analyses-of-statistical-power-sensitivity-and-specificity}{%
+\section{Analyses of Statistical Power, Sensitivity, and Specificity}\label{analyses-of-statistical-power-sensitivity-and-specificity}}
+
+Statistical power is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding \emph{true positive} results.
+
+\par
+
+\noindent
+\emph{Sensitivity}, also known as \emph{recall} or \emph{true-positive rate}, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both \emph{true} improvement and deterioration.
+\begin{equation}
+Sensitivity = \frac{tp}{p} = \frac{tp}{tp + fn} \label{eq:sensitivity}
+\end{equation}
+\par
+
+\noindent
+\emph{Specificity}, also known as \emph{selectivity} or \emph{true-negative rate}, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
+\begin{equation}
+Specificity = \frac{tn}{n} = \frac{tn}{tn + fp} \label{eq:specificity}
+\end{equation}
+\par
+
+\noindent
+\begin{equation}
+\alpha = \frac{fp}{fp + tn} \label{eq:alpha-error}
+\end{equation}
+\par
+
+\noindent
+\begin{equation}
+\beta = \frac{fn}{fn + tp} \label{eq:beta-error}
+\end{equation}
+\par
+
+\noindent
+\begin{equation}
+Power = 1 - \beta \label{eq:power}
+\end{equation}
+\par
+
+\noindent
+Note that statistical power is equivalent to sensitivity, because:
+\begin{equation}
+Power = 1 - \beta = 1 - \frac{fn}{fn + tp} = \frac{fn + tp}{fn + tp} - \frac{fn}{fn + tp} = \frac{tp}{fn + tp} = Sensitivity \label{eq:power-sens-equiv}
+\end{equation}
+\par
+
+\noindent
+
+\hypertarget{jackknife-resampling-of-parameter-estimates}{%
+\section{Jackknife Resampling of Parameter Estimates}\label{jackknife-resampling-of-parameter-estimates}}
+
+Exemplary R code for this bootstrapped analysis is provided in \ref{r-jackknife}.
+
+\hypertarget{results}{%
+\chapter{Results}\label{results}}
+
+All steps of data preparation and statistical analyses were performed using the statistical programming language R (R Core Team, 2020). A complete list of additionally installed packages is provided in Appendix \ref{session-info}.
+
+\hypertarget{robustness-of-results-in-random-samples-of-n-50-and-n-100-in-comparison-to-the-population}{%
+\subsection{Robustness of Results in Random Samples of n = 50 and n = 100 in Comparison to the Population}\label{robustness-of-results-in-random-samples-of-n-50-and-n-100-in-comparison-to-the-population}}
+
+\hypertarget{paper-pencil-scenario-1}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario-1}}
+
+\hypertarget{ema-scenario-1}{%
+\subsection{EMA Scenario}\label{ema-scenario-1}}
+
+\hypertarget{pre-post-differences-in-symptom-scores}{%
+\section{Pre-Post Differences in Symptom Scores}\label{pre-post-differences-in-symptom-scores}}
+
+Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pre-treatment (in light bars) and post-treatment scores (in dark bars).
+\begin{center}\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \end{center}
+
+\caption{\textit{A Figure}} \label{fig:fig1}
+\begin{center}
+  \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI}
+\end{center}
+\hypertarget{paper-pencil-scenario-2}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario-2}}
+
+\hypertarget{ema-scenario-2}{%
+\subsection{EMA Scenario}\label{ema-scenario-2}}
+
+\hypertarget{comparison-of-classification-methods}{%
+\section{Comparison of Classification Methods}\label{comparison-of-classification-methods}}
+
+\hypertarget{paper-pencil-scenario-3}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario-3}}
+
+Standard Questionnaire vs.~Intense Questionnaire
+
+\hypertarget{ema-scenario-3}{%
+\subsection{EMA Scenario}\label{ema-scenario-3}}
+
+Standard EMA vs.~Intense EMA
+
+\hypertarget{baseline-dependence-by-method}{%
+\section{Baseline Dependence by Method}\label{baseline-dependence-by-method}}
+
+Barplot with 95\% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI\ldots{}
+
+\hypertarget{false-positive-rate-and-specificity}{%
+\section{False-Positive Rate and Specificity}\label{false-positive-rate-and-specificity}}
+
+False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s \emph{d} \(\approx\) 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e.~both classifications of improvement and of deterioration), as the number of truly changed participants would be \emph{p} = \emph{tp} + \emph{fn} = 0, implying that cases of true change could neither be detected (i.e.~\emph{tp} = 0) nor overlooked (i.e.~\emph{fn} = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \eqref{eq:sensitivity}) could not be calculated under these conditions, while the classification specificity (see Equation \eqref{eq:specificity}) could be appropriately estimated with regard to the known \emph{ground truth} of the whole sample consisting of only negative (i.e.~non-changed) cases.
+
+The \emph{false-positive rate (FPR)} is given by:
+\begin{equation}
+FPR = \frac{fp}{n} = \frac{fp}{fp + tn} \label{eq:fpr}
+\end{equation}
+\par
+
+Hence, classification methods can be compared regarding their false-positive rates and their specificity (i.e.~probability of true-positive classifications) on the basis of this data source.
+
+\par
+
+The resulting
+
+\hypertarget{paper-pencil-scenario-4}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario-4}}
+
+\hypertarget{ema-scenario-4}{%
+\subsection{EMA Scenario}\label{ema-scenario-4}}
+
+\hypertarget{jackknife-resampling-of-parameter-estimates-1}{%
+\section{Jackknife Resampling of Parameter Estimates}\label{jackknife-resampling-of-parameter-estimates-1}}
+
+Within the same assessment frequency, the method bias of classifications was up to 19 \% (of non-agreement).
+
+\hypertarget{paper-pencil-scenario-5}{%
+\subsection{Paper-Pencil Scenario}\label{paper-pencil-scenario-5}}
+
+\hypertarget{ema-scenario-5}{%
+\subsection{EMA Scenario}\label{ema-scenario-5}}
+
+\hypertarget{discussion}{%
+\chapter{Discussion}\label{discussion}}
+
+\hypertarget{discussion-of-results}{%
+\section{Discussion of Results}\label{discussion-of-results}}
+
+Table Pros and Cons of Assessment Formats
+Table Pros and Cons of Classification Methods
+
+\hypertarget{implications-of-findings}{%
+\section{Implications of Findings}\label{implications-of-findings}}
+
+\hypertarget{strengths-and-limitations}{%
+\section{Strengths and Limitations}\label{strengths-and-limitations}}
+
+external validity of findings
+
+\par
+
+One notable limitation of the study regards the characteristics of the simulated data sets. Although based on empirically gathered data from clinical samples, on average, the simulated baseline-interval scores were arguably low and mainly corresponded to mild and moderate levels of depression. The PHQ-9 scale has a maximum score of 27 points, but the data used for the analyses in this study did only reach a maximum of 25 points. Therefore, for instance, it would have been possible to add a constant score of 2 points to every single assessment, if the intention would had been to correct the data sets to represent more severe levels of depression. This overall correction would not have had any impact on the effect size (Cohen´s \emph{d}), the underlying covariance matrix of assessments, test-retest reliabilities, the internal consistency Cronbach´s \(\alpha\), or any of the proportional clinical change methods (Percentage Change, Individualized Reliable Change Index, and the Edwards-Nunnally Method). It would only have affected the proportions of cases that were identified by the Clinical Significance method as \emph{moved from the clinical to the non-clinical population}, or vice versa. This is because the standard definition of clinically significant change in PHQ-9 scores includes the 50 \% change criterion, as well as passing the cutoff score of 9 points defining the border between the clinical and the non-clinical distribution (see McMillan et al., 2010). However, following from the comparative approach in this study, a constant-value correction would not have altered the measures of interest in this methodological comparison, and neither the conclusions that are drawn from its results.
+
+\par
+
+This example is intended to emphasize the generalizability of conclusions regarding the sensitivity and specificity of the analysed methods in comparison to each other: Assuming that the simulated data sets realistically represent empirically observed clinical trial data, the resulting differences in agreement between methods would be the same, regardless of the symptom-severity levels.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+bla
+
+\backmatter
+
+\hypertarget{references}{%
+\chapter{References}\label{references}}
+
+\markboth{References}{References}
+
+\noindent
+
+\setlength{\parindent}{-0.20in}
+\setlength{\leftskip}{0.20in}
+\setlength{\parskip}{8pt}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-Anderson.2014}{}%
+Anderson, S. R., Tambling, R. B., Huff, S. C., Heafner, J., Johnson, L. N., \& Ketring, S. A. (2014). The development of a reliable change index and cutoff for the revised dyadic adjustment scale. \emph{Journal of Marital and Family Therapy}, \emph{40}(4), 525--534. \url{https://doi.org/10.1111/jmft.12095}
+
+\leavevmode\hypertarget{ref-Armey.2015}{}%
+Armey, M. F., Schatten, H. T., Haradhvala, N., \& Miller, I. W. (2015). Ecological momentary assessment (ema) of depression-related phenomena. \emph{Current Opinion in Psychology}, \emph{4}, 21--25. \url{https://doi.org/10.1016/j.copsyc.2015.01.002}
+
+\leavevmode\hypertarget{ref-Beygelzimer.2019}{}%
+Beygelzimer, A., Kakadet, S., Langford, J., Arya, S., Mount, D., \& Li Shengqiao. (2019). \emph{FNN: Fast nearest neighbor search algorithms and applications: R package version 1.1.3}. \url{https://CRAN.R-project.org/package=FNN}
+
+\leavevmode\hypertarget{ref-Cohen.2013}{}%
+Cohen, J. (2013). \emph{Statistical power analysis for the behavioral sciences}. Academic press.
+
+\leavevmode\hypertarget{ref-Cuijpers.2010}{}%
+Cuijpers, P., van Straten, A., Bohlmeijer, E., Hollon, S. D., \& Andersson, G. (2010). The effects of psychotherapy for adult depression are overestimated: A meta-analysis of study quality and effect size. \emph{Psychological Medicine}, \emph{40}(2), 211--223. \url{https://doi.org/10.1017/S0033291709006114}
+
+\leavevmode\hypertarget{ref-Edwards.1978}{}%
+Edwards, D. W., Yarvis, R. M., Mueller, D. P., Zingale, H. C., \& Wagman, W. J. (1978). Test-taking and the stability of adjustment scales. \emph{Evaluation Quarterly}, \emph{2}(2), 275--291. \url{https://doi.org/10.1177/0193841X7800200206}
+
+\leavevmode\hypertarget{ref-Haley.2006}{}%
+Haley, S. M., \& Fragala-Pinkham, M. A. (2006). Interpreting change scores of tests and measures used in physical therapy. \emph{Physical Therapy}, \emph{86}(5), 735--743. \url{https://doi.org/10.1093/ptj/86.5.735}
+
+\leavevmode\hypertarget{ref-Holmes.2016}{}%
+Holmes, E. A., Bonsall, M. B., Hales, S. A., Mitchell, H., Renner, F., Blackwell, S. E., Watson, P., Goodwin, G. M., \& Di Simplicio, M. (2016). Applications of time-series analysis to mood fluctuations in bipolar disorder to promote treatment innovation: A case series. \emph{Translational Psychiatry}, \emph{6}, e720. \url{https://doi.org/10.1038/tp.2015.207}
+
+\leavevmode\hypertarget{ref-Ismay.2020}{}%
+Ismay, C., \& Solomon, N. (2020). \emph{Thesisdown: An updated r markdown thesis template using the bookdown package: R package version 0.1.0}. \url{https://github.com/ismayc/thesisdown}
+
+\leavevmode\hypertarget{ref-Jacobson.1984}{}%
+Jacobson, N. S., Follette, W. C., \& Revenstorf, D. (1984). Psychotherapy outcome research: Methods for reporting variability and evaluating clinical significance. \emph{Behavior Therapy}, \emph{15}(4), 336--352.
+
+\leavevmode\hypertarget{ref-Jacobson.1991}{}%
+Jacobson, N. S., \& Truax, P. (1991). Clinical significance: A statistical approach to defining meaningful change in psychotherapy research. \emph{Journal of Consulting and Clinical Psychology}, \emph{59}(1), 12--19. \url{https://doi.org/10.1037/0022-006X.59.1.12}
+
+\leavevmode\hypertarget{ref-Karin.2018}{}%
+Karin, E., Dear, B. F., Heller, G. Z., Crane, M. F., \& Titov, N. (2018). Wish you were here: Examining characteristics, outcomes, and statistical solutions for missing cases in web-based psychotherapeutic trials. \emph{JMIR Mental Health}, \emph{5}(2), e22. \url{https://doi.org/10.2196/mental.8363}
+
+\leavevmode\hypertarget{ref-Karin.2018b}{}%
+Karin, E., Dear, B. F., Heller, G. Z., Gandy, M., \& Titov, N. (2018). Measurement of symptom change following web-based psychotherapy: Statistical characteristics and analytical methods for measuring and interpreting change. \emph{JMIR Mental Health}, \emph{5}(3), e10200. \url{https://doi.org/10.2196/10200}
+
+\leavevmode\hypertarget{ref-Kroenke.2001}{}%
+Kroenke, K., Spitzer, R. L., \& Williams, J. B. (2001). The PHQ-9: Validity of a Brief Depression Severity Measure. \emph{Journal of General Internal Medicine}, \emph{16}(9), 606--613. \url{https://doi.org/10.1046/j.1525-1497.2001.016009606.x}
+
+\leavevmode\hypertarget{ref-McMillan.2010}{}%
+McMillan, D., Gilbody, S., \& Richards, D. (2010). Defining successful treatment outcome in depression using the PHQ-9: A comparison of methods. \emph{Journal of Affective Disorders}, \emph{127}(1-3), 122--129. \url{https://doi.org/10.1016/j.jad.2010.04.030}
+
+\leavevmode\hypertarget{ref-RCoreTeam.2020}{}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. R Foundation for Statistical Computing. \url{https://www.R-project.org}
+
+\leavevmode\hypertarget{ref-Rot.2012}{}%
+Rot, M. aan het, Hogenelst, K., \& Schoevers, R. A. (2012). Mood disorders in everyday life: A systematic review of experience sampling and ecological momentary assessment studies. \emph{Clinical Psychology Review}, \emph{32}(6), 510--523. \url{https://doi.org/10.1016/j.cpr.2012.05.007}
+
+\leavevmode\hypertarget{ref-Schuster.2020}{}%
+Schuster, R., Schreyer, M. L., Kaiser, T., Berger, T., Klein, J. P., Moritz, S., Laireiter, A.-R., \& Trutschnig, W. (2020). Effects of intense assessment on statistical power in randomized controlled trials: Simulation study on depression. \emph{Internet Interventions}, \emph{20}. \url{https://doi.org/10.1016/j.invent.2020.100313}
+
+\leavevmode\hypertarget{ref-Shiffman.2008}{}%
+Shiffman, S., Stone, A. A., \& Hufford, M. R. (2008). Ecological momentary assessment. \emph{Annual Review of Clinical Psychology}, \emph{4}, 1--32. \url{https://doi.org/10.1146/annurev.clinpsy.3.022806.091415}
+
+\leavevmode\hypertarget{ref-Silk.2011}{}%
+Silk, J. S., Forbes, E. E., Whalen, D. J., Jakubcak, J. L., Thompson, W. K., Ryan, N. D., Axelson, D. A., Birmaher, B., \& Dahl, R. E. (2011). Daily emotional dynamics in depressed youth: A cell phone ecological momentary assessment study. \emph{Journal of Experimental Child Psychology}, \emph{110}(2), 241--257. \url{https://doi.org/10.1016/j.jecp.2010.10.007}
+
+\leavevmode\hypertarget{ref-Speer.1992}{}%
+Speer, D. C. (1992). Clinically significant change: Jacobson and truax (1991) revisited. \emph{Journal of Consulting and Clinical Psychology}, \emph{60}(3), 402--408. \url{https://doi.org/10.1037/0022-006X.60.3.402}
+
+\leavevmode\hypertarget{ref-Titov.2011}{}%
+Titov, N., Dear, B. F., McMillan, D., Anderson, T., Zou, J., \& Sunderland, M. (2011). Psychometric comparison of the PHQ-9 and BDI-II for measuring response during treatment of depression. \emph{Cognitive Behaviour Therapy}, \emph{40}(2), 126--136. \url{https://doi.org/10.1080/16506073.2010.550059}
+
+\appendix
+
+\setlength{\parindent}{0in}
+\setlength{\leftskip}{0in}
+\setlength{\parskip}{0pt}
+
+\hypertarget{appendix-r-code}{%
+\chapter*{Appendix: R Code}\label{appendix-r-code}}
+\addcontentsline{toc}{chapter}{Appendix: R Code}
+
+The appendix includes information about the R version and packages that were used to prepare and process data, as well as R code for the most important pre-processing steps, the computation of clinical change methods, and the Jackknife-bootstrapping method.
+
+\hypertarget{session-info}{%
+\section{R Session Information and Used Packages}\label{session-info}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{toLatex}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+\begin{itemize}\raggedright
+  \item R version 4.0.2 (2020-06-22), \verb|x86_64-w64-mingw32|
+  \item Locale: \verb|LC_COLLATE=German_Germany.1252|, \verb|LC_CTYPE=German_Germany.1252|, \verb|LC_MONETARY=German_Germany.1252|, \verb|LC_NUMERIC=C|, \verb|LC_TIME=German_Germany.1252|
+  \item Running under: \verb|Windows 10 x64 (build 19041)|
+  \item Matrix products: default
+  \item Base packages: base, datasets, graphics, grDevices, methods,
+    stats, utils
+  \item Other packages: bootstrap~2019.6, DescTools~0.99.38,
+    devtools~2.3.2, dplyr~1.0.2, FNN~1.1.3, forcats~0.5.0,
+    foreign~0.8-80, gghalves~0.1.0, ggplot2~3.3.2, haven~2.3.1,
+    kableExtra~1.3.1, knitr~1.30, lattice~0.20-41, lubridate~1.7.9,
+    overlapping~1.6, papaja~0.1.0.9997, plot.matrix~1.5.1, plyr~1.8.6,
+    psych~2.0.9, purrr~0.3.4, readr~1.4.0, rmarkdown~2.5, Rmisc~1.5,
+    sjmisc~2.8.5, stringr~1.4.0, summarytools~0.9.6, testthat~2.3.2,
+    thesisdown~0.1.0, tibble~3.0.4, tidyr~1.1.2, tidyverse~1.3.0,
+    timetk~2.5.0, usethis~1.6.3
+  \item Loaded via a namespace (and not attached): assertthat~0.2.1,
+    backports~1.1.10, base64enc~0.1-3, blob~1.2.1, bookdown~0.21,
+    boot~1.3-25, broom~0.7.2, callr~3.5.1, cellranger~1.1.0,
+    checkmate~2.0.0, class~7.3-17, cli~2.1.0, codetools~0.2-16,
+    colorspace~1.4-1, compiler~4.0.2, crayon~1.3.4, DBI~1.1.0,
+    dbplyr~1.4.4, desc~1.2.0, digest~0.6.26, e1071~1.7-4,
+    ellipsis~0.3.1, evaluate~0.14, Exact~2.1, expm~0.999-5,
+    fansi~0.4.1, fs~1.5.0, furrr~0.2.1, future~1.19.1, generics~0.0.2,
+    gld~2.6.2, globals~0.13.1, glue~1.4.2, gower~0.2.2, grid~4.0.2,
+    gtable~0.3.0, hms~0.5.3, htmltools~0.5.0, httr~1.4.2,
+    insight~0.10.0, ipred~0.9-9, jsonlite~1.7.1, lava~1.6.8,
+    lifecycle~0.2.0, listenv~0.8.0, lmom~2.8, magick~2.5.0,
+    magrittr~1.5, MASS~7.3-53, Matrix~1.2-18, matrixStats~0.57.0,
+    memoise~1.1.0, mnormt~2.0.2, modelr~0.1.8, munsell~0.5.0,
+    mvtnorm~1.1-1, nlme~3.1-149, nnet~7.3-14, pacman~0.5.1,
+    pander~0.6.3, parallel~4.0.2, pillar~1.4.6, pkgbuild~1.1.0,
+    pkgconfig~2.0.3, pkgload~1.1.0, prettyunits~1.1.1, processx~3.4.4,
+    prodlim~2019.11.13, pryr~0.1.4, ps~1.4.0, R6~2.4.1,
+    rapportools~1.0, Rcpp~1.0.5, readxl~1.3.1, recipes~0.1.14,
+    remotes~2.2.0, reprex~0.3.0, rlang~0.4.8, rootSolve~1.8.2.1,
+    rpart~4.1-15, rprojroot~1.3-2, rsample~0.0.8, rstudioapi~0.11,
+    rvest~0.3.6, scales~1.1.1, sessioninfo~1.1.1, sjlabelled~1.1.7,
+    splines~4.0.2, stringi~1.5.3, survival~3.2-7, tcltk~4.0.2,
+    tidyselect~1.1.0, timeDate~3043.102, tmvnsim~1.0-2, tools~4.0.2,
+    vctrs~0.3.4, viridisLite~0.3.0, webshot~0.5.2, withr~2.3.0,
+    xfun~0.18, xml2~1.3.2, xts~0.12.1, yaml~2.2.1, zoo~1.8-8
+\end{itemize}
+\hypertarget{r-knn-search}{%
+\section{K-Nearest-Neighbor Search}\label{r-knn-search}}
+
+K-Nearest-Neighbor Search (using \texttt{get.knn()} from the package \emph{FNN}) for the questionnaire data set \textbackslash enquote\{PP\_5.5\} as an example (similar procedure for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr, FNN)}
+
+\CommentTok{# opening the originally simulated data set (N = 100.000) and }
+\CommentTok{# calculating interval means and standard deviations}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\KeywordTok{read.delim}\NormalTok{(}\StringTok{"cor_07_k20/cor_07_dataset_k20.txt"}\NormalTok{, }
+                    \DataTypeTok{row.names=}\OtherTok{NULL}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(PRE1_}\DecValTok{1}\OperatorTok{:}\NormalTok{POST1_}\DecValTok{5}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_column}\NormalTok{(., }\DataTypeTok{.before =} \StringTok{"PRE1_1"}\NormalTok{, }\DataTypeTok{ID =} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(.)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{as_tibble}\NormalTok{()}
+
+\NormalTok{pre_5mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"PRE1_1"}\NormalTok{,}\StringTok{"PRE1_2"}\NormalTok{,}\StringTok{"PRE1_3"}\NormalTok{,}\StringTok{"PRE1_4"}\NormalTok{,}\StringTok{"PRE1_5"}\NormalTok{)}
+\NormalTok{post_5mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"POST1_1"}\NormalTok{,}\StringTok{"POST1_2"}\NormalTok{,}\StringTok{"POST1_3"}\NormalTok{,}\StringTok{"POST1_4"}\NormalTok{,}\StringTok{"POST1_5"}\NormalTok{)}
+
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean =}\StringTok{ }\KeywordTok{apply}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[pre_5mzp], }\DecValTok{1}\NormalTok{, mean)}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean =}\StringTok{ }\KeywordTok{apply}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[post_5mzp], }\DecValTok{1}\NormalTok{, mean)}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{MeanDiff =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.pretestSD =}\StringTok{ }\KeywordTok{apply}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[pre_5mzp], }\DecValTok{1}\NormalTok{, sd)}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.posttestSD =}\StringTok{ }\KeywordTok{apply}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[post_5mzp], }\DecValTok{1}\NormalTok{, sd)}
+\KeywordTok{save}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{, }\DataTypeTok{file =} \StringTok{"cor_07_k20/PP_5.5.RData"}\NormalTok{)}
+
+\CommentTok{# PRE interval: finding the k=5 nearest neighbors regarding their }
+\CommentTok{# mean score and standard deviation (with distance == 0)}
+\NormalTok{pre_data =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(PRE_Mean, ind.pretestSD)}
+\NormalTok{PP_PRE_KNN_df =}\StringTok{ }\NormalTok{FNN}\OperatorTok{::}\KeywordTok{get.knn}\NormalTok{(pre_data, }\DataTypeTok{k=}\DecValTok{5}\NormalTok{, }\DataTypeTok{algorithm =} \StringTok{"kd_tree"}\NormalTok{)}
+
+\NormalTok{x =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(PP_PRE_KNN_df[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{.name_repair =} \StringTok{"minimal"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(x) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"neighbor1"}\NormalTok{, }\StringTok{"neighbor2"}\NormalTok{, }\StringTok{"neighbor3"}\NormalTok{, }
+                \StringTok{"neighbor4"}\NormalTok{, }\StringTok{"neighbor5"}\NormalTok{)}
+\NormalTok{y =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(PP_PRE_KNN_df[[}\DecValTok{2}\NormalTok{]], }\DataTypeTok{.name_repair =} \StringTok{"minimal"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(y) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"distance1"}\NormalTok{, }\StringTok{"distance2"}\NormalTok{, }\StringTok{"distance3"}\NormalTok{, }
+                \StringTok{"distance4"}\NormalTok{, }\StringTok{"distance5"}\NormalTok{)}
+
+\NormalTok{PP_PRE_KNN_df =}\StringTok{ }\KeywordTok{bind_cols}\NormalTok{(x, y) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_column}\NormalTok{(., }\DataTypeTok{.before =} \StringTok{"neighbor1"}\NormalTok{, }\DataTypeTok{ID =} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(.)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(distance1 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance2 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance3 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }
+\StringTok{           }\NormalTok{distance4 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance5 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)}
+
+\CommentTok{# POST interval: finding the k=5 nearest neighbors regarding their }
+\CommentTok{# mean score and standard deviation (with distance == 0)}
+\NormalTok{post_data =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(POST_Mean, ind.posttestSD)}
+\NormalTok{PP_POST_KNN_df =}\StringTok{ }\NormalTok{FNN}\OperatorTok{::}\KeywordTok{get.knn}\NormalTok{(post_data, }\DataTypeTok{k=}\DecValTok{5}\NormalTok{, }\DataTypeTok{algorithm =} \StringTok{"kd_tree"}\NormalTok{)}
+
+\NormalTok{x =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(PP_POST_KNN_df[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{.name_repair =} \StringTok{"minimal"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(x) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"neighbor1"}\NormalTok{, }\StringTok{"neighbor2"}\NormalTok{, }\StringTok{"neighbor3"}\NormalTok{, }
+                \StringTok{"neighbor4"}\NormalTok{, }\StringTok{"neighbor5"}\NormalTok{)}
+\NormalTok{y =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(PP_POST_KNN_df[[}\DecValTok{2}\NormalTok{]], }\DataTypeTok{.name_repair =} \StringTok{"minimal"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(y) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"distance1"}\NormalTok{, }\StringTok{"distance2"}\NormalTok{, }\StringTok{"distance3"}\NormalTok{, }
+                \StringTok{"distance4"}\NormalTok{, }\StringTok{"distance5"}\NormalTok{)}
+
+\NormalTok{PP_POST_KNN_df =}\StringTok{ }\KeywordTok{bind_cols}\NormalTok{(x, y) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_column}\NormalTok{(., }\DataTypeTok{.before =} \StringTok{"neighbor1"}\NormalTok{, }\DataTypeTok{ID =} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(.)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(distance1 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance2 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance3 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }
+\StringTok{           }\NormalTok{distance4 }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{distance5 }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{)}
+
+\CommentTok{# filtering the resulting knn combinations to keep only unique }
+\CommentTok{# rows of 6 perfectly matching neighbors}
+\CommentTok{# PRE interval}
+\NormalTok{PP_PRE_KNN_df =}\StringTok{ }\NormalTok{PP_PRE_KNN_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{apply}\NormalTok{(., }\DecValTok{1}\NormalTok{, sort) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{t}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(., V1, V2, V3, V4, V5, V6) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{distinct}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(V1 }\OperatorTok{!=}\StringTok{ }\NormalTok{V2 }\OperatorTok{&}\StringTok{ }\NormalTok{V2 }\OperatorTok{!=}\StringTok{ }\NormalTok{V3 }\OperatorTok{&}\StringTok{ }\NormalTok{V3 }\OperatorTok{!=}\StringTok{ }\NormalTok{V4 }\OperatorTok{&}\StringTok{ }\NormalTok{V4 }\OperatorTok{!=}\StringTok{ }\NormalTok{V5 }\OperatorTok{&}\StringTok{ }\NormalTok{V5 }\OperatorTok{!=}\StringTok{ }\NormalTok{V6) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(V1) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
+
+\KeywordTok{colnames}\NormalTok{(PP_PRE_KNN_df) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ID1_PRE"}\NormalTok{, }\StringTok{"ID2_PRE"}\NormalTok{, }\StringTok{"ID3_PRE"}\NormalTok{, }
+                            \StringTok{"ID4_PRE"}\NormalTok{, }\StringTok{"ID5_PRE"}\NormalTok{, }\StringTok{"ID6_PRE"}\NormalTok{)}
+
+\CommentTok{# POST interval}
+\NormalTok{PP_POST_KNN_df =}\StringTok{ }\NormalTok{PP_POST_KNN_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{apply}\NormalTok{(., }\DecValTok{1}\NormalTok{, sort) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{t}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(., V1, V2, V3, V4, V5, V6) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{distinct}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(V1 }\OperatorTok{!=}\StringTok{ }\NormalTok{V2 }\OperatorTok{&}\StringTok{ }\NormalTok{V2 }\OperatorTok{!=}\StringTok{ }\NormalTok{V3 }\OperatorTok{&}\StringTok{ }\NormalTok{V3 }\OperatorTok{!=}\StringTok{ }\NormalTok{V4 }\OperatorTok{&}\StringTok{ }\NormalTok{V4 }\OperatorTok{!=}\StringTok{ }\NormalTok{V5 }\OperatorTok{&}\StringTok{ }\NormalTok{V5 }\OperatorTok{!=}\StringTok{ }\NormalTok{V6) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(V1) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{()}
+
+\KeywordTok{colnames}\NormalTok{(PP_POST_KNN_df) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ID1_POST"}\NormalTok{, }\StringTok{"ID2_POST"}\NormalTok{, }\StringTok{"ID3_POST"}\NormalTok{, }
+                             \StringTok{"ID4_POST"}\NormalTok{, }\StringTok{"ID5_POST"}\NormalTok{, }\StringTok{"ID6_POST"}\NormalTok{)}
+
+\CommentTok{# joining the matched IDs of pre- and post-neighbors in a data frame}
+\NormalTok{PP_KNNs =}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(PP_PRE_KNN_df, PP_POST_KNN_df, }
+              \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"ID1_PRE"}\NormalTok{ =}\StringTok{ "ID1_POST"}\NormalTok{))}
+\NormalTok{PP_KNNs =}\StringTok{ }\NormalTok{PP_KNNs }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_column}\NormalTok{(., }\DataTypeTok{.before =} \StringTok{"ID2_POST"}\NormalTok{, }\DataTypeTok{ID1_POST =}\NormalTok{ PP_KNNs}\OperatorTok{$}\NormalTok{ID1_PRE)}
+\KeywordTok{save}\NormalTok{(PP_KNNs, }\DataTypeTok{file =} \StringTok{"cor_07_k20/PP_KNNs.RData"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-extension}{%
+\section{Extension of Assessment Intervals}\label{r-extension}}
+
+Extension of assessment intervals for the questionnaire data set \textbackslash enquote\{PP\_5.5\} as an example (similar procedure for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+\KeywordTok{load}\NormalTok{(}\StringTok{"cor_07_k20/PP_KNNs.RData"}\NormalTok{)}
+\KeywordTok{load}\NormalTok{(}\StringTok{"cor_07_k20/PP_5.5.RData"}\NormalTok{)}
+\NormalTok{PP_KNNs =}\StringTok{ }\NormalTok{PP_KNNs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{()}
+
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{ID1_PRE =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID2_PRE =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID3_PRE =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{ID4_PRE =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID5_PRE =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID6_PRE =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{ID1_POST =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID2_POST =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID3_POST =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{ID4_POST =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID5_POST =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{ID6_POST =} \KeywordTok{c}\NormalTok{(),}
+
+  \DataTypeTok{PRE1_1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_4 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_6 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_7 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_8 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_9 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_10 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_11 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_12 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_13 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_14 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_15 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_16 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_17 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_18 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_19 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_20 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{PRE1_21 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_22 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_23 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_24 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_25 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_26 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_27 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_28 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{PRE1_29 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_30 =} \KeywordTok{c}\NormalTok{(),}
+
+  \DataTypeTok{POST1_1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_4 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_6 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_7 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_8 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_9 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_10 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_11 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_12 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_13 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_14 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_15 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_16 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_17 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_18 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_19 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_20 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{POST1_21 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_22 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_23 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_24 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_25 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_26 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_27 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_28 =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{POST1_29 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_30 =} \KeywordTok{c}\NormalTok{())}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(PP_KNNs}\OperatorTok{$}\NormalTok{ID1_PRE)) \{}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID1_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID2_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID3_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID4_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID5_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID6_PRE"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID1_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID2_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID3_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID4_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID5_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"ID6_POST"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{]}
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_6"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_7"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_8"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_9"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_10"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_11"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_12"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_13"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_14"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_15"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_16"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_17"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_18"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_19"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_20"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_21"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_22"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_23"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_24"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_25"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_26"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{],}\StringTok{"PRE1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_27"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{],}\StringTok{"PRE1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_28"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{],}\StringTok{"PRE1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_29"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{],}\StringTok{"PRE1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"PRE1_30"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_PRE"}\NormalTok{],}\StringTok{"PRE1_5"}\NormalTok{]}
+
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID1_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_6"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_7"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_8"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_9"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_10"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID2_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]}
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_11"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_12"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_13"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_14"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_15"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID3_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_16"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_17"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_18"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_19"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_20"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID4_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]}
+
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_21"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_22"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_23"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_24"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_25"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID5_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_26"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{],}\StringTok{"POST1_1"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_27"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{],}\StringTok{"POST1_2"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_28"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{],}\StringTok{"POST1_3"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_29"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{],}\StringTok{"POST1_4"}\NormalTok{]}
+\NormalTok{  PP_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"POST1_30"}\NormalTok{] =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{[PP_KNNs[i,}\StringTok{"ID6_POST"}\NormalTok{],}\StringTok{"POST1_5"}\NormalTok{]\}}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-random-sampling}{%
+\section{Random Sampling of 5-fold EMA Windows and Days}\label{r-random-sampling}}
+
+Random sampling of 5-fold EMA assessments from 30-fold intervals for the generation of individual (1) 5-fold windows and (2) 5-fold single assessment days.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+
+\NormalTok{pre_5mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"PRE1_1"}\NormalTok{,}\StringTok{"PRE1_2"}\NormalTok{,}\StringTok{"PRE1_3"}\NormalTok{,}\StringTok{"PRE1_4"}\NormalTok{,}\StringTok{"PRE1_5"}\NormalTok{)}
+\NormalTok{post_5mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"POST1_1"}\NormalTok{,}\StringTok{"POST1_2"}\NormalTok{,}\StringTok{"POST1_3"}\NormalTok{,}\StringTok{"POST1_4"}\NormalTok{,}\StringTok{"POST1_5"}\NormalTok{)}
+
+\NormalTok{pre_30mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"PRE1_1"}\NormalTok{,}\StringTok{"PRE1_2"}\NormalTok{,}\StringTok{"PRE1_3"}\NormalTok{,}\StringTok{"PRE1_4"}\NormalTok{,}\StringTok{"PRE1_5"}\NormalTok{,}
+            \StringTok{"PRE1_6"}\NormalTok{,}\StringTok{"PRE1_7"}\NormalTok{,}\StringTok{"PRE1_8"}\NormalTok{,}\StringTok{"PRE1_9"}\NormalTok{,}\StringTok{"PRE1_10"}\NormalTok{,}
+            \StringTok{"PRE1_11"}\NormalTok{,}\StringTok{"PRE1_12"}\NormalTok{,}\StringTok{"PRE1_13"}\NormalTok{,}\StringTok{"PRE1_14"}\NormalTok{,}\StringTok{"PRE1_15"}\NormalTok{,}
+            \StringTok{"PRE1_16"}\NormalTok{,}\StringTok{"PRE1_17"}\NormalTok{,}\StringTok{"PRE1_18"}\NormalTok{,}\StringTok{"PRE1_19"}\NormalTok{,}\StringTok{"PRE1_20"}\NormalTok{,}
+            \StringTok{"PRE1_21"}\NormalTok{,}\StringTok{"PRE1_22"}\NormalTok{,}\StringTok{"PRE1_23"}\NormalTok{,}\StringTok{"PRE1_24"}\NormalTok{,}\StringTok{"PRE1_25"}\NormalTok{,}
+            \StringTok{"PRE1_26"}\NormalTok{,}\StringTok{"PRE1_27"}\NormalTok{,}\StringTok{"PRE1_28"}\NormalTok{,}\StringTok{"PRE1_29"}\NormalTok{,}\StringTok{"PRE1_30"}\NormalTok{)}
+\NormalTok{post_30mzp =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"POST1_1"}\NormalTok{,}\StringTok{"POST1_2"}\NormalTok{,}\StringTok{"POST1_3"}\NormalTok{,}\StringTok{"POST1_4"}\NormalTok{,}\StringTok{"POST1_5"}\NormalTok{,}
+             \StringTok{"POST1_6"}\NormalTok{,}\StringTok{"POST1_7"}\NormalTok{,}\StringTok{"POST1_8"}\NormalTok{,}\StringTok{"POST1_9"}\NormalTok{,}\StringTok{"POST1_10"}\NormalTok{,}
+             \StringTok{"POST1_11"}\NormalTok{,}\StringTok{"POST1_12"}\NormalTok{,}\StringTok{"POST1_13"}\NormalTok{,}\StringTok{"POST1_14"}\NormalTok{,}\StringTok{"POST1_15"}\NormalTok{,}
+             \StringTok{"POST1_16"}\NormalTok{,}\StringTok{"POST1_17"}\NormalTok{,}\StringTok{"POST1_18"}\NormalTok{,}\StringTok{"POST1_19"}\NormalTok{,}\StringTok{"POST1_20"}\NormalTok{,}
+             \StringTok{"POST1_21"}\NormalTok{,}\StringTok{"POST1_22"}\NormalTok{,}\StringTok{"POST1_23"}\NormalTok{,}\StringTok{"POST1_24"}\NormalTok{,}\StringTok{"POST1_25"}\NormalTok{,}
+             \StringTok{"POST1_26"}\NormalTok{,}\StringTok{"POST1_27"}\NormalTok{,}\StringTok{"POST1_28"}\NormalTok{,}\StringTok{"POST1_29"}\NormalTok{,}\StringTok{"POST1_30"}\NormalTok{)}
+
+\CommentTok{# (1) 5-fold windows (EMA_5.5_Window)}
+\CommentTok{# random sampling of 5-fold pre- and post-assessment windows (5 days }
+\CommentTok{# in a row) from individual 30-fold intervals (EMA_30.30)}
+\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Window =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ID =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{Pre_MZP1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP4 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{Pre_MZP5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP3 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{Post_MZP4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_2 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{PRE1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_1 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{POST1_2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_5 =} \KeywordTok{c}\NormalTok{())}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ EMA_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ID) \{}
+\NormalTok{  a =}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{26}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_pre_Window =}\StringTok{ }\NormalTok{pre_30mzp[}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ a, }\DataTypeTok{to =}\NormalTok{ a}\OperatorTok{+}\DecValTok{4}\NormalTok{)]}
+\NormalTok{  b =}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{26}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_post_Window =}\StringTok{ }\NormalTok{post_30mzp[}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ b, }\DataTypeTok{to =}\NormalTok{ b}\OperatorTok{+}\DecValTok{4}\NormalTok{)]}
+  
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"ID"}\NormalTok{] =}\StringTok{ }\NormalTok{i}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Pre_MZP1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Pre_MZP2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Pre_MZP3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{3}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Pre_MZP4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{4}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Pre_MZP5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{5}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Post_MZP1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Post_MZP2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Post_MZP3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{3}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Post_MZP4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{4}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Post_MZP5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{5}\NormalTok{]}
+  
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"PRE1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"PRE1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"PRE1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"PRE1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"PRE1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Window[}\DecValTok{5}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"POST1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"POST1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"POST1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"POST1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"POST1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Window[}\DecValTok{5}\NormalTok{]]\}}
+
+\CommentTok{# (2) 5-fold single assessment days (EMA_5.5_Days)}
+\CommentTok{# random sampling of 5-fold pre- and post-assessments (not necessarily}
+\CommentTok{# days in a row) from individual 30-fold intervals (EMA_30.30)}
+\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Days =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ID =} \KeywordTok{c}\NormalTok{(), }
+  \DataTypeTok{Pre_MZP1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Pre_MZP4 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{Pre_MZP5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP3 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{Post_MZP4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{Post_MZP5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_1 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_2 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{PRE1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{PRE1_5 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_1 =} \KeywordTok{c}\NormalTok{(),}
+  \DataTypeTok{POST1_2 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_3 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_4 =} \KeywordTok{c}\NormalTok{(), }\DataTypeTok{POST1_5 =} \KeywordTok{c}\NormalTok{())}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ EMA_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ID) \{}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_pre_Days =}\StringTok{ }\NormalTok{pre_30mzp[}\KeywordTok{sort}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{30}\NormalTok{, }\DecValTok{5}\NormalTok{))]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_post_Days =}\StringTok{ }\NormalTok{post_30mzp[}\KeywordTok{sort}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{30}\NormalTok{, }\DecValTok{5}\NormalTok{))]}
+  
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"ID"}\NormalTok{] =}\StringTok{ }\NormalTok{i}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Pre_MZP1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Pre_MZP2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Pre_MZP3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{3}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Pre_MZP4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{4}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Pre_MZP5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{5}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Post_MZP1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Post_MZP2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Post_MZP3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{3}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Post_MZP4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{4}\NormalTok{]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Post_MZP5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{5}\NormalTok{]}
+  
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"PRE1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"PRE1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"PRE1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"PRE1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"PRE1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_pre_Days[}\DecValTok{5}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"POST1_1"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"POST1_2"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"POST1_3"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"POST1_4"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"POST1_5"}\NormalTok{] =}\StringTok{ }\NormalTok{EMA_}\FloatTok{30.30}\NormalTok{[i,EMA_}\FloatTok{5.5}\NormalTok{_post_Days[}\DecValTok{5}\NormalTok{]]\}}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-code-for-the-calculation-of-clinical-change-methods}{%
+\section{R Code for the Calculation of Clinical Change Methods}\label{r-code-for-the-calculation-of-clinical-change-methods}}
+
+\hypertarget{r-pc}{%
+\subsection{Percentage Change}\label{r-pc}}
+
+Calculation of the Percentage Change method PC for interpreting the score difference between two assessment intervals (i.e.~Mean Percentage Change), as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\CommentTok{### PP_5.5:}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{Mean_PC =}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{/}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{*}\StringTok{ }\DecValTok{100}
+
+\CommentTok{# creating the interpretation categories for Percentage Change,}
+\CommentTok{# ranging from -2 (strong deterioration) to 2 (strong improvement):}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Mean_PC_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{-2}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>}\StringTok{ }\DecValTok{-50} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-25} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>}\StringTok{ }\DecValTok{-25} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<}\StringTok{ }\DecValTok{25} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{25} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{2}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{Mean_PC))}
+
+\CommentTok{### PP_30.30:}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{Mean_PC =}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{/}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{*}\StringTok{ }\DecValTok{100}
+
+\CommentTok{# creating the interpretation categories for Percentage Change,}
+\CommentTok{# ranging from -2 (strong deterioration) to 2 (strong improvement):}
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Mean_PC_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{-2}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>}\StringTok{ }\DecValTok{-50} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-25} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>}\StringTok{ }\DecValTok{-25} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<}\StringTok{ }\DecValTok{25} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{25} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{2}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{Mean_PC))}
+
+\CommentTok{### PP_1.1:}
+\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PC =}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{POST }\OperatorTok{/}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE)) }\OperatorTok{*}\StringTok{ }\DecValTok{100}
+
+\CommentTok{# creating the interpretation categories for Percentage Change,}
+\CommentTok{# ranging from -2 (strong deterioration) to 2 (strong improvement):}
+\NormalTok{PP_}\FloatTok{1.1}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{PC_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{-2}\NormalTok{,}
+\NormalTok{    PC }\OperatorTok{>}\StringTok{ }\DecValTok{-50} \OperatorTok{&}\StringTok{ }\NormalTok{PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-25} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    PC }\OperatorTok{>}\StringTok{ }\DecValTok{-25} \OperatorTok{&}\StringTok{ }\NormalTok{PC }\OperatorTok{<}\StringTok{ }\DecValTok{25} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    PC }\OperatorTok{>=}\StringTok{ }\DecValTok{25} \OperatorTok{&}\StringTok{ }\NormalTok{PC }\OperatorTok{<}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{2}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(PC)))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-csi}{%
+\subsection{Clinical Significance}\label{r-csi}}
+
+Implementation of the Clinical Significance method CSI (see McMillan et al., 2010) for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# creating the interpretation categories for Clinically Sig. Change,}
+\CommentTok{# ranging from -1 (improvement) to 1 (deterioration):}
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\CommentTok{### PP_5.5:}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{   }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{CSI_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{     PRE_Mean }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{     PRE_Mean }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+     \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{))}
+
+\CommentTok{### PP_30.30:}
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30} \OperatorTok{%>%}\StringTok{ }
+\StringTok{   }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{CSI_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{     PRE_Mean }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{     PRE_Mean }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{Mean_PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+     \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{))}
+
+\CommentTok{### PP_1.1:}
+\NormalTok{PP_}\FloatTok{1.1}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1} \OperatorTok{%>%}\StringTok{ }
+\StringTok{   }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{CSI_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{     PRE }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{POST }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{PC }\OperatorTok{>=}\StringTok{ }\DecValTok{50} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{     PRE }\OperatorTok{<=}\StringTok{ }\DecValTok{9} \OperatorTok{&}\StringTok{ }\NormalTok{POST }\OperatorTok{>=}\StringTok{ }\DecValTok{10} \OperatorTok{&}\StringTok{ }\NormalTok{PC }\OperatorTok{<=}\StringTok{ }\DecValTok{-50} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+     \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-alpha}{%
+\subsection{Average Internal Consistency}\label{r-alpha}}
+
+Calculation of the average internal consistency Cronbach´s \(\alpha\) as the estimate of reliability to be used to compute Reliable Change Indices and the Edwards-Nunnally criteria. The population´s internal consistency of PHQ-9 assessments was first calculated within each 5-fold interval (pre and post). Then, \(\alpha_{pre}\) and \(\alpha_{post}\) were Fisher Z transformed to take the average of both estimates, and finally this value was transformed back to obtain a pooled Cronbach´s \(\alpha\). The same calculation method was used for questionnaire and EMA data sets.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(DescTools)}
+\NormalTok{PRE_alpha =}\StringTok{ }\KeywordTok{CronbachAlpha}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[pre_5mzp])}
+\NormalTok{POST_alpha =}\StringTok{ }\KeywordTok{CronbachAlpha}\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{[post_5mzp])}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha =}\StringTok{ }\KeywordTok{FisherZInv}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{FisherZ}\NormalTok{(PRE_alpha), }
+                                 \KeywordTok{FisherZ}\NormalTok{(POST_alpha))))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-rci-jt}{%
+\subsection{Reliable Change Index (Jacobson et al., 1984; Jacobson \& Truax, 1991)}\label{r-rci-jt}}
+
+Calculation of the Reliable Change Index \(RCI_{JT}\) and its population-level significance cutoff sensu Jacobson et al. (1984) and Jacobson \& Truax (1991) for the difference between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{RCI_JT =}\StringTok{ }\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{POST }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE) }\OperatorTok{/}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\NormalTok{RCI_JT_Cutoff =}\StringTok{ }\FloatTok{1.96} \OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE) }\OperatorTok{*}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{1.1}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_JT_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_JT }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_JT }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_JT }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_JT }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_JT))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-rci-step}{%
+\subsection{Reliable Change Index (Transformative Step)}\label{r-rci-step}}
+
+Calculation of the transformative step between the Reliable Change Index sensu Jacobson et al. (1984) and Jacobson \& Truax (1991) and the proposed Individualized Reliable Change Index. \(RCI_{Step}\) has the same denominator as \(RCI_{JT}\), but replaces the difference between two single assessments with the mean difference between two assessment intervals in the numerator. The same calculation method was used for both questionnaire and EMA data sets.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{RCI_Step =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean) }\OperatorTok{/}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE1_}\DecValTok{1}\NormalTok{) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_Step_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_Step }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_Step }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_Step }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_Step }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_Step))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-rci-ind-pre}{%
+\subsection{Individualized Reliable Change Index (Pre-SD)}\label{r-rci-ind-pre}}
+
+Calculation of a proposed Individualized Reliable Change Index \(RCI_{ind,preSD}\) and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s standard deviation from the baseline interval as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\CommentTok{### PP_5.5:}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pre =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.pretestSD }\OperatorTok{*}\StringTok{ }
+\StringTok{                            }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{RCI_ind_preSD =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean) }\OperatorTok{/}\StringTok{ }
+\StringTok{                            }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pre}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{RCI_ind_preSD_Cutoff =}\StringTok{  }\FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pre}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_ind_preSD_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_ind_preSD }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_ind_preSD))}
+
+\CommentTok{### PP_30.30:}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pre =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ind.pretestSD }\OperatorTok{*}\StringTok{ }
+\StringTok{                            }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{RCI_ind_preSD =}\StringTok{ }\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean) }\OperatorTok{/}\StringTok{ }
+\StringTok{                            }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pre}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{RCI_ind_preSD_Cutoff =}\StringTok{  }\FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pre}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_ind_preSD_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_ind_preSD }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_ind_preSD }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_ind_preSD))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-rci-ind-pool}{%
+\subsection{Individualized Reliable Change Index (Pooled SD)}\label{r-rci-ind-pool}}
+
+Calculation of a proposed Individualized Reliable Change Index \(RCI_{ind,pooledSD}\) and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s pooled standard deviation from both pre and post intervals as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\CommentTok{### PP_5.5:}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pooled =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{((PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.pretestSD }\OperatorTok{^}\StringTok{ }\DecValTok{2} \OperatorTok{+}\StringTok{ }
+\StringTok{                  }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.posttestSD }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha))}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{RCI_ind_pooledSD =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean) }\OperatorTok{/}\StringTok{ }
+\StringTok{                            }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pooled}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{RCI_ind_pooledSD_Cutoff =}\StringTok{  }\FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{SEd_pooled}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_ind_pooledSD_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_ind_pooledSD }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_ind_pooledSD))}
+
+\CommentTok{### PP_30.30:}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pooled =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{((PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ind.pretestSD }\OperatorTok{^}\StringTok{ }\DecValTok{2} \OperatorTok{+}\StringTok{ }
+\StringTok{                  }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ind.posttestSD }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha))}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{RCI_ind_pooledSD =}\StringTok{ }\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{POST_Mean }\OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean) }\OperatorTok{/}\StringTok{ }
+\StringTok{                            }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pooled}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{RCI_ind_pooledSD_Cutoff =}\StringTok{  }\FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{SEd_pooled}
+
+\CommentTok{# creating the interpretation categories for the RCI(JT), ranging }
+\CommentTok{# from -1 (reliable improvement) to 1 (reliable deterioration):}
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RCI_ind_pooledSD_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{<}\StringTok{ }\FloatTok{-1.96} \OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{>=}\StringTok{ }\FloatTok{-1.96} \OperatorTok{&}\StringTok{ }\NormalTok{RCI_ind_pooledSD }\OperatorTok{<}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    RCI_ind_pooledSD }\OperatorTok{>}\StringTok{ }\FloatTok{1.96} \OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{RCI_ind_pooledSD))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-en}{%
+\subsection{Edwards-Nunnally Method}\label{r-en}}
+
+Calculation of the Edwards-Nunnally Method \emph{EN} (see Edwards et al., 1978; Speer, 1992) for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(dplyr)}
+
+\CommentTok{### PP_5.5:}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{EN_min =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean }\OperatorTok{-}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{-}\StringTok{ }\DecValTok{2} \OperatorTok{*}
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.pretestSD) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+\NormalTok{PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{EN_max =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean }\OperatorTok{-}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\DecValTok{2} \OperatorTok{*}
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{5.5}\OperatorTok{$}\NormalTok{ind.pretestSD) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+
+\CommentTok{# creating the interpretation categories for the EN method, ranging }
+\CommentTok{# from -1 (significant improvement) to 1 (significant deterioration):}
+\NormalTok{PP_}\FloatTok{5.5}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{EN_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    POST_Mean }\OperatorTok{>}\StringTok{ }\NormalTok{EN_max }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    POST_Mean }\OperatorTok{<}\StringTok{ }\NormalTok{EN_max }\OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{>}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    POST_Mean }\OperatorTok{<}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{POST_Mean))}
+
+\CommentTok{### PP_30.30:}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{EN_min =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean }\OperatorTok{-}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{-}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ind.pretestSD) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+\NormalTok{PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{EN_max =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean }\OperatorTok{-}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{PRE_Mean)) }\OperatorTok{+}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }
+\StringTok{          }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{30.30}\OperatorTok{$}\NormalTok{ind.pretestSD) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+
+\CommentTok{# creating the interpretation categories for the EN method, ranging }
+\CommentTok{# from -1 (significant improvement) to 1 (significant deterioration):}
+\NormalTok{PP_}\FloatTok{30.30}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{30.30} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{EN_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    POST_Mean }\OperatorTok{>}\StringTok{ }\NormalTok{EN_max }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    POST_Mean }\OperatorTok{<}\StringTok{ }\NormalTok{EN_max }\OperatorTok{&}\StringTok{ }\NormalTok{POST_Mean }\OperatorTok{>}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    POST_Mean }\OperatorTok{<}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{POST_Mean))}
+
+\CommentTok{### PP_1.1:}
+\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{EN_min =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE)) }\OperatorTok{-}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{sd}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+\NormalTok{PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{EN_max =}\StringTok{ }\NormalTok{(PP_}\FloatTok{5.5}\NormalTok{_Alpha }\OperatorTok{*}\StringTok{ }\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{mean}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE)) }\OperatorTok{+}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{sd}\NormalTok{(PP_}\FloatTok{1.1}\OperatorTok{$}\NormalTok{PRE) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{PP_}\FloatTok{5.5}\NormalTok{_Alpha)}
+
+\CommentTok{# creating the interpretation categories for the EN method, ranging }
+\CommentTok{# from -1 (significant improvement) to 1 (significant deterioration):}
+\NormalTok{PP_}\FloatTok{1.1}\NormalTok{ =}\StringTok{ }\NormalTok{PP_}\FloatTok{1.1} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{EN_klass =} \KeywordTok{case_when}\NormalTok{(}
+\NormalTok{    POST }\OperatorTok{>}\StringTok{ }\NormalTok{EN_max }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{,}
+\NormalTok{    POST }\OperatorTok{<}\StringTok{ }\NormalTok{EN_max }\OperatorTok{&}\StringTok{ }\NormalTok{POST }\OperatorTok{>}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{,}
+\NormalTok{    POST }\OperatorTok{<}\StringTok{ }\NormalTok{EN_min }\OperatorTok{~}\StringTok{ }\DecValTok{-1}\NormalTok{,}
+    \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(POST)))}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{r-jackknife}{%
+\section{Jackknife Resampling of Clinical Change Methods}\label{r-jackknife}}
+
+Bootstrapped calculation of Percentage Change through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(bootstrap)}
+
+\CommentTok{### EMA_30.30:}
+\NormalTok{n =}\StringTok{ }\DecValTok{30}
+\NormalTok{Mean_PC =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\DecValTok{1}\OperatorTok{-}\NormalTok{((}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\NormalTok{(}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])))) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,pre_30mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,post_30mzp]))}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"Mean_PC_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"Mean_PC_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Window:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{Mean_PC =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\DecValTok{1}\OperatorTok{-}\NormalTok{((}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\NormalTok{(}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])))) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Mean_PC_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"Mean_PC_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Days:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{Mean_PC =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\DecValTok{1}\OperatorTok{-}\NormalTok{((}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\NormalTok{(}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])))) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Mean_PC_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"Mean_PC_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, Mean_PC, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+\end{Highlighting}
+\end{Shaded}
+Bootstrapped calculation of the Individual Reliable Change Index (including only pre standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(bootstrap)}
+
+\CommentTok{### EMA_30.30:}
+\NormalTok{n =}\StringTok{ }\DecValTok{30}
+\NormalTok{RCI_ind_preSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))}\OperatorTok{^}\DecValTok{2}\NormalTok{)\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,pre_30mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,post_30mzp]))}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"RCI_ind_preSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"RCI_ind_preSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Window:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{RCI_ind_preSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))}\OperatorTok{^}\DecValTok{2}\NormalTok{)\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"RCI_ind_preSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"RCI_ind_preSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Days:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{RCI_ind_preSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }
+\StringTok{    }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))}\OperatorTok{^}\DecValTok{2}\NormalTok{)\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"RCI_ind_preSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"RCI_ind_preSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_preSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+\end{Highlighting}
+\end{Shaded}
+Bootstrapped calculation of the Individual Reliable Change Index (including pooled standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(bootstrap)}
+
+\CommentTok{### EMA_30.30:}
+\NormalTok{n =}\StringTok{ }\DecValTok{30}
+\NormalTok{RCI_ind_pooledSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{((}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2} \OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,pre_30mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{30.30}\NormalTok{[i,post_30mzp]))}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"RCI_ind_pooledSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{30.30}\NormalTok{[i,}\StringTok{"RCI_ind_pooledSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Window:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{RCI_ind_pooledSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{((}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2} \OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Window[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"RCI_ind_pooledSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{      }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Window[i,}\StringTok{"RCI_ind_pooledSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{      }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+
+\CommentTok{### EMA_5.5_Days:}
+\NormalTok{n =}\StringTok{ }\DecValTok{5}
+\NormalTok{RCI_ind_pooledSD =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ID_df) \{}
+\NormalTok{  (}\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{]) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{((}\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{1}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2} \OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{sd}\NormalTok{(ID_df[x,}\DecValTok{2}\NormalTok{])}\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{EMA_}\FloatTok{5.5}\NormalTok{_Alpha))\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days)) \{}
+\NormalTok{  df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{PRE =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,pre_5mzp]), }
+                  \DataTypeTok{POST =} \KeywordTok{as.numeric}\NormalTok{(EMA_}\FloatTok{5.5}\NormalTok{_Days[i,post_5mzp]))}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"RCI_ind_pooledSD_jse"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.se}
+\NormalTok{  EMA_}\FloatTok{5.5}\NormalTok{_Days[i,}\StringTok{"RCI_ind_pooledSD_jbias"}\NormalTok{] =}\StringTok{ }
+\StringTok{    }\KeywordTok{jackknife}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, RCI_ind_pooledSD, df)}\OperatorTok{$}\NormalTok{jack.bias\}}
+\end{Highlighting}
+\end{Shaded}
+%      //besser am Anfang der Arbeit
+%  \listoftables
+%
+
+%%  \listoffigures
+%
+%\backmatter //auskommentiert, weil es schon im (aktuell letzten) Chapter References ganz oben vorkommt (sonst doppelt im End-Dok. thesis.tex)
+
+% Index?
+
+\end{document}

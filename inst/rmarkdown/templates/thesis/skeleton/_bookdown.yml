@@ -1,0 +1,6 @@
+book_filename: "thesis"
+chapter_name: "Chapter "
+#rmd_files: ["index.Rmd", "01-introduction.Rmd", "02-theoretical-background.Rmd", "03-method.Rmd", "04-results.Rmd", "05-discussion.Rmd", "06-tables-graphics.Rmd", "07-appendix.Rmd", "99-references.Rmd"]
+rmd_files: ["index.Rmd", "01-introduction.Rmd", "02-theoretical-background.Rmd", "03-method.Rmd", "04-results.Rmd", "05-discussion.Rmd", "06-references.Rmd", "07-appendix.Rmd"]
+download: [["thesis.pdf", "PDF"], ["thesis.epub", "EPUB"], ["thesis.docx", "Word"]]
+delete_merged_file: false

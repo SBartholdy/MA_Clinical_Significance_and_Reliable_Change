@@ -1,0 +1,762 @@
+
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
+<!-- weil in References.Rmd ein Einzug eingestellt wurde -->
+\setlength{\parindent}{0in}
+\setlength{\leftskip}{0in}
+\setlength{\parskip}{0pt}
+
+# Appendix: R Code {-}
+
+The appendix includes information about the R version and packages that were used to prepare and process data, as well as R code for the most important pre-processing steps, the computation of clinical change methods, and the Jackknife-bootstrapping method.
+
+
+## R Session Information and Used Packages {#session-info}
+
+```{r label="session-info", results="asis", echo=TRUE}
+toLatex(sessionInfo())
+```
+
+
+## K-Nearest-Neighbor Search {#r-knn-search}
+
+K-Nearest-Neighbor Search (using `get.knn()` from the package _FNN_) for the questionnaire data set \enquote{PP_5.5} as an example (similar procedure for both the EMA and the questionnaire data set).
+
+```{r label="r-knn-search", eval=FALSE}
+pacman::p_load(dplyr, FNN)
+
+# opening the originally simulated data set (N = 100.000) and 
+# calculating interval means and standard deviations
+PP_5.5 = read.delim("cor_07_k20/cor_07_dataset_k20.txt", 
+                    row.names=NULL) %>%
+  select(PRE1_1:POST1_5) %>%
+  add_column(., .before = "PRE1_1", ID = 1:nrow(.)) %>%
+  as_tibble()
+
+pre_5mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5")
+post_5mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5")
+
+PP_5.5$PRE_Mean = apply(PP_5.5[pre_5mzp], 1, mean)
+PP_5.5$POST_Mean = apply(PP_5.5[post_5mzp], 1, mean)
+PP_5.5$MeanDiff = PP_5.5$PRE_Mean - PP_5.5$POST_Mean
+PP_5.5$ind.pretestSD = apply(PP_5.5[pre_5mzp], 1, sd)
+PP_5.5$ind.posttestSD = apply(PP_5.5[post_5mzp], 1, sd)
+save(PP_5.5, file = "cor_07_k20/PP_5.5.RData")
+
+# PRE interval: finding the k=5 nearest neighbors regarding their 
+# mean score and standard deviation (with distance == 0)
+pre_data = PP_5.5 %>% select(PRE_Mean, ind.pretestSD)
+PP_PRE_KNN_df = FNN::get.knn(pre_data, k=5, algorithm = "kd_tree")
+
+x = as_tibble(PP_PRE_KNN_df[[1]], .name_repair = "minimal")
+colnames(x) = c("neighbor1", "neighbor2", "neighbor3", 
+                "neighbor4", "neighbor5")
+y = as_tibble(PP_PRE_KNN_df[[2]], .name_repair = "minimal")
+colnames(y) = c("distance1", "distance2", "distance3", 
+                "distance4", "distance5")
+
+PP_PRE_KNN_df = bind_cols(x, y) %>%
+  add_column(., .before = "neighbor1", ID = 1:nrow(.)) %>%
+  filter(distance1 == 0 & distance2 == 0 & distance3 == 0 & 
+           distance4 == 0 & distance5 == 0)
+
+# POST interval: finding the k=5 nearest neighbors regarding their 
+# mean score and standard deviation (with distance == 0)
+post_data = PP_5.5 %>% select(POST_Mean, ind.posttestSD)
+PP_POST_KNN_df = FNN::get.knn(post_data, k=5, algorithm = "kd_tree")
+
+x = as_tibble(PP_POST_KNN_df[[1]], .name_repair = "minimal")
+colnames(x) = c("neighbor1", "neighbor2", "neighbor3", 
+                "neighbor4", "neighbor5")
+y = as_tibble(PP_POST_KNN_df[[2]], .name_repair = "minimal")
+colnames(y) = c("distance1", "distance2", "distance3", 
+                "distance4", "distance5")
+
+PP_POST_KNN_df = bind_cols(x, y) %>%
+  add_column(., .before = "neighbor1", ID = 1:nrow(.)) %>%
+  filter(distance1 == 0 & distance2 == 0 & distance3 == 0 & 
+           distance4 == 0 & distance5 == 0)
+
+# filtering the resulting knn combinations to keep only unique 
+# rows of 6 perfectly matching neighbors
+# PRE interval
+PP_PRE_KNN_df = PP_PRE_KNN_df %>%
+  select(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) %>%
+  apply(., 1, sort) %>%
+  t() %>%
+  as_tibble() %>%
+  arrange(., V1, V2, V3, V4, V5, V6) %>%
+  distinct() %>%
+  filter(V1 != V2 & V2 != V3 & V3 != V4 & V4 != V5 & V5 != V6) %>%
+  group_by(V1) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+colnames(PP_PRE_KNN_df) = c("ID1_PRE", "ID2_PRE", "ID3_PRE", 
+                            "ID4_PRE", "ID5_PRE", "ID6_PRE")
+
+# POST interval
+PP_POST_KNN_df = PP_POST_KNN_df %>%
+  select(ID, neighbor1, neighbor2, neighbor3, neighbor4, neighbor5) %>%
+  apply(., 1, sort) %>%
+  t() %>%
+  as_tibble() %>%
+  arrange(., V1, V2, V3, V4, V5, V6) %>%
+  distinct() %>%
+  filter(V1 != V2 & V2 != V3 & V3 != V4 & V4 != V5 & V5 != V6) %>%
+  group_by(V1) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+colnames(PP_POST_KNN_df) = c("ID1_POST", "ID2_POST", "ID3_POST", 
+                             "ID4_POST", "ID5_POST", "ID6_POST")
+
+# joining the matched IDs of pre- and post-neighbors in a data frame
+PP_KNNs = inner_join(PP_PRE_KNN_df, PP_POST_KNN_df, 
+              by = c("ID1_PRE" = "ID1_POST"))
+PP_KNNs = PP_KNNs %>%
+  add_column(., .before = "ID2_POST", ID1_POST = PP_KNNs$ID1_PRE)
+save(PP_KNNs, file = "cor_07_k20/PP_KNNs.RData")
+```
+
+
+## Extension of Assessment Intervals {#r-extension}
+
+Extension of assessment intervals for the questionnaire data set \enquote{PP_5.5} as an example (similar procedure for both the EMA and the questionnaire data set).
+
+```{r label="r-extension", eval=FALSE}
+pacman::p_load(dplyr)
+load("cor_07_k20/PP_KNNs.RData")
+load("cor_07_k20/PP_5.5.RData")
+PP_KNNs = PP_KNNs %>% as.data.frame()
+
+PP_30.30 = data.frame(
+  ID1_PRE = c(), ID2_PRE = c(), ID3_PRE = c(), 
+  ID4_PRE = c(), ID5_PRE = c(), ID6_PRE = c(),
+  ID1_POST = c(), ID2_POST = c(), ID3_POST = c(), 
+  ID4_POST = c(), ID5_POST = c(), ID6_POST = c(),
+
+  PRE1_1 = c(), PRE1_2 = c(), PRE1_3 = c(), PRE1_4 = c(), 
+  PRE1_5 = c(), PRE1_6 = c(), PRE1_7 = c(), PRE1_8 = c(), 
+  PRE1_9 = c(), PRE1_10 = c(), PRE1_11 = c(), PRE1_12 = c(), 
+  PRE1_13 = c(), PRE1_14 = c(), PRE1_15 = c(), PRE1_16 = c(), 
+  PRE1_17 = c(), PRE1_18 = c(), PRE1_19 = c(), PRE1_20 = c(),
+  PRE1_21 = c(), PRE1_22 = c(), PRE1_23 = c(), PRE1_24 = c(), 
+  PRE1_25 = c(), PRE1_26 = c(), PRE1_27 = c(), PRE1_28 = c(), 
+  PRE1_29 = c(), PRE1_30 = c(),
+
+  POST1_1 = c(), POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), 
+  POST1_5 = c(), POST1_6 = c(), POST1_7 = c(), POST1_8 = c(), 
+  POST1_9 = c(), POST1_10 = c(), POST1_11 = c(), POST1_12 = c(), 
+  POST1_13 = c(), POST1_14 = c(), POST1_15 = c(), POST1_16 = c(), 
+  POST1_17 = c(), POST1_18 = c(), POST1_19 = c(), POST1_20 = c(),
+  POST1_21 = c(), POST1_22 = c(), POST1_23 = c(), POST1_24 = c(), 
+  POST1_25 = c(), POST1_26 = c(), POST1_27 = c(), POST1_28 = c(), 
+  POST1_29 = c(), POST1_30 = c())
+
+for (i in 1:length(PP_KNNs$ID1_PRE)) {
+  PP_30.30[i,"ID1_PRE"] = PP_KNNs[i,"ID1_PRE"]
+  PP_30.30[i,"ID2_PRE"] = PP_KNNs[i,"ID2_PRE"]
+  PP_30.30[i,"ID3_PRE"] = PP_KNNs[i,"ID3_PRE"]
+  PP_30.30[i,"ID4_PRE"] = PP_KNNs[i,"ID4_PRE"]
+  PP_30.30[i,"ID5_PRE"] = PP_KNNs[i,"ID5_PRE"]
+  PP_30.30[i,"ID6_PRE"] = PP_KNNs[i,"ID6_PRE"]
+  PP_30.30[i,"ID1_POST"] = PP_KNNs[i,"ID1_POST"]
+  PP_30.30[i,"ID2_POST"] = PP_KNNs[i,"ID2_POST"]
+  PP_30.30[i,"ID3_POST"] = PP_KNNs[i,"ID3_POST"]
+  PP_30.30[i,"ID4_POST"] = PP_KNNs[i,"ID4_POST"]
+  PP_30.30[i,"ID5_POST"] = PP_KNNs[i,"ID5_POST"]
+  PP_30.30[i,"ID6_POST"] = PP_KNNs[i,"ID6_POST"]
+
+  PP_30.30[i,"PRE1_1"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_2"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_3"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_4"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_5"] = PP_5.5[PP_KNNs[i,"ID1_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_6"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_7"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_8"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_9"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_10"] = PP_5.5[PP_KNNs[i,"ID2_PRE"],"PRE1_5"]
+
+  PP_30.30[i,"PRE1_11"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_12"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_13"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_14"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_15"] = PP_5.5[PP_KNNs[i,"ID3_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_16"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_17"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_18"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_19"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_20"] = PP_5.5[PP_KNNs[i,"ID4_PRE"],"PRE1_5"]
+
+  PP_30.30[i,"PRE1_21"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_22"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_23"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_24"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_25"] = PP_5.5[PP_KNNs[i,"ID5_PRE"],"PRE1_5"]
+  PP_30.30[i,"PRE1_26"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_1"]
+  PP_30.30[i,"PRE1_27"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_2"]
+  PP_30.30[i,"PRE1_28"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_3"]
+  PP_30.30[i,"PRE1_29"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_4"]
+  PP_30.30[i,"PRE1_30"] = PP_5.5[PP_KNNs[i,"ID6_PRE"],"PRE1_5"]
+
+
+  PP_30.30[i,"POST1_1"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_2"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_3"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_4"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_5"] = PP_5.5[PP_KNNs[i,"ID1_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_6"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_7"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_8"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_9"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_10"] = PP_5.5[PP_KNNs[i,"ID2_POST"],"POST1_5"]
+
+  PP_30.30[i,"POST1_11"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_12"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_13"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_14"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_15"] = PP_5.5[PP_KNNs[i,"ID3_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_16"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_17"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_18"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_19"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_20"] = PP_5.5[PP_KNNs[i,"ID4_POST"],"POST1_5"]
+
+  PP_30.30[i,"POST1_21"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_22"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_23"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_24"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_25"] = PP_5.5[PP_KNNs[i,"ID5_POST"],"POST1_5"]
+  PP_30.30[i,"POST1_26"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_1"]
+  PP_30.30[i,"POST1_27"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_2"]
+  PP_30.30[i,"POST1_28"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_3"]
+  PP_30.30[i,"POST1_29"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_4"]
+  PP_30.30[i,"POST1_30"] = PP_5.5[PP_KNNs[i,"ID6_POST"],"POST1_5"]}
+```
+
+
+## Random Sampling of 5-fold EMA Windows and Days {#r-random-sampling}
+
+Random sampling of 5-fold EMA assessments from 30-fold intervals for the generation of individual (1) 5-fold windows and (2) 5-fold single assessment days.
+
+```{r label="r-random-sampling", eval=FALSE}
+pacman::p_load(dplyr)
+set.seed(42)
+
+pre_5mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5")
+post_5mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5")
+
+pre_30mzp = c("PRE1_1","PRE1_2","PRE1_3","PRE1_4","PRE1_5",
+            "PRE1_6","PRE1_7","PRE1_8","PRE1_9","PRE1_10",
+            "PRE1_11","PRE1_12","PRE1_13","PRE1_14","PRE1_15",
+            "PRE1_16","PRE1_17","PRE1_18","PRE1_19","PRE1_20",
+            "PRE1_21","PRE1_22","PRE1_23","PRE1_24","PRE1_25",
+            "PRE1_26","PRE1_27","PRE1_28","PRE1_29","PRE1_30")
+post_30mzp = c("POST1_1","POST1_2","POST1_3","POST1_4","POST1_5",
+             "POST1_6","POST1_7","POST1_8","POST1_9","POST1_10",
+             "POST1_11","POST1_12","POST1_13","POST1_14","POST1_15",
+             "POST1_16","POST1_17","POST1_18","POST1_19","POST1_20",
+             "POST1_21","POST1_22","POST1_23","POST1_24","POST1_25",
+             "POST1_26","POST1_27","POST1_28","POST1_29","POST1_30")
+
+# (1) 5-fold windows (EMA_5.5_Window)
+# random sampling of 5-fold pre- and post-assessment windows (5 days 
+# in a row) from individual 30-fold intervals (EMA_30.30)
+EMA_5.5_Window = data.frame(ID = c(), 
+  Pre_MZP1 = c(), Pre_MZP2 = c(), Pre_MZP3 = c(), Pre_MZP4 = c(),
+  Pre_MZP5 = c(), Post_MZP1 = c(), Post_MZP2 = c(), Post_MZP3 = c(),
+  Post_MZP4 = c(), Post_MZP5 = c(), PRE1_1 = c(), PRE1_2 = c(),
+  PRE1_3 = c(), PRE1_4 = c(), PRE1_5 = c(), POST1_1 = c(),
+  POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), POST1_5 = c())
+
+for (i in EMA_30.30$ID) {
+  a = sample(1:26, 1)
+  EMA_5.5_pre_Window = pre_30mzp[seq(from = a, to = a+4)]
+  b = sample(1:26, 1)
+  EMA_5.5_post_Window = post_30mzp[seq(from = b, to = b+4)]
+  
+  EMA_5.5_Window[i,"ID"] = i
+  EMA_5.5_Window[i,"Pre_MZP1"] = EMA_5.5_pre_Window[1]
+  EMA_5.5_Window[i,"Pre_MZP2"] = EMA_5.5_pre_Window[2]
+  EMA_5.5_Window[i,"Pre_MZP3"] = EMA_5.5_pre_Window[3]
+  EMA_5.5_Window[i,"Pre_MZP4"] = EMA_5.5_pre_Window[4]
+  EMA_5.5_Window[i,"Pre_MZP5"] = EMA_5.5_pre_Window[5]
+  EMA_5.5_Window[i,"Post_MZP1"] = EMA_5.5_post_Window[1]
+  EMA_5.5_Window[i,"Post_MZP2"] = EMA_5.5_post_Window[2]
+  EMA_5.5_Window[i,"Post_MZP3"] = EMA_5.5_post_Window[3]
+  EMA_5.5_Window[i,"Post_MZP4"] = EMA_5.5_post_Window[4]
+  EMA_5.5_Window[i,"Post_MZP5"] = EMA_5.5_post_Window[5]
+  
+  EMA_5.5_Window[i,"PRE1_1"] = EMA_30.30[i,EMA_5.5_pre_Window[1]]
+  EMA_5.5_Window[i,"PRE1_2"] = EMA_30.30[i,EMA_5.5_pre_Window[2]]
+  EMA_5.5_Window[i,"PRE1_3"] = EMA_30.30[i,EMA_5.5_pre_Window[3]]
+  EMA_5.5_Window[i,"PRE1_4"] = EMA_30.30[i,EMA_5.5_pre_Window[4]]
+  EMA_5.5_Window[i,"PRE1_5"] = EMA_30.30[i,EMA_5.5_pre_Window[5]]
+  EMA_5.5_Window[i,"POST1_1"] = EMA_30.30[i,EMA_5.5_post_Window[1]]
+  EMA_5.5_Window[i,"POST1_2"] = EMA_30.30[i,EMA_5.5_post_Window[2]]
+  EMA_5.5_Window[i,"POST1_3"] = EMA_30.30[i,EMA_5.5_post_Window[3]]
+  EMA_5.5_Window[i,"POST1_4"] = EMA_30.30[i,EMA_5.5_post_Window[4]]
+  EMA_5.5_Window[i,"POST1_5"] = EMA_30.30[i,EMA_5.5_post_Window[5]]}
+
+# (2) 5-fold single assessment days (EMA_5.5_Days)
+# random sampling of 5-fold pre- and post-assessments (not necessarily
+# days in a row) from individual 30-fold intervals (EMA_30.30)
+EMA_5.5_Days = data.frame(ID = c(), 
+  Pre_MZP1 = c(), Pre_MZP2 = c(), Pre_MZP3 = c(), Pre_MZP4 = c(),
+  Pre_MZP5 = c(), Post_MZP1 = c(), Post_MZP2 = c(), Post_MZP3 = c(),
+  Post_MZP4 = c(), Post_MZP5 = c(), PRE1_1 = c(), PRE1_2 = c(),
+  PRE1_3 = c(), PRE1_4 = c(), PRE1_5 = c(), POST1_1 = c(),
+  POST1_2 = c(), POST1_3 = c(), POST1_4 = c(), POST1_5 = c())
+
+for (i in EMA_30.30$ID) {
+  EMA_5.5_pre_Days = pre_30mzp[sort(sample(1:30, 5))]
+  EMA_5.5_post_Days = post_30mzp[sort(sample(1:30, 5))]
+  
+  EMA_5.5_Days[i,"ID"] = i
+  EMA_5.5_Days[i,"Pre_MZP1"] = EMA_5.5_pre_Days[1]
+  EMA_5.5_Days[i,"Pre_MZP2"] = EMA_5.5_pre_Days[2]
+  EMA_5.5_Days[i,"Pre_MZP3"] = EMA_5.5_pre_Days[3]
+  EMA_5.5_Days[i,"Pre_MZP4"] = EMA_5.5_pre_Days[4]
+  EMA_5.5_Days[i,"Pre_MZP5"] = EMA_5.5_pre_Days[5]
+  EMA_5.5_Days[i,"Post_MZP1"] = EMA_5.5_post_Days[1]
+  EMA_5.5_Days[i,"Post_MZP2"] = EMA_5.5_post_Days[2]
+  EMA_5.5_Days[i,"Post_MZP3"] = EMA_5.5_post_Days[3]
+  EMA_5.5_Days[i,"Post_MZP4"] = EMA_5.5_post_Days[4]
+  EMA_5.5_Days[i,"Post_MZP5"] = EMA_5.5_post_Days[5]
+  
+  EMA_5.5_Days[i,"PRE1_1"] = EMA_30.30[i,EMA_5.5_pre_Days[1]]
+  EMA_5.5_Days[i,"PRE1_2"] = EMA_30.30[i,EMA_5.5_pre_Days[2]]
+  EMA_5.5_Days[i,"PRE1_3"] = EMA_30.30[i,EMA_5.5_pre_Days[3]]
+  EMA_5.5_Days[i,"PRE1_4"] = EMA_30.30[i,EMA_5.5_pre_Days[4]]
+  EMA_5.5_Days[i,"PRE1_5"] = EMA_30.30[i,EMA_5.5_pre_Days[5]]
+  EMA_5.5_Days[i,"POST1_1"] = EMA_30.30[i,EMA_5.5_post_Days[1]]
+  EMA_5.5_Days[i,"POST1_2"] = EMA_30.30[i,EMA_5.5_post_Days[2]]
+  EMA_5.5_Days[i,"POST1_3"] = EMA_30.30[i,EMA_5.5_post_Days[3]]
+  EMA_5.5_Days[i,"POST1_4"] = EMA_30.30[i,EMA_5.5_post_Days[4]]
+  EMA_5.5_Days[i,"POST1_5"] = EMA_30.30[i,EMA_5.5_post_Days[5]]}
+```
+
+
+## R Code for the Calculation of Clinical Change Methods
+
+### Percentage Change {#r-pc}
+
+Calculation of the Percentage Change method PC for interpreting the score difference between two assessment intervals (i.e. Mean Percentage Change), as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-pc", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$Mean_PC = (1-(PP_5.5$POST_Mean / PP_5.5$PRE_Mean)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_5.5 = PP_5.5 %>% 
+  mutate(Mean_PC_klass = case_when(
+    Mean_PC <= -50 ~ -2,
+    Mean_PC > -50 & Mean_PC <= -25 ~ -1,
+    Mean_PC > -25 & Mean_PC < 25 ~ 0,
+    Mean_PC >= 25 & Mean_PC < 50 ~ 1,
+    Mean_PC >= 50 ~ 2,
+    TRUE ~ Mean_PC))
+
+### PP_30.30:
+PP_30.30$Mean_PC = (1-(PP_30.30$POST_Mean / PP_30.30$PRE_Mean)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_30.30 = PP_30.30 %>% 
+  mutate(Mean_PC_klass = case_when(
+    Mean_PC <= -50 ~ -2,
+    Mean_PC > -50 & Mean_PC <= -25 ~ -1,
+    Mean_PC > -25 & Mean_PC < 25 ~ 0,
+    Mean_PC >= 25 & Mean_PC < 50 ~ 1,
+    Mean_PC >= 50 ~ 2,
+    TRUE ~ Mean_PC))
+
+### PP_1.1:
+PP_1.1$PC = (1 - (PP_1.1$POST / PP_1.1$PRE)) * 100
+
+# creating the interpretation categories for Percentage Change,
+# ranging from -2 (strong deterioration) to 2 (strong improvement):
+PP_1.1 = PP_1.1 %>% 
+  mutate(PC_klass = case_when(
+    PC <= -50 ~ -2,
+    PC > -50 & PC <= -25 ~ -1,
+    PC > -25 & PC < 25 ~ 0,
+    PC >= 25 & PC < 50 ~ 1,
+    PC >= 50 ~ 2,
+    TRUE ~ as.numeric(PC)))
+```
+
+### Clinical Significance {#r-csi}
+
+Implementation of the Clinical Significance method CSI [see @McMillan.2010] for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-csi", eval=FALSE}
+# creating the interpretation categories for Clinically Sig. Change,
+# ranging from -1 (improvement) to 1 (deterioration):
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5 = PP_5.5 %>% 
+   mutate(CSI_klass = case_when(
+     PRE_Mean >= 10 & POST_Mean <= 9 & Mean_PC >= 50 ~ -1,
+     PRE_Mean <= 9 & POST_Mean >= 10 & Mean_PC <= -50 ~ 1,
+     TRUE ~ 0))
+
+### PP_30.30:
+PP_30.30 = PP_30.30 %>% 
+   mutate(CSI_klass = case_when(
+     PRE_Mean >= 10 & POST_Mean <= 9 & Mean_PC >= 50 ~ -1,
+     PRE_Mean <= 9 & POST_Mean >= 10 & Mean_PC <= -50 ~ 1,
+     TRUE ~ 0))
+
+### PP_1.1:
+PP_1.1 = PP_1.1 %>% 
+   mutate(CSI_klass = case_when(
+     PRE >= 10 & POST <= 9 & PC >= 50 ~ -1,
+     PRE <= 9 & POST >= 10 & PC <= -50 ~ 1,
+     TRUE ~ 0))
+```
+
+### Average Internal Consistency {#r-alpha}
+
+Calculation of the average internal consistency Cronbach´s $\alpha$ as the estimate of reliability to be used to compute Reliable Change Indices and the Edwards-Nunnally criteria. The population´s internal consistency of PHQ-9 assessments was first calculated within each 5-fold interval (pre and post). Then, $\alpha_{pre}$ and $\alpha_{post}$ were Fisher Z transformed to take the average of both estimates, and finally this value was transformed back to obtain a pooled Cronbach´s $\alpha$. The same calculation method was used for questionnaire and EMA data sets.
+
+```{r label="r-alpha", eval=FALSE}
+pacman::p_load(DescTools)
+PRE_alpha = CronbachAlpha(PP_5.5[pre_5mzp])
+POST_alpha = CronbachAlpha(PP_5.5[post_5mzp])
+PP_5.5_Alpha = FisherZInv(mean(c(FisherZ(PRE_alpha), 
+                                 FisherZ(POST_alpha))))
+```
+
+### Reliable Change Index [@Jacobson.1984; @Jacobson.1991] {#r-rci-jt}
+
+Calculation of the Reliable Change Index $RCI_{JT}$ and its population-level significance cutoff sensu @Jacobson.1984 and @Jacobson.1991 for the difference between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-rci-jt", eval=FALSE}
+pacman::p_load(dplyr)
+
+PP_1.1$RCI_JT = (PP_1.1$POST - PP_1.1$PRE) / 
+    sqrt(2 * (sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)) ^ 2)
+RCI_JT_Cutoff = 1.96 * sqrt(2 * (sd(PP_1.1$PRE) * 
+    sqrt(1 - PP_5.5_Alpha)) ^ 2)
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_1.1 = PP_1.1 %>% 
+  mutate(RCI_JT_klass = case_when(
+    RCI_JT < -1.96 ~ -1,
+    RCI_JT >= -1.96 & RCI_JT < 1.96 ~ 0,
+    RCI_JT > 1.96 ~ 1,
+    TRUE ~ RCI_JT))
+```
+
+### Reliable Change Index (Transformative Step) {#r-rci-step}
+
+Calculation of the transformative step between the Reliable Change Index sensu @Jacobson.1984 and @Jacobson.1991 and the proposed Individualized Reliable Change Index. $RCI_{Step}$ has the same denominator as $RCI_{JT}$, but replaces the difference between two single assessments with the mean difference between two assessment intervals in the numerator. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-step", eval=FALSE}
+pacman::p_load(dplyr)
+
+PP_5.5$RCI_Step = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+    sqrt(2 * (sd(PP_5.5$PRE1_1) * sqrt(1 - PP_5.5_Alpha)) ^ 2)
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_Step_klass = case_when(
+    RCI_Step < -1.96 ~ -1,
+    RCI_Step >= -1.96 & RCI_Step < 1.96 ~ 0,
+    RCI_Step > 1.96 ~ 1,
+    TRUE ~ RCI_Step))
+```
+
+### Individualized Reliable Change Index (Pre-SD) {#r-rci-ind-pre}
+
+Calculation of a proposed Individualized Reliable Change Index $RCI_{ind,preSD}$ and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s standard deviation from the baseline interval as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-ind-pre", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$SEd_pre = sqrt(2 * (PP_5.5$ind.pretestSD * 
+                            sqrt(1 - PP_5.5_Alpha)) ^ 2)
+PP_5.5$RCI_ind_preSD = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+                            PP_5.5$SEd_pre
+PP_5.5$RCI_ind_preSD_Cutoff =  1.96 * PP_5.5$SEd_pre
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_ind_preSD_klass = case_when(
+    RCI_ind_preSD < -1.96 ~ -1,
+    RCI_ind_preSD >= -1.96 & RCI_ind_preSD < 1.96 ~ 0,
+    RCI_ind_preSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_preSD))
+
+### PP_30.30:
+PP_30.30$SEd_pre = sqrt(2 * (PP_30.30$ind.pretestSD * 
+                            sqrt(1 - PP_5.5_Alpha)) ^ 2)
+PP_30.30$RCI_ind_preSD = (PP_30.30$POST_Mean - PP_30.30$PRE_Mean) / 
+                            PP_30.30$SEd_pre
+PP_30.30$RCI_ind_preSD_Cutoff =  1.96 * PP_30.30$SEd_pre
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(RCI_ind_preSD_klass = case_when(
+    RCI_ind_preSD < -1.96 ~ -1,
+    RCI_ind_preSD >= -1.96 & RCI_ind_preSD < 1.96 ~ 0,
+    RCI_ind_preSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_preSD))
+```
+
+### Individualized Reliable Change Index (Pooled SD) {#r-rci-ind-pool}
+
+Calculation of a proposed Individualized Reliable Change Index $RCI_{ind,pooledSD}$ and its corresponding individual significance cutoff for the difference between two assessment intervals, including the subject´s pooled standard deviation from both pre and post intervals as a measure of individual variability. The same calculation method was used for both questionnaire and EMA data sets.
+
+```{r label="r-rci-ind-pool", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$SEd_pooled = sqrt((PP_5.5$ind.pretestSD ^ 2 + 
+                  PP_5.5$ind.posttestSD ^ 2) * (1 - PP_5.5_Alpha))
+PP_5.5$RCI_ind_pooledSD = (PP_5.5$POST_Mean - PP_5.5$PRE_Mean) / 
+                            PP_5.5$SEd_pooled
+PP_5.5$RCI_ind_pooledSD_Cutoff =  1.96 * PP_5.5$SEd_pooled
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(RCI_ind_pooledSD_klass = case_when(
+    RCI_ind_pooledSD < -1.96 ~ -1,
+    RCI_ind_pooledSD >= -1.96 & RCI_ind_pooledSD < 1.96 ~ 0,
+    RCI_ind_pooledSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_pooledSD))
+
+### PP_30.30:
+PP_30.30$SEd_pooled = sqrt((PP_30.30$ind.pretestSD ^ 2 + 
+                  PP_30.30$ind.posttestSD ^ 2) * (1 - PP_5.5_Alpha))
+PP_30.30$RCI_ind_pooledSD = (PP_30.30$POST_Mean - PP_30.30$PRE_Mean) / 
+                            PP_30.30$SEd_pooled
+PP_30.30$RCI_ind_pooledSD_Cutoff =  1.96 * PP_30.30$SEd_pooled
+
+# creating the interpretation categories for the RCI(JT), ranging 
+# from -1 (reliable improvement) to 1 (reliable deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(RCI_ind_pooledSD_klass = case_when(
+    RCI_ind_pooledSD < -1.96 ~ -1,
+    RCI_ind_pooledSD >= -1.96 & RCI_ind_pooledSD < 1.96 ~ 0,
+    RCI_ind_pooledSD > 1.96 ~ 1,
+    TRUE ~ RCI_ind_pooledSD))
+```
+
+### Edwards-Nunnally Method {#r-en}
+
+Calculation of the Edwards-Nunnally Method _EN_ [see @Edwards.1978; @Speer.1992] for interpreting the score difference between two assessment intervals, as well as between two single assessments for the questionnaire data set as an example (similar process for both the EMA and the questionnaire data set).
+
+```{r label="r-en", eval=FALSE}
+pacman::p_load(dplyr)
+
+### PP_5.5:
+PP_5.5$EN_min = (PP_5.5_Alpha * (PP_5.5$PRE_Mean - 
+          mean(PP_5.5$PRE_Mean)) + mean(PP_5.5$PRE_Mean)) - 2 *
+          mean(PP_5.5$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+PP_5.5$EN_max = (PP_5.5_Alpha * (PP_5.5$PRE_Mean - 
+          mean(PP_5.5$PRE_Mean)) + mean(PP_5.5$PRE_Mean)) + 2 *
+          mean(PP_5.5$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_5.5 = PP_5.5 %>% 
+  mutate(EN_klass = case_when(
+    POST_Mean > EN_max ~ 1,
+    POST_Mean < EN_max & POST_Mean > EN_min ~ 0,
+    POST_Mean < EN_min ~ -1,
+    TRUE ~ POST_Mean))
+
+### PP_30.30:
+PP_30.30$EN_min = (PP_5.5_Alpha * (PP_30.30$PRE_Mean - 
+          mean(PP_30.30$PRE_Mean)) + mean(PP_30.30$PRE_Mean)) - 2 * 
+          mean(PP_30.30$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+PP_30.30$EN_max = (PP_5.5_Alpha * (PP_30.30$PRE_Mean - 
+          mean(PP_30.30$PRE_Mean)) + mean(PP_30.30$PRE_Mean)) + 2 * 
+          mean(PP_30.30$ind.pretestSD) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_30.30 = PP_30.30 %>% 
+  mutate(EN_klass = case_when(
+    POST_Mean > EN_max ~ 1,
+    POST_Mean < EN_max & POST_Mean > EN_min ~ 0,
+    POST_Mean < EN_min ~ -1,
+    TRUE ~ POST_Mean))
+
+### PP_1.1:
+PP_1.1$EN_min = (PP_5.5_Alpha * (PP_1.1$PRE - mean(PP_1.1$PRE)) + 
+    mean(PP_1.1$PRE)) - 2 * sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)
+PP_1.1$EN_max = (PP_5.5_Alpha * (PP_1.1$PRE - mean(PP_1.1$PRE)) + 
+    mean(PP_1.1$PRE)) + 2 * sd(PP_1.1$PRE) * sqrt(1 - PP_5.5_Alpha)
+
+# creating the interpretation categories for the EN method, ranging 
+# from -1 (significant improvement) to 1 (significant deterioration):
+PP_1.1 = PP_1.1 %>% 
+  mutate(EN_klass = case_when(
+    POST > EN_max ~ 1,
+    POST < EN_max & POST > EN_min ~ 0,
+    POST < EN_min ~ -1,
+    TRUE ~ as.numeric(POST)))
+```
+
+
+## Jackknife Resampling of Clinical Change Methods {#r-jackknife}
+
+Bootstrapped calculation of Percentage Change through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-pc", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_30.30[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Window[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"Mean_PC_jse"] = 
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Days[i,"Mean_PC_jbias"] = 
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including only pre standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pre", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / 
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_preSD_jse"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_preSD_jbias"] = 
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including pooled standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pool", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]), 
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_pooledSD_jse"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_pooledSD_jbias"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jse"] = 
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jbias"] = 
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 + 
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]), 
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jse"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jbias"] = 
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+```
+
+
