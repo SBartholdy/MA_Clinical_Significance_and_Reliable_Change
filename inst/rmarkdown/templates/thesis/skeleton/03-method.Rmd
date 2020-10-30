@@ -16,8 +16,6 @@ MathJax.Hub.Config({
 
 
 
-## Planned Statistical Analyses
-
 
 
 
@@ -28,6 +26,8 @@ All following analyses are based on mathematically simulated data sets that were
 Estimated parameters and the simulation process will be described in the following sections.
 
 
+
+Data were simulated on the basis of an empirical clinical trial conducted with a 
 <!--
 // The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
 
@@ -47,7 +47,7 @@ clinical sample undergoing treatment for depression
 
 
 
-Data sets for both diagnostic methods showed an overall effect size of Cohen´s _d_ between 0.88 (EMA) and 0.91 (questionnaire) for the symptom change from pre- to post timepoints. Their overall \enquote{treatment effect} would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
+Data sets for both diagnostic methods showed an overall effect size of Cohen´s _d_ between 0.88 (EMA) and 0.92 (questionnaire) for the symptom change from pre- to post timepoints. Their overall _treatment effect_ would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
 \par
 
 
@@ -113,7 +113,7 @@ Frequency of assessments
 
 #### K-Nearest-Neighbor Search
 
-In order to investigate the sensitivity and specificity of estimates obtained through single and short-interval assessment formats in comparison to each subject´s respective _true symptom levels_ -- defined by the score changes in their underlying structure of daily assessments--, it was necessary to extend the originally simulated assessment intervals. As both the questionnaire and EMA scenarios were first modeled for 5-fold intervals, they were extended for further analyses to obtain 30-fold pre- and post assessment intervals. This was achieved with the following approach (R code is provided in Appendix \@ref(r-knn-search)). \par
+In order to investigate the sensitivity and specificity of estimates obtained through single and short-interval assessment formats in comparison to each subject´s respective _true symptom levels_ -- defined by the score changes in their underlying structure of daily assessments -- it was necessary to extend the originally simulated assessment intervals. As both the questionnaire and EMA scenarios were first modeled for 5-fold intervals, they were extended for further analyses to obtain 30-fold pre- and post assessment intervals. This was achieved with the following approach (R code is provided in Appendix \@ref(r-knn-search)). \par
 
 In both simulated data sets comprising _N_ = 100.000 participants each, subjects with equal interval means and standard deviations were matched using a k-nearest-neighbor (KNN) search algorithm. In particular, this was done using the k-dimensional tree algorithm within the function `get.knn()` from the R package _FNN_ [@Beygelzimer.2019]. This KNN-search method compares all cases to one another on one or more dimensions of interest by computing the Euclidian distances between them. \par
 
@@ -123,22 +123,20 @@ For instance, to compare two participants $p = (p_{1},p_{2})$ and $q = (q_{1},q_
 d(p,q) = \sqrt{(q_{1} - p_{1})^2 + (q_{2} - p_{2})^2} (\#eq:eucl-dist)
 \end{equation}
 
-Cases were matched separately by pre- and post-treatment intervals to ensure an appropriate balance between (1) within-interval similarity and (2) individual between-interval changes.
+Cases were matched separately by pre- and post-treatment intervals to ensure an appropriate balance between (1) within-interval similarity and (2) individual between-interval changes:
 
 1. within-interval similarity between matched cases: cases need to have a similar mean score and fluctuation within the respective interval
 2. individual between-interval changes: matched cases do not need to have similar score changes between their pre- and their post-treatment intervals
 
 \par
-By specifying the KNN-search function with _k_ = 5, it calculates the similarity of all cases to each other and matches each case with its 5 nearest neighbors, resulting in lists of 6 matched case IDs for each specific (observed) combination of interval means and standard deviations. In this way, cases with similar average symptom scores and similar _pre-_ and _post_ standard deviations were matched inside each data set (questionnaire and EMA). Thereby, only participants with both (1) similar average score changes from _pre_ to _post_ and (2) similar intra-individual variability were matched together. 
+By specifying the KNN-search function with _k_ = 5, it calculates the similarity of all cases to each other and matches each case with its 5 nearest neighbors, resulting in lists of 6 matched case IDs for each specific (observed) combination of interval means and standard deviations. In this way, cases with similar average symptom scores and similar _pre-_ and _post_ standard deviations were matched inside each data set (questionnaire and EMA). Thereby, only participants with both similar average score changes from _pre_ to _post_ and similar intra-individual variability were matched together. 
 
 
 #### Generation of 30-fold Individual Assessment Intervals
 
-The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. In detail, for each combination of 6 perfect neighbors regarding the pre-treatment interval, the IDs of these neighbors were used to bind their 5-fold pre-treatment intervals together to obtain a table of cases with 30-fold pre-treatment intervals. Within this data set of matched pre-case IDs, cases were first sorted within each set of 6 matched IDs (i.e., within rows), then sorted by rows (i.e., by the lowest ID in each row), and then filtered to contain only unique combinations of matched case IDs. The same was also done for all cases that were matched by their post-treatment intervals. \par
+The individual assessment intervals of these similar cases were then concatenated after one another in order to extend the number of simulated assessments from 5-fold to 30-fold intervals for each participant. In detail, for each combination of 6 perfect neighbors regarding the pre-treatment interval, the IDs of these neighbors were used to bind their 5-fold pre-treatment intervals together to obtain a table of cases with 30-fold pre-treatment intervals. Within this data set of matched pre-case IDs, cases were first sorted within each set of 6 matched IDs (i.e., within rows), then sorted by rows (i.e., by the lowest ID in each row), and then filtered to contain only unique combinations of matched case IDs. This was also done for all cases that were matched by their post-treatment intervals. \par
 
-Finally, pre- and post-KNN lists were joined by the first, and therefore lowest, ID in each case row. Hence, the number of cases was further filtered to comprise only cases which contained both 6-fold pre- and 6-fold post-case IDs, i.e. only cases with 6 pre-nearest neighbors and 6 post-nearest neighbors, which could be linked together by their lowest ID. For instance, if the KNN search had found 6 cases that perfectly matched on their pre-treatment intervals, _PreIDs_ = \{1; 63; 411; 482; 1072; 4315\}, and 6 cases that perfectly matched on their post-treatment intervals, _PostIDs_ = \{1; 28; 369; 472; 983; 2365\}, then these pre- and post-IDs would be joined together by the lowest ID that they had in common (i.e., 1): _IDs_ = \{\{1; 63; 411; 482; 1072; 4315\};\{1; 28; 369; 472; 983; 2365\}\}. \par
-
-Using this KNN-search information, the final 30-fold assessment intervals were then created by concatenating the assessments of matched cases from the originally simulated questionnaire- and EMA-like data sets. Both the questionnaire-like and EMA-like samples were reduced by the extension process by about 92 %, resulting in sample sizes of _N_ = 8240 (questionnaire) and _N_ = **........8087........** (EMA). R code for this procedure is provided in the Appendices \@ref(r-knn-search) and \@ref(r-extension). \par
+Finally, pre- and post-KNN lists were joined by the first, and therefore lowest, ID in each case row. Hence, the number of cases was further filtered to comprise only cases which contained both 6-fold pre- and 6-fold post-case IDs, i.e. only cases with 6 pre-nearest neighbors and 6 post-nearest neighbors, which could be linked together by their lowest ID. For instance, if the KNN search had found 6 cases that perfectly matched on their pre-treatment intervals, $IDs_{pre}$ = \{1; 63; 411; 482; 1072; 4315\}, and 6 cases that perfectly matched on their post-treatment intervals, $IDs_{post}$ = \{1; 28; 369; 472; 983; 2365\}, then these pre- and post-IDs would be joined together by the lowest ID that they had in common (i.e., 1): $IDs$ = \{\{1; 63; 411; 482; 1072; 4315\};\{1; 28; 369; 472; 983; 2365\}\}. Using this KNN-search information, the final 30-fold assessment intervals were created by concatenating the assessments of matched cases from the originally simulated questionnaire- and EMA-like data sets. Both the questionnaire-like and EMA-like samples were reduced by the extension process by about 92 %, resulting in sample sizes of _N_ = 8.240 (questionnaire) and _N_ = 8.087 (EMA). R code for this procedure is provided in the Appendices \@ref(r-knn-search) and \@ref(r-extension). \par
 
 It should be noted that this strategy to extend assessment intervals, i.e. by stringing together 5-fold intervals from multiple different cases, was only considered appropriate because the originally simulated data presented no signs of autoregressive effects within individual intervals, i.e. neither systematic longitudinal effects between consecutive assessments (i.e., overall improvement or deterioration of symptoms within an interval) nor systematic variability (i.e., regression towards the mean or regression towards the tail). These assumptions can be confirmed, for instance, from the correlation matrix given in Section \@ref(reliability).
 
@@ -147,16 +145,12 @@ It should be noted that this strategy to extend assessment intervals, i.e. by st
 
 In order to realistically simulate drawing arbitrary 5-fold (EMA-like) samples of assessments from each subject´s 30-fold intervals, the following approach was taken exclusively within the EMA data set (see the R code in Appendix \@ref(r-random-sampling)). \par
 
-For each subject individually, 5-fold _windows_ of pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \enquote{EMA_5.5_Window}. This scenario simulates a study design in which participants are monitored via EMA on 5 consecutive days before and after receiving a treatment. \par
-
-Furthermore, for each subject individually, 5 single pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario \enquote{EMA_5.5_Days}. This scenario simulates a study design in which participants are monitored via EMA on 5 arbitrary and not necessarily consecutive days before and after receiving a treatment.
+For each subject individually, 5-fold _windows_ of pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario $EMA_{5.5-Window}$. This scenario simulates a study design in which participants are monitored via EMA on 5 consecutive days before and after receiving a treatment. Furthermore, for each subject individually, 5 single pre-treatment and post-treatment assessments were randomly drawn from their respective 30-fold intervals in order to create the scenario $EMA_{5.5-Days}$. This scenario simulates a study design in which participants are monitored via EMA on 5 arbitrary and not necessarily consecutive days before and after receiving a treatment.
 
 
 ### Exclusion of Cases Without Variance
 
-Cases with no symptom variability, i.e. with constant scores, throughout one or both of their assessment intervals were excluded from all analyses. This criterion for exclusion was formulated because it was deemed improbable for participants to show no fluctuation in PHQ-9 scores over 5-fold, or even more improbable, over 30-fold assessments. Including these cases would also have affected the outcomes of all clinical change methods which incorporate individual standard deviations as estimates of within-subject fluctuations, e.g., by yielding infinite values (see Section \@ref(class-methods) below). \par
-
-_n_ = 14 cases were excluded from questionnaire scenarios and _N_ = **............** cases were excluded from EMA scenarios, resulting in final samples comprising _N_ = 8226 participants with questionnaire assessments and _N_ = **............** participants with EMA assessments.
+Cases with no symptom variability (i.e. with constant scores) throughout one or both of their assessment intervals were excluded from all analyses. This criterion for exclusion was formulated because it was deemed improbable for participants to show no fluctuation in PHQ-9 scores over 5-fold, or even more improbable, over 30-fold assessments. Including these cases would also have affected the outcomes of all clinical change methods which incorporate individual standard deviations as estimates of within-subject fluctuations, e.g., by yielding infinite values (see Section \@ref(class-methods) below). _n_ = 14 cases were excluded from questionnaire scenarios and _n_ = 47 cases were excluded from EMA scenarios, resulting in final samples comprising _N_ = 8.226 participants with questionnaire assessments and _N_ = 8.040 participants with EMA assessments.
 
 
 ### Comparability of the Data Sets
@@ -194,6 +188,12 @@ The correlation matrix of pre- and post assessments is shown in Table \@ref(tab:
 
 
 ### EMA Scenario
+
+
+
+
+## Planned Statistical Analyses
+
 
 
 
@@ -236,7 +236,7 @@ The clinical interpretation categories of the PHQ-9 and their classification fre
 ## Classification Methods {#class-methods}
 
 
-Widespread classification methods will be explored regarding their convergent and divergent validity
+Widespread classification methods will be explored regarding their convergent and divergent validity.
 
 
 
@@ -244,24 +244,28 @@ Widespread classification methods will be explored regarding their convergent an
 
 
 
-A detailed description of the Percentage Change _PC_ (or sometimes called Percentage Improvement, _PI_) Method is given in @Karin.2018.
+A detailed description of the Percentage Change method _PC_ (also known as Percentage Improvement, _PI_) is given in @Karin.2018.
 
-<br>
+
+
+
 \begin{equation}
 PC = \Bigl(1 - \frac{\overline{x_{2}}} {\overline{x_{1}}}\Bigr) \cdot 100 (\#eq:pc)
 \end{equation}
 
-\noindent
-$\overline{x_{2}}$ = mean of subject´s posttest scores, 
-$\overline{x_{1}}$ = mean of subject´s pretest scores
-\par
+> $\overline{x_{2}}$ = mean of subject´s posttest scores, $\overline{x_{1}}$ = mean of subject´s pretest scores
 
+\par
 
 The _Percentage Change_ method results in an index that describes a subject´s post-treatment score as a proportion of his or her pre-treatment score. A positive result indicates that the post-treatment score is smaller than the pre-treatment score (i.e., improvement), while a negative result indicates a post-treatment score higher than the pre-treatment score (i.e., deterioration). When applied on a common scoring system for a psychological construct, i.e. including only non-negative scores, the resulting index can assume values smaller than or equal to 100. This is a consequence of the fact that a person can not reduce his or her scores by more than 100 %, as the lower bound of the scale itself is non-negative (most typically 0). But depending on the specific scale, it may well be possible that a subject can increase scores from pre- to post-treatment by more than 100 %, indicated by a post-treatment score greater than two times the size of the pre-treatment score. Hence, the negative limit of the index (i.e., the most extreme expression of deterioration) is not defined a priori, but rather scale- and data-specific, as it is determined by the maximum of the empirical distribution of pre-treatment scores in relation to the highest achievable score on the scale.
 \par
-The PC method is a _proportional_, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be _linear_ in the population, but rather 
-\par
-The assumption of _linear_ change is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated. 
+
+
+The PC method is a _proportional_, and therefore individualized, approach to interpreting longitudinal change. This means that it does not assume score changes to be _linear_ in the population, but rather makes no assumptions about the nature of individual change. 
+
+
+
+The assumption of _linear_ change, on the other hand, is inherent in all methods which include a fixed score difference that has to be achieved by participants in order to be regarded as meaningfully improved or deteriorated. 
 
 This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
 
@@ -350,10 +354,10 @@ Contemplating the sole reliance on statistical significance of tests, @Jacobson.
 \par
 They 
 \par
-The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $RCI>|1.96|$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
+The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $|RCI|>1.96$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
 
 
-<br>
+
 \begin{equation}
 RCI = \frac{x_{2} - x_{1}}  {s_{diff}} (\#eq:rci-jt)
 \end{equation}
@@ -365,30 +369,25 @@ s_{diff} = \sqrt{2 \cdot (S_{E})^2} (\#eq:rci-jt-sdiff)
 \begin{equation}
 SE = s_{1} \cdot \sqrt{1 - r_{xx \text{´}}} (\#eq:rci-jt-se)
 \end{equation}
-<br>
 
-\noindent $x_{2}$ = subject´s posttest score, 
-$x_{1}$ = subject´s pretest score, 
-$s_{diff}$ = standard error of difference between test scores, 
-$SE$ = standard error of measurement, 
-$s_{1}$ = standard deviation of test scores at pretest, 
-$r_{xx \text{´}}$ = reliability of the measure
+> $x_{2}$ = subject´s posttest score, $x_{1}$ = subject´s pretest score, $s_{diff}$ = standard error of difference between test scores, $SE$ = standard error of measurement, $s_{1}$ = standard deviation of test scores at pretest, $r_{xx \text{´}}$ = reliability of the measure
+
 \par
 
-For instance, a significant RC index of $|2|$ would show that the score difference was equal to two standard deviations which were weighted by the reliability of the method.
+For instance, a significant RC index of $\pm 2$ would show that the score difference was equal to two standard deviations which were weighted by the reliability of the method.
 
 
 \par
 
 Furthermore, @Jacobson.1984 and @Jacobson.1991 offer an additional formula for the calculation of a significance cutoff in raw scores, given by the following formula.
 
-<br>
+
 \begin{equation}
 \textit{significance cutoff} = 1.96 \cdot s_{diff} = 1.96 \cdot \sqrt{2 \cdot (s_{1} \cdot \sqrt{1 - r_{xx \text{´}}})^2} (\#eq:rci-jt-cut)
 \end{equation}
-<br>
 
-\noindent $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+> $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+
 \par
 
 This formula defines the raw score that an individual would have to gain or lose in the respective scale to be recognized as reliably changed. It is also based on the whole sample´s characteristics.
@@ -413,26 +412,21 @@ The RCI(ind) is proposed as a mathematical adaptation of the originally defined 
 \par
 
 
-> Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+\par
+Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
 
-<br>
+
 \begin{equation}
 RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}} (\#eq:rci-step)
 \end{equation}
-<br>
 
-$\overline{x_{2}}$ = mean of subject´s posttest scores, 
-$\overline{x_{1}}$ = mean of subject´s pretest scores
-<br>
+> $\overline{x_{2}}$ = mean of subject´s posttest scores, $\overline{x_{1}}$ = mean of subject´s pretest scores
 
+\par
 
-
+RCI(ind) using the SD from the individual pre-interval
 
 
-
-> RCI(ind) using the SD from the individual pre-interval
-
-<br>
 \begin{equation}
 RCI_{\textit{ind, pre SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D,pre}} (\#eq:rci-ind-presd)
 \end{equation}
@@ -445,21 +439,14 @@ SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-se)
 \textit{significance cutoff} = 1.96 \cdot SE_{D,pre} = 1.96 \cdot \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-cut)
 \end{equation}
 
-$\overline{x_{2}}$ = mean of subject´s posttest scores, 
-$\overline{x_{1}}$ = mean of subject´s pretest scores, 
-$SE_{D,pre}$ = standard error of difference between the test scores in the individual´s pre interval 
-$s_{x}$ = individual standard deviation of pretest time points, 
-$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
-$\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
-<br>
+> $\overline{x_{2}}$ = mean of subject´s posttest scores, $\overline{x_{1}}$ = mean of subject´s pretest scores, $SE_{D,pre}$ = standard error of difference between the test scores in the individual´s pre interval, $s_{x}$ = individual standard deviation of pretest time points, $r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+
+\par
 
 
+RCI(ind) using pooled SDs from both individual intervals
 
 
-
-> RCI(ind) using pooled SDs from both individual intervals
-
-<br>
 \begin{equation}
 RCI_{\textit{ind, pooled SD}} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {SE_{D}} (\#eq:rci-ind-pooledsd)
 \end{equation}
@@ -472,14 +459,9 @@ SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-se
 \textit{significance cutoff} = 1.96 \cdot SE_{D} = 1.96 \cdot \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-cut)
 \end{equation}
 
-$\overline{x_{2}}$ = mean of subject´s posttest scores, 
-$\overline{x_{1}}$ = mean of subject´s pretest scores, 
-$SE_{D}$ = pooled standard error of difference between the test scores 
-$s_{x}$ = individual standard deviation of pretest time points, 
-$s_{y}$ = individual standard deviation of pretest time points, 
-$r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, 
-$\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
-<br>
+> $\overline{x_{2}}$ = mean of subject´s posttest scores, $\overline{x_{1}}$ = mean of subject´s pretest scores, $SE_{D}$ = pooled standard error of difference between the test scores, $s_{x}$ = individual standard deviation of pretest time points, $s_{y}$ = individual standard deviation of pretest time points, $r_{xy}$ = reliability (internal consistency Cronbach´s $\alpha$) of the measure, $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95%-criterion)
+
+\par
 
 
 
@@ -509,18 +491,16 @@ $\textit{significance cutoff}$ = (absolute) cutoff score for reliable change (95
 @Edwards.1978
 [@Speer.1992]
 
-<br>
+
 \begin{equation}
 \textit{EN Interval} = \bigl[ r_{xx} (X_{pre} - M_{pre}) + M_{pre} \bigr] \pm 2 \cdot S_{pre} \cdot \sqrt{1 - r_{xx}} (\#eq:en)
 \end{equation}
 
-$r_{xx}$ = reliability of the measure, 
-$X_{pre}$ = individual´s raw score at pre-treatment, 
-$M_{pre}$ = mean of the sample at pre-treatment, 
-$S_{pre}$ = standard deviation of the sample at pre-treatment
-<br>
+> $r_{xx}$ = reliability of the measure, $X_{pre}$ = individual´s raw score at pre-treatment, $M_{pre}$ = mean of the sample at pre-treatment, $S_{pre}$ = standard deviation of the sample at pre-treatment
 
-> Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval method:
+\par
+
+Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval method:
 
 \par
 
@@ -610,12 +590,14 @@ Statistical power is the probability of a specific method to detect an effect, g
 
 \par \noindent
 _Sensitivity_, also known as _recall_ or _true-positive rate_, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both _true_ improvement and deterioration.
+
 \begin{equation}
 Sensitivity = \frac{tp}{p} = \frac{tp}{tp + fn} (\#eq:sensitivity)
 \end{equation}
 
-\par \noindent
+\par
 _Specificity_, also known as _selectivity_ or _true-negative rate_, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
+
 \begin{equation}
 Specificity = \frac{tn}{n} = \frac{tn}{tn + fp} (\#eq:specificity)
 \end{equation}
@@ -640,11 +622,12 @@ Power = 1 - \beta (\#eq:power)
 
 \par \noindent
 Note that statistical power is equivalent to sensitivity, because:
+
 \begin{equation}
 Power = 1 - \beta = 1 - \frac{fn}{fn + tp} = \frac{fn + tp}{fn + tp} - \frac{fn}{fn + tp} = \frac{tp}{fn + tp} = Sensitivity (\#eq:power-sens-equiv)
 \end{equation}
 
-\par \noindent
+\par
 
 <!--
 <https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
@@ -660,6 +643,23 @@ Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions 
 
 
 
+## False-Positive Rate and Specificity in a Control Group
+
+False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _p_ = _tp_ + _fn_ = 0, implying that cases of true change could neither be detected (i.e. _tp_ = 0) nor overlooked (i.e. _fn_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
+
+
+
+The _false-positive rate (FPR)_ is given by:
+\begin{equation}
+FPR = \frac{fp}{n} = \frac{fp}{fp + tn} (\#eq:fpr)
+\end{equation}
+
+\par
+Hence, classification methods can be compared regarding their false-positive rates and their specificity (i.e. probability of true-positive classifications) on the basis of this data source.
+
+\par
+The resulting 
+
 
 
 
@@ -667,5 +667,7 @@ Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions 
 ## Jackknife Resampling of Parameter Estimates
 
 Exemplary R code for this bootstrapped analysis is provided in \@ref(r-jackknife).
+
+
 
 

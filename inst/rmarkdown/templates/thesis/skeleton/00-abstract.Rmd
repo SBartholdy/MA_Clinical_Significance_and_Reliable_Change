@@ -1,19 +1,11 @@
-The preface pretty much says it all.
 
+**Introduction**: Psychological therapy research is subject to constant quality control in order to provide reliable knowledge. One factor thatis still neglected today is the statistical power. In the fewest studies is this sufficiently calculated or described. Although new trends show an increased interest in the topic, it remains problematic. The new direction of web based therapies offers benefits in this regard. The present work is dedicated to these topics and tries to provide an overview of the present state of affairs. 
 
+**Method**: 60 randomized controlled trials (RCTs), with a total of 11098 individuals, published between 2014 and 2017, were analyzed for their statistical power. The studies were taken from an already published meta-analysis and refer to therapeutic studies on the treatment of depression, including web based studies. 
 
+**Results**: In more than half of the cases (55 % of the studies, 33 studies) a priori power analysis was found, but only in 18 % of the cases (11 studies) was sufficiently replicable described. As light time effect has been found over the years (from 0 % to 25 %) and web based studies are higher-powered than conventional ones. 
 
-
+**Discussion**: The results of the study are broadly in line with expectations, and the fact that general low power analysis and values are used severely restricts the interpretation. Additional limitations are being considered, as well as the implication that power analysis has become a much-discussed field. 
 
 \par
-
-
-
-
-
-
-
-
-
-**Introduction**: Psychological therapy research is subject to constant quality control in order to provide reliable knowledge. One factor thatis still neglected today is the statistical power. In the fewest studies is this sufficiently calculated or described. Although new trends show an increased interest in the topic, it remains problematic. The new direction of web based therapies offers benefits in this regard. The present work is dedicated to these topics and tries to provide an overview of the present state of affairs. **Method**: 60 randomized controlled trials (RCTs), with a total of 11098 individuals, published between 2014 and 2017, were analyzed for their statistical power. The studies were taken from an already published meta-analysis and refer to therapeutic studies on the treatment of depression, including web based studies. **Results**: In more than half of the cases (55 % of the studies, 33 studies) a priori power analysis was found, but only in 18 % of the cases (11 studies) was sufficiently replicable described. As light time effect has been found over the years (from 0 % to 25 %) and web based studies are higher-powered than conventional ones. **Discussion**: The results of the study are broadly in line with expectations, and the fact that general low power analysis and values are used severely restricts the interpretation. Additional limitations are being considered, as well as the implication that power analysis has become a much-discussed field. \par
 _Keywords_: RCT, depression, statistic power, power analysis, meta-analysis, review

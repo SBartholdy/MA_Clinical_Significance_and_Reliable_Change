@@ -79,6 +79,7 @@ PP_1.1 = PP_1.1 %>%
   add_column(., .before = "ID_orig", ID = 1:nrow(.))
 ```
 
+
 # Results {#results}
 
 
@@ -108,17 +109,13 @@ All steps of data preparation and statistical analyses were performed using the 
 
 Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pre-treatment (in light bars) and post-treatment scores (in dark bars).
 
-<!--
-```{r echo=FALSE, fig.align="center", out.width="75%"}
-#knitr::include_graphics("Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin.jpg")
-knitr::include_graphics("data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg")
+
+
+```{r}
+
 ```
 
-\caption{\textit{A Figure}} \label{fig:fig1}
-\begin{center}
-  \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI}
-\end{center}
--->
+
 
 
 
@@ -127,8 +124,59 @@ knitr::include_graphics("data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Vio
 
 
 
+\begin{figure}
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-5-5-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+\par
+Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of participants in the 5-fold questionnaire scenario between pre- and post-treatment mean score differences ^[Repeated-measures box- and violin plots were created following an open-visualizations tutorial available on \url{https://jorvlan.github.io/publications/repmes_tutorial_R.pdf}].
+
+<!--
+- individual pre- and post-treatment interval means
+- The average mean difference is given by the bold black line, being almost identical to the median mean difference shown in the box plots.
+- Box plots show median pre- and post interval means
+-->
+
+
+\begin{figure}
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-30-30-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+
+\begin{figure}
+\caption{\textit{Individual PHQ-9 Score Differences Between Single Pre-Treatment and Post-Treatment Assessments in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-1.1-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+
 ### EMA Scenario
 
+
+\begin{figure}
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated EMA Scenario}}\label{fig:k20-ema-30-30-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+\begin{figure}
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Windows in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-win-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Window_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+\begin{figure}
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Days in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-day-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Days_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
 
 
 
@@ -156,22 +204,9 @@ Barplot with 95% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI.
 
 
 
-## False-Positive Rate and Specificity
-
-False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _p_ = _tp_ + _fn_ = 0, implying that cases of true change could neither be detected (i.e. _tp_ = 0) nor overlooked (i.e. _fn_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
+## False-Positive Rate and Specificity in a Control Group
 
 
-
-The _false-positive rate (FPR)_ is given by:
-\begin{equation}
-FPR = \frac{fp}{n} = \frac{fp}{fp + tn} (\#eq:fpr)
-\end{equation}
-
-\par
-Hence, classification methods can be compared regarding their false-positive rates and their specificity (i.e. probability of true-positive classifications) on the basis of this data source.
-
-\par
-The resulting 
 
 
 ### Paper-Pencil Scenario
@@ -190,11 +225,21 @@ The resulting
 
 
 
+### Paper-Pencil Scenario
+
+
+### Percentage Change
+
+```{r echo=FALSE}
+
+```
+
+
+
+
 Within the same assessment frequency, the method bias of classifications was up to 19 % (of non-agreement).
 
 
-
-### Paper-Pencil Scenario
 
 
 

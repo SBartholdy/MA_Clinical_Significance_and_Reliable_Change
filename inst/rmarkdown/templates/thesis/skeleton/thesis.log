@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  29 OCT 2020 04:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  30 OCT 2020 02:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -987,7 +987,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 26
-7.
+9.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -996,34 +996,33 @@ d-pdftex.def
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count329
 \l__pdf_internal_box=\box82
-)
-No file thesis.aux.
+) (./thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 267.
-LaTeX Font Info:    ... okay on input line 267.
-LaTeX Info: Redefining \microtypecontext on input line 267.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 269.
+LaTeX Font Info:    ... okay on input line 269.
+LaTeX Info: Redefining \microtypecontext on input line 269.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 267.
+LaTeX Info: Redefining \showhyphens on input line 269.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1044,7 +1043,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 267.
+Package hyperref Info: Link coloring OFF on input line 269.
 
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -1060,9 +1059,10 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count330
 )
-LaTeX Info: Redefining \ref on input line 267.
-LaTeX Info: Redefining \pageref on input line 267.
-LaTeX Info: Redefining \nameref on input line 267.
+LaTeX Info: Redefining \ref on input line 269.
+LaTeX Info: Redefining \pageref on input line 269.
+LaTeX Info: Redefining \nameref on input line 269.
+(./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
@@ -1080,47 +1080,47 @@ x.map}]pdfTeX warning (ext4): destination with the same identifier (name{page.1
 }) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.276 \frontmatter
+l.278 \frontmatter
                    % this stuff will be roman-numbered [1
 
 ]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-83.
+85.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 2
-87.
+89.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
-87.
+89.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-287.
+289.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-287.
+289.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 287.
+(Font)              <12> on input line 289.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 287.
+(Font)              <8> on input line 289.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 287.
+(Font)              <6> on input line 289.
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 28
-7.
+9.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 287
+LaTeX Font Info:    Trying to load font information for U+msa on input line 289
 .
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1129,7 +1129,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 fg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 287
+LaTeX Font Info:    Trying to load font information for U+msb on input line 289
 .
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1139,39 +1139,48 @@ fg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 287.
+(Font)              <10> on input line 289.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 287.
+(Font)              <7> on input line 289.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 287.
+(Font)              <5> on input line 289.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-87.
+89.
 (c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
-]
-\tf@toc=\write6
-\openout6 = `thesis.toc'.
+] (./thesis.toc
+Underfull \vbox (badness 1107) has occurred while \output is active []
 
 [2
 
 
-]
+])
+\tf@toc=\write6
+\openout6 = `thesis.toc'.
+
+[3] (./thesis.lot)
 \tf@lot=\write7
 \openout7 = `thesis.lot'.
 
-[3
+[4
 
-]
+] (./thesis.lof
+Underfull \hbox (badness 2310) in paragraph at lines 5--5
+ [][] [][]\T1/lmr/m/it/12 (+20) Individual Mean Dif-fer-ences in PHQ-9 Scores B
+e-tween 5-Fold 
+ []
+
+)
 \tf@lof=\write8
 \openout8 = `thesis.lof'.
 
-[4
-
-] [5
+[5
 
 ] [6
+
+] [7
 
 
 ]
@@ -1180,7 +1189,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.332 ...ackground}\label{theoretical-background}}
+l.336 ...ackground}\label{theoretical-background}}
                                                    [1
 
 
@@ -1203,83 +1212,421 @@ This may cause the page layout to be inconsistent, however.
 Chapter 3.
 [5
 
-]
-
-LaTeX Warning: Reference `r-knn-search' on page 6 undefined on input line 473.
-
-[6]
-
-LaTeX Warning: Reference `eq:eucl-dist' on page 7 undefined on input line 481.
-
-[7]
-
-LaTeX Warning: Reference `r-knn-search' on page 8 undefined on input line 509.
-
-
-LaTeX Warning: Reference `r-extension' on page 8 undefined on input line 509.
-
-
-LaTeX Warning: Reference `reliability' on page 8 undefined on input line 513.
-
-
-LaTeX Warning: Reference `r-random-sampling' on page 8 undefined on input line 
-518.
-
-
-LaTeX Warning: Reference `class-methods' on page 8 undefined on input line 531.
-
-
-[8]
-
-LaTeX Warning: Reference `tab:phq-int' on page 9 undefined on input line 569.
-
-[9] [10]
-
-LaTeX Warning: Reference `tab:pc-int' on page 11 undefined on input line 647.
-
-[11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 785--785
+] [6] [7] [8] [9] [10] [11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 769--769
 []\T1/lmr/bx/n/14.4 Confidence In-ter-val Method (Edwards-Nunnally
  []
 
-[13]
+[13] [14]
+Underfull \hbox (badness 1394) in paragraph at lines 861--861
+[]\T1/lmr/bx/n/17.28 Jackknife Re-sam-pling of Pa-ram-e-ter Es-ti-
+ []
 
-LaTeX Warning: Reference `r-jackknife' on page 14 undefined on input line 865.
-
-[14] [15]
+[15]
 Chapter 4.
 
-LaTeX Warning: Reference `session-info' on page 16 undefined on input line 870.
-
-
-
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 873.
+(hyperref)                than one, level fixed on input line 871.
 
-<data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg, id=245
+<data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg, id=600
 , 433.62pt x 289.08pt>
 File: data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg Gr
 aphic file (type jpg)
 <use data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg>
 Package pdftex.def Info: data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Vi
-olin_Mean+CI.jpg  used on input line 885.
-(pdftex.def)             Requested size: 325.215pt x 216.81828pt.
+olin_Mean+CI.jpg  used on input line 888.
+(pdftex.def)             Requested size: 216.81pt x 144.53964pt.
 
-! Package caption Error: \caption outside float.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-See the caption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.887 \caption
-              {\textit{A Figure}} \label{fig:fig1} 
+[16
+
+]
+Underfull \vbox (badness 1596) has occurred while \output is active []
+
+[17 <./data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI.jpg>]
+[18]
+Chapter 5.
+[19
+
+] [20]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[21
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[22] [23]
+
+Package xcolor Warning: Incompatible color definition on input line 1060.
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1062.
+
+Package xcolor Warning: Incompatible color definition on input line 1064.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1064.
+
+[24
+
+]
+
+Package xcolor Warning: Incompatible color definition on input line 1112.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+[25]
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Underfull \vbox (badness 10000) detected at line 1209
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1209
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+[26]
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1214.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+[27]
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Underfull \vbox (badness 10000) detected at line 1326
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1326
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+[28]
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Underfull \vbox (badness 10000) detected at line 1326
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1326
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+[29]
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1326.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1331.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+[30]
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Underfull \vbox (badness 10000) detected at line 1428
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1428
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+[31]
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1436.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1482.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1482.
+
+
+Overfull \vbox (0.97916pt too high) detected at line 1482
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1482.
+
+[32]
+
+Package xcolor Warning: Incompatible color definition on input line 1482.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1482.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1487.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1514.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1514.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1514.
+
+[33]
+
+Package xcolor Warning: Incompatible color definition on input line 1514.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1514.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1519.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1527.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1527.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1532.
+
+[34]
+
+Package xcolor Warning: Incompatible color definition on input line 1550.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1550.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1555.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1571.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1571.
+
+[35]
+
+Package xcolor Warning: Incompatible color definition on input line 1576.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1612.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1612.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1617.
+
+[36]
+
+Package xcolor Warning: Incompatible color definition on input line 1653.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1653.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1658.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+[37]
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Underfull \vbox (badness 10000) detected at line 1711
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1711
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+[38]
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1716.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1759.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1759.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1759.
+
+[39]
+
+Package xcolor Warning: Incompatible color definition on input line 1759.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1759.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1761.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1807.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1807.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1807.
+
+[40]
+
+Package xcolor Warning: Incompatible color definition on input line 1807.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1807.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1809.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1855.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1855.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1855.
+
+[41]
+
+Package xcolor Warning: Incompatible color definition on input line 1855.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1855.
+
+[42] (./thesis.aux)
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: 040D908925863B525F1E25144FEC27CE;5762.
+ ) 
 Here is how much of TeX's memory you used:
- 23125 strings out of 481466
- 431648 string characters out of 5920169
- 754066 words of memory out of 5000000
- 39045 multiletter control sequences out of 15000+600000
- 626981 words of font info for 155 fonts, out of 8000000 for 9000
+ 23471 strings out of 481466
+ 437737 string characters out of 5920169
+ 785201 words of memory out of 5000000
+ 39221 multiletter control sequences out of 15000+600000
+ 628953 words of font info for 168 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,12n,96p,1562b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,12n,96p,1758b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+nc}{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1
+.enc}{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-m
+athsy.enc}{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm
+/lm-mathit.enc}{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvi
+ps/lm/lm-mathex.enc}{c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
+c/dvips/lm/lm-rm.enc}<c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmbx12.pfb><c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fo
+nts/type1/public/lm/lmex10.pfb><c:/Users/steph/AppData/Roaming/TinyTeX/texmf-di
+st/fonts/type1/public/lm/lmmi12.pfb><c:/Users/steph/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/steph/AppData/Roaming/TinyTeX
+/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/steph/AppData/Roaming/Tin
+yTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/steph/AppData/Roaming
+/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/steph/AppData/Roam
+ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/steph/AppData/R
+oaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/steph/AppD
+ata/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/Users/steph/
+AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/Users/s
+teph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Us
+ers/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c
+:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.p
+fb><c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmt
+t10.pfb><c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/l
+m/lmtt12.pfb><c:/Users/steph/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
+lic/lm/lmtti10.pfb>
+Output written on thesis.pdf (51 pages, 563694 bytes).
+PDF statistics:
+ 942 PDF objects out of 1000 (max. 8388607)
+ 862 compressed objects within 9 object streams
+ 275 named destinations out of 1000 (max. 500000)
+ 14914 words of extra memory for PDF output out of 17280 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
