@@ -23,11 +23,14 @@ MathJax.Hub.Config({
 
 All following analyses are based on mathematically simulated data sets that were generated for a previous study by @Schuster.2020. A detailed description of the simulation process can be found in the supplementary material of their article online ^[\url{https://doi.org/10.1016/j.invent.2020.100313}].\par
 
+<!--
 Estimated parameters and the simulation process will be described in the following sections.
-
-
+-->
 
 Data were simulated on the basis of an empirical clinical trial conducted with a 
+
+
+
 <!--
 // The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
 
@@ -582,10 +585,16 @@ multiwave-data approach using growth-curve modeling sensu @Speer.1992
 
 Statistical power is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding _true positive_ results.
 
+Methods for increasing statistical power in clinical trials include, for instance, (1) imputing missing data, (2) repeated assessments, (3) adjusting effects for covariates, or (4) computing linear mixed models (LMM) [@Schuster.2020]. 
+
+
 <!--
 - higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
 - e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
 -->
+
+
+
 
 
 \par \noindent

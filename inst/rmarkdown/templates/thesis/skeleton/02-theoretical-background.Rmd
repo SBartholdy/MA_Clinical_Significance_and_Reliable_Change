@@ -66,6 +66,7 @@ For instance, EMA is applied in clinical psychological research and therapy, e.g
 
 
 
+
 ## Purpose of the Study
 
 The present thesis forms an in-depth investigation of the theoretically expectable increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
