@@ -11,7 +11,6 @@ MathJax.Hub.Config({
 
 #knitr::read_chunk("PP_Stichprobenvergleiche_d0.92.R")
 ```
--->
 
 ```{r echo=FALSE}
 load("data/cor_07_k20/PP_30.30.RData")
@@ -78,178 +77,349 @@ PP_30.30 = PP_30.30 %>%
 PP_1.1 = PP_1.1 %>% 
   add_column(., .before = "ID_orig", ID = 1:nrow(.))
 ```
+-->
 
 
 # Results {#results}
 
+All steps of data preparation and statistical analyses were performed using the statistical programming language R [@RCoreTeam.2020]. A complete list of additionally loaded packages is provided in Appendix \@ref(session-info).
 
-All steps of data preparation and statistical analyses were performed using the statistical programming language R [@RCoreTeam.2020]. A complete list of additionally installed packages is provided in Appendix \@ref(session-info).
+## Clinical Significance Under Treatment Conditions {#res-treat}
 
+### Pre--Post Differences in Symptom Scores
 
-### Robustness of Results in Random Samples of n = 50 and n = 100 in Comparison to the Population
+The first step of analyses was concerned with the question if the respective variants of questionnaire and EMA scenarios were sufficiently comparable between each other. Their similarity was necessary for the purpose of comparing the course of clinical symptoms of the same participants between different assessment frequencies. The simulation and pre-processing methods described in the previous chapter and in Appendix \@ref(pre-pro) ensured that scenarios with different questionnaire and EMA frequencies were linked to comprise the same participants. Although all questionnaire data sets had an identical sample (\textit{N} = 8180), and equally all EMA data sets had an identical sample (\textit{N} = 8040), it was furthermore necessary that they had respectively similar overall effect sizes between pre- and post-treatment intervals of symptom scores. The data sets were judged comparable if they showed similar overall pre- and post-treatment levels of depression with similar average standard deviations.
 
+<!------------------------------------------------------------------------------------------------------------->
+#### Questionnaire Scenarios
 
+The within-subjects pre-post treatment effect was equal among all questionnaire scenarios (PP\textsubscript{5.5-Window}, PP\textsubscript{30.30}, and PP\textsubscript{1.1}), Cohen´s $d = 0.89$.^[The sample-level effect size was calculated between the first pre-treatment and the first post-treatment PHQ-9 assessment.] As shown in Figure \@ref(fig:k20-pp-datasets-pre-post-boxplots), the data set PP\textsubscript{5.5-Window} had average pre-treatment interval depression levels of $\overline{x_1} = 10.33$ ($s_{x_1} = 1.90$) and post-treatment levels of $\overline{x_2} = 7.10$ ($s_{x_2} = 2.33$); PP\textsubscript{30.30} had average pre-treatment interval depression levels of $\overline{x_1} = 10.33$ ($s_{x_1} = 1.87$) and post-treatment levels of $\overline{x_2} = 7.09$ ($s_{x_2} = 2.31$); and PP\textsubscript{1.1} had average pre-treatment single-assessment depression levels of $\overline{x_1} = 10.37$ ($s_{x_1} = 3.25$) and post-treatment levels of $\overline{x_2} = 7.12$ ($s_{x_2} = 4.00$). For a more detailed overview of within-subjects treatment effects within the three questionnaire scenarios, see Figure \@ref(fig:k20-pp-55-3030-11-pre-post-plot) in Appendix \@ref(distr-plots).
 
-
-
-### Paper-Pencil Scenario
-
-
-
-
-### EMA Scenario
-
-
-
-
-
-
-## Pre-Post Differences in Symptom Scores
-
-
-Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-9) at pre-treatment (in light bars) and post-treatment scores (in dark bars).
-
-
-
-```{r}
-
-```
-
-
-
-
-
-### Paper-Pencil Scenario
-
-
-
-
-\begin{figure}[htb]
-\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-5-5-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\begin{figure}[thb]
+\caption{\textit{Box Plots for PHQ-9 Score Distributions of 5-Fold (PP\textsubscript{5.5-Window}) and 30-Fold (PP\textsubscript{30.30}) Pre- and Post-Interval Mean Scores and Single Pre-Post Scores (PP\textsubscript{1.1}) in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-datasets-pre-post-boxplots}
+\includegraphics[width=0.75\linewidth]{data/Plots/k20_PP-Datasets_Pre-Post_Boxplots} \hfill{}
 \end{figure}
 
+<!------------------------------------------------------------------------------------------------------------->
+#### EMA Scenarios
+
+The within-subjects pre-post treatment effect was equal for all EMA scenarios (EMA\textsubscript{30.30}, EMA\textsubscript{5.5-Window}, and EMA\textsubscript{5.5-Days}), Cohen´s $d = 0.88$. As shown in Figure \@ref(fig:k20-ema-datasets-pre-post-boxplots), the data set EMA\textsubscript{30.30} had average pre-treatment interval depression levels of $\overline{x_1} = 10.31$ ($s_{x_1} = 2.51$) and post-treatment levels of $\overline{x_2} = 7.12$ ($s_{x_2} = 3.12$); EMA\textsubscript{5.5-Window} had average pre-treatment interval depression levels of $\overline{x_1} = 10.32$ ($s_{x_1} = 2.58$) and post-treatment levels of $\overline{x_2} = 7.10$ ($s_{x_2} = 3.18$); and EMA\textsubscript{5.5-Days} had average pre-treatment interval depression levels of $\overline{x_1} = 10.31$ ($s_{x_1} = 2.42$) and post-treatment levels of $\overline{x_2} = 7.11$ ($s_{x_2} = 2.98$). Compared to the 30-fold questionnaire scenario PP\textsubscript{30.30}, the standard deviations of pre- and post-treatment interval averages, $s_{x_1}$ and $s_{x_2}$, were higher in the 30-fold EMA scenario EMA\textsubscript{30.30}. This difference was also present between both 5-fold EMA scenarios (EMA\textsubscript{5.5-Window} and EMA\textsubscript{5.5-Days}) and the 5-fold questionnaire scenario (PP\textsubscript{5.5-Window}). Hence, there was generally more variation in within-subject interval-wise average depression levels in EMA scenarios than in questionnaire scenarios with corresponding assessment frequencies. For a more detailed overview of within-subjects treatment effects within the three EMA scenarios, see Figure \@ref(fig:k20-ema-3030-55w-55d-pre-post-plot) in Appendix \@ref(distr-plots).
+
+\begin{figure}[htb]
+\caption{\textit{Box Plots for PHQ-9 Score Distributions of 30-Fold (EMA\textsubscript{30.30}), 5-Fold Random Window (EMA\textsubscript{5.5-Window}), and 5-Fold Random Days (EMA\textsubscript{5.5-Days}) Pre-Treatment and Post-Treatment Interval Mean Scores in a Simulated EMA Scenario}}\label{fig:k20-ema-datasets-pre-post-boxplots}
+\includegraphics[width=0.75\linewidth]{data/Plots/k20_EMA-Datasets_Pre-Post_Boxplots} \hfill{}
+\end{figure}
+
+<!------------------------------------------------------------------------------------------------------------->
+### Comparison of Classification Methods
+
+In this section, results of applying the investigated classification methods under treatment conditions are summarized and compared with each other in terms of their sensitivity and specificity. Summary and evaluation tables are given for questionnaire and EMA scenarios.
+
+\begin{table}[thb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Evaluation of Performances Within Classification Methods Between Different Assessment Frequencies of Questionnaire and EMA Scenarios in Reference to their Respective 30-Fold Scenarios}}
+  \label{tab:pp-ema-senspec-wmbf}
+  \footnotesize
+  \begin{tabular}{@{}c|c|cccc|c|cccc@{}}
+  \toprule
+  & \multicolumn{5}{c|}{Questionnaire} & \multicolumn{5}{c}{EMA} \\
+  \midrule
+  Method & \multicolumn{1}{c|}{Freq.} & \multicolumn{1}{c}{Sens.} & \multicolumn{1}{c}{Spec.} & \multicolumn{1}{c}{Acc.} & \multicolumn{1}{c|}{$\kappa$} & \multicolumn{1}{c|}{Freq.} & \multicolumn{1}{c}{Sens.} & \multicolumn{1}{c}{Spec.} & \multicolumn{1}{c}{Acc.} & \multicolumn{1}{c}{$\kappa$} \\
+  \midrule
+  PC & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+     & 5.5 Window & 0.89 & 0.95 & 0.92 & 0.83 & 5.5 Window & 0.82 & 0.92 & 0.90 & 0.74 \\
+     & 1.1 & 0.71 & 0.84 & 0.72 & 0.47 & 5.5 Days & 0.79 & 0.90 & 0.85 & 0.64 \\
+  \midrule
+  CSI\textsubscript{PC} & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+                        & 5.5 Window & 0.90 & 0.95 & 0.94 & 0.83 & 5.5 Window & 0.80 & 0.91 & 0.91 & 0.71 \\
+                        & 1.1 & 0.69 & 0.84 & 0.77 & 0.47 & 5.5 Days & 0.80 & 0.88 & 0.87 & 0.61 \\
+  \midrule
+  RCI & 30.30 (BL) & 1    & 1    & 1    & 1    & 30.30 (BL)  & 1    & 1    & 1    & 1 \\
+      & 5.5 Window & 0.84 & 0.93 & 0.88 & 0.77 & 5.5 Window  & 0.79 & 0.90 & 0.87 & 0.71 \\
+      & 1.1        & 0.59\textsuperscript{\tiny{JT}} & 0.81\textsuperscript{\tiny{JT}} & 0.66\textsuperscript{\tiny{JT}} & 0.39\textsuperscript{\tiny{JT}} & 5.5 Days    & 0.75 & 0.88 & 0.81 & 0.60 \\
+  \midrule
+  CSI\textsubscript{RCI} & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+                         & 5.5 Window & 0.87 & 0.94 & 0.91 & 0.83 & 5.5 Window & 0.82 & 0.90 & 0.89 & 0.72 \\
+                         & 1.1 & 0.63\textsuperscript{\tiny{JT}} & 0.82\textsuperscript{\tiny{JT}} & 0.73\textsuperscript{\tiny{JT}} & 0.49\textsuperscript{\tiny{JT}} & 5.5 Days & 0.75 & 0.88 & 0.84 & 0.61 \\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.180, (BL) = baseline for performance evaluation, PC and CSI\textsubscript{PC} refer to mean percentage change in multiple-assessment and to percentage change in single-assessment scenarios; CSI\textsubscript{RCI} refers to the individualized CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} in multiple-assessment and to the CSI\textsubscript{RCI\textsubscript{\tiny{JT}}} (highlighted with \textsuperscript{JT}) in single-assessment scenarios; Freq. = assessment frequency; Sens. = sensitivity; Spec. = specificity; Acc. = accuracy (percentage agreement with reference method); $\kappa$ = Cohen´s $\kappa$}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 \par
-Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of participants in the 5-fold questionnaire scenario between pre- and post-treatment mean score differences ^[Repeated-measures box- and violin plots were created following an open-visualizations tutorial available on \url{https://jorvlan.github.io/publications/repmes_tutorial_R.pdf}].
+Table \@ref(tab:pp-ema-senspec-wmbf) shows the results of within-method/between-frequencies comparisons of classification outcomes for both questionnaire and EMA scenarios. With the respective 30-fold scenario as a reference for each method, classification performances were compared between different 5-fold and single-point assessment scenarios.
+\par
+Within questionnaire assessments, accuracy levels across all four methods were consistently higher in 5-fold Random Window than in Single-Point scenarios. The increases in accuracy ranged between 17--22% (largest increase for RCI), while increases in sensitivity ranged between 18--25% (largest increase for RCI) and increases in specificity ranged between 11--12%. All four methods reached only moderate levels of accuracy (.66--.77) when applied in a Single-Point scenario, but high levels of accuracy (.88--.94) in a 5-fold Random Window scenario.
+\par
+Similarly, within EMA assessments, accuracy levels across all four methods were also consistently higher in 5-fold Random Window than in 5-fold Random Days scenarios. The increases in accuracy ranged between 4--6%, while increases in sensitivity ranged between 0--7% (no increase for CSI\textsubscript{PC} and largest increase for CSI\textsubscript{RCI}) and increases in specificity ranged between 2--3%. Overall, despite small advantages of EMA\textsubscript{5.5 Window} over EMA\textsubscript{5.5 Days}, all methods resulted in high levels of agreement (accuracy between .81--.91) in comparison to their 30-fold reference scenario.
 
-<!--
-- individual pre- and post-treatment interval means
-- The average mean difference is given by the bold black line, being almost identical to the median mean difference shown in the box plots.
-- Box plots show median pre- and post interval means
--->
+<!------------------------------------------------------------------------------------------------------------->
+#### Questionnaire Scenarios
+
+From the perspective of Clinical Significance criteria, i.e. based partially on the interpretation of PHQ-9 pre- and post-treatment levels of depression (see Table \@ref(tab:csi-int)), the baseline distribution of severity levels among participants -- i.e. symptomatic pre-treatment levels of depression (PHQ-9 $\geq$ 9) in 55--60% of participants in questionnaire scenarios -- implies that only these respective proportions of each sample would be able to show clinically significant improvement after the treatment. Simultaneously, the baseline distributions imply that between 40--45% of participants in questionnaire scenarios would theoretically be able to deteriorate significantly over the course of the treatment.
+\par
+For a summary of classification results in standard- and intense-questionnaire scenarios, see Table \@ref(tab:pp-class). The summary table displays the absolute and relative frequencies of classification categories (i.e., sig. deteriorated, not sig. changed, and sig. improved) which resulted from applying the investigated clinical significance methods within questionnaire scenarios. To interpret the classification performances, it is important to note that the (Mean) PC and the RCI methods did not include an external, symptom-level criterion, while the CSI\textsubscript{PC} and the CSI\textsubscript{RCI} methods did include an external cutoff score.
+
+\begin{table}[ht]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in Questionnaire Scenarios}}
+  \label{tab:pp-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  30.30 & CSI\textsubscript{PC} (BL) & \textbf{181 (2.2 \%)} & \textbf{6275 (76.7 \%)} & \textbf{1724 (21.1 \%)}\\
+      & Mean PC & \text{224 (2.7 \%)} & \text{5417 (66.2 \%)} & \text{2539 (31.0 \%)}\\
+      & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & \text{352 (4.3 \%)} & \text{4839 (59.2 \%)} & \text{2989 (36.5 \%)}\\
+      & RCI\textsubscript{ind,pre-SD} & \text{737 (9.0 \%)} & \text{2182 (26.7 \%)} & \text{5261 (64.3 \%)}\\
+  \midrule
+  5.5 Window & CSI\textsubscript{PC} & \text{226 (2.8 \%)} & \text{6157 (75.3 \%)} & \text{1797 (22.0 \%)}\\
+             & Mean PC & \text{302 (3.7 \%)} & \text{5226 (63.9 \%)} & \text{2652	(32.4 \%)}\\
+             & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & \text{378 (4.6 \%)} & \text{4845 (59.2 \%)} & \text{2957 (36.1 \%)}\\
+             & RCI\textsubscript{ind,pre-SD} & \text{828 (10.1 \%)} & \text{2204 (26.9 \%)} & \text{5148 (62.9 \%)}\\
+  \midrule
+  1.1 & CSI\textsubscript{PC} & \text{457 (5.6 \%)} & \text{5463 (66.8 \%)} & \text{2260 (27.6 \%)}\\
+      & PC & \text{729 (8.9 \%)} & \text{4327 (52.9 \%)} & \text{3124 (38.2 \%)}\\
+      & CSI\textsubscript{RCI\textsubscript{JT}} & \text{487 (6.0 \%)} & \text{4613 (56.4 \%)} & \text{3080 (37.7 \%)}\\
+      & RCI\textsubscript{JT} & \text{749 (9.2 \%)} & \text{3360 (41.1 \%)} & \text{4071 (49.8 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.180; (BL) = baseline for performance evaluation (highlighted in bold font)}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\par
+Consistently across all assessment frequencies and methods, except for the RCI\textsubscript{ind,pre-SD} method, the biggest proportion of participants was classified as not changed and the second biggest proportion as improved, whereas the RCI\textsubscript{ind,pre-SD} method classified the biggest proportion of the sample as improved and the second biggest proportion as not changed. As the CSI\textsubscript{PC} method in the 30-fold assessment scenario was defined as the reference for classifications, the other methods needed to yield as similar outcomes as possible to be considered precise. The ground truth for questionnaire scenarios was therefore given as a distribution of 181 (2.2 %) deteriorated cases, 6275 (76.7 %) cases with no significant change, and 1724 (21.1 %) improved cases.
+\par
+Results from the performance evaluation of classification methods in single- and intense-assessment questionnaire scenarios are summarized in Table \@ref(tab:pp-senspec). Note that specificity levels will also be examined separately under no-treatment conditions in chapter \@ref(res-no-treat).
+
+\begin{table}[thb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Performance of Classification Methods in Questionnaire Scenarios in Reference to the Clinical Significance Method}}
+  \label{tab:pp-senspec}
+  \begin{tabular}{@{}cccccc@{}}
+  \toprule
+  Frequency & Method & Sensitivity & Specificity & Accuracy & Kappa\\
+  \midrule
+  30.30 & CSI\textsubscript{PC} (BL) & 1 & 1 & 1 & 1\\
+        & Mean PC & 0.95 & 0.95 & 0.90 & 0.75\\
+        & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 0.92 & 0.92 & 0.82 & 0.62\\
+        & RCI\textsubscript{ind,pre-SD} & 0.70 & 0.75 & 0.50 & 0.24\\
+  \midrule
+  5.5 Window & CSI\textsubscript{PC} & 0.90 & 0.95 & 0.94 & 0.83\\
+             & Mean PC & 0.87 & 0.91 & 0.84 & 0.63\\
+             & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 0.87 & 0.91 & 0.81 & 0.58\\
+             & RCI\textsubscript{ind,pre-SD} & 0.69 & 0.75 & 0.50 & 0.24\\
+  \midrule
+  1.1 & CSI\textsubscript{PC} & 0.69 & 0.84 & 0.77 & 0.47\\
+      & PC & 0.70 & 0.81 & 0.67 & 0.35\\
+      & CSI\textsubscript{RCI\textsubscript{JT}} & 0.68 & 0.83 & 0.71 & 0.40\\
+      & RCI\textsubscript{JT} & 0.67 & 0.80 & 0.59 & 0.30\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} (BL) = baseline for performance evaluation, Accuracy = percentage agreement with reference method; Kappa = Cohen´s $\kappa$}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\par
+Considering the CSI\textsubscript{PC} among different sampling frequencies, classifications were highly similar between the 5-fold Random Window and the 30-fold scenario (accuracy = .94), while the classification accuracy was considerably lower in the single-point scenario (.77). Similarly high sensitivity levels were generally achieved by all methods in the 5-fold Random Window and the 30-fold scenario, except for the RCI\textsubscript{ind,pre-SD} method, which resulted in considerably lower sensitivity levels.
+\par
+For both 5-fold Random Window and 30-fold questionnaire scenarios, sensitivity and specificity levels >.90 were achieved by the Mean PC, the CSI\textsubscript{RCI\textsubscript{ind,pre-SD}}, and the CSI\textsubscript{PC} methods, indicating good classification performances with accuracy levels (i.e. percentage agreement) between 81--94 %. Hence, these methods were able to correctly identify both significantly changed and not changed symptom trajectories considerably well.
+\par
+Within the single-point questionnaire scenario, however, all computed methods resulted in moderate performances at best. Specificity levels were consistently higher than sensitivity levels, with the highest sensitivity of .70 resulting from the PC method. Thus, none of the CSI\textsubscript{PC}, PC, CSI\textsubscript{RCI\textsubscript{JT}}, and RCI\textsubscript{JT} methods were able to identify deteriorated, not changed, and improved cases reasonably well within the single-point questionnaire scenario.
+\par
+There was a consistent advantage of the CSI\textsubscript{PC} over the PC method (increase in accuracy of 10%), as well as an advantage of the CSI\textsubscript{RCI\textsubscript{pre-SD}} over the RCI\textsubscript{ind,pre-SD} (increase in accuracy of 31--32%), and of the CSI\textsubscript{RCI\textsubscript{JT}} over the RCI\textsubscript{JT} (increase in accuracy of 12%), indicating that the inclusion of a cutoff score for clinical significance strongly increased the accuracy of each of the methods.
+
+<!------------------------------------------------------------------------------------------------------------->
+#### EMA Scenarios
+
+From the perspective of Clinical Significance criteria, i.e. based partially on the interpretation of PHQ-9 pre- and post-treatment levels of depression (see Table \@ref(tab:csi-int)), the baseline distribution of severity levels among participants -- i.e. symptomatic pre-treatment levels of depression (PHQ-9 $\geq$ 9) in 58--60% of participants in EMA scenarios -- implies that only these respective proportions of the sample would be able to show clinically significant improvement after the treatment. Simultaneously, the baseline distributions imply that between 40--42% of participants in EMA scenarios would theoretically be able to deteriorate significantly over the course of the treatment.
+\par
+For a summary of classification results in EMA scenarios, see Table \@ref(tab:ema-class). The summary table displays the absolute and relative frequencies of classification categories (i.e., sig. deteriorated, not sig. changed, and sig. improved) which resulted from applying the investigated clinical significance methods within EMA scenarios. To interpret the classification performances, it is important to note that the (Mean) PC and the RCI methods did not include an external, symptom-level criterion, while the CSI\textsubscript{PC} and the CSI\textsubscript{RCI} methods did include an external cutoff score.
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in EMA Scenarios}}
+  \label{tab:ema-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  30.30 & CSI\textsubscript{PC} (BL) & \textbf{59 (0.7 \%)} & \textbf{6523 (81.1 \%)} & \textbf{1458 (18.1 \%)}\\
+        & Mean PC & \text{73 (0.9 \%)} & \text{6068 (75.5 \%)} & \text{1899 (23.6 \%)}\\
+        & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & \text{54 (0.7 \%)} & \text{5945 (73.9 \%)} & \text{2041 (25.4 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{82 (1.0 \%)} & \text{5382 (66.9 \%)} & \text{2576 (32.0 \%)}\\
+  \midrule
+  5.5 Window & CSI\textsubscript{PC} & \text{99 (1.2 \%)} & \text{6359 (79.1 \%)} & \text{1582 (19.7 \%)}\\
+             & Mean PC & \text{123 (1.5 \%)} & \text{5858 (72.9 \%)} & \text{2059 (25.6 \%)}\\
+             & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & \text{87 (1.1 \%)} & \text{5899 (73.4 \%)} & \text{2054 (25.5 \%)}\\
+             & RCI\textsubscript{ind,pre-SD} & \text{127 (1.6 \%)} & \text{5283 (65.7 \%)} & \text{2630 (32.7 \%)}\\
+  \midrule
+  5.5 Days & CSI\textsubscript{PC} & \text{183 (2.3 \%)} & \text{6169 (76.7 \%)} & \text{1688 (21.0 \%)}\\
+           & Mean PC & \text{225 (2.8 \%)} & \text{5559 (69.1 \%)} & \text{2256 (28.1 \%)}\\
+           & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & \text{152 (1.9 \%)} & \text{5550 (69.0 \%)} & \text{2338 (29.1 \%)}\\
+           & RCI\textsubscript{ind,pre-SD} & \text{224 (2.8 \%)} & \text{4783 (59.5 \%)} & \text{3033 (37.7 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.040; (BL) = baseline for performance evaluation (highlighted in bold font)}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\par
+Consistently across all assessment frequencies and methods, the biggest proportion of participants was classified as not changed and the second biggest proportion as improved. As the CSI\textsubscript{PC} method in the 30-fold assessment scenario was defined as the reference for classifications, the other methods needed to yield as similar outcomes as possible to be considered precise. The ground truth for EMA scenarios was therefore given as a distribution of 59 (0.7 %) deteriorated cases, 6523 (81.1 %) cases with no significant change, and 1458 (18.1 %) improved cases. Overall, the CSI\textsubscript{PC} method yielded fairly similar distributions among the three sampling frequencies.
+\par
+Results from the performance evaluation of classification methods in different EMA scenarios are summarized in Table \@ref(tab:ema-senspec). Note that specificity levels will also be examined separately under no-treatment conditions in chapter \@ref(res-no-treat).
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Performance of Classification Methods in EMA Scenarios in Reference to the Clinical Significance Method}}
+  \label{tab:ema-senspec}
+  \begin{tabular}{@{}cccccc@{}}
+  \toprule
+  Frequency & Method & Sensitivity & Specificity & Accuracy & Kappa\\
+  \midrule
+  30.30 & CSI\textsubscript{PC} (BL) & 1 & 1 & 1 & 1\\
+        & Mean PC & 0.98 & 0.98 & 0.94 & 0.84\\
+        & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 0.70 & 0.90 & 0.86 & 0.61\\
+        & RCI\textsubscript{ind,pre-SD} & 0.68 & 0.87 & 0.79 & 0.48\\
+  \midrule
+  5.5 Window & CSI\textsubscript{PC} & 0.80 & 0.91 & 0.91 & 0.71\\
+             & Mean PC & 0.80 & 0.90 & 0.86 & 0.62\\
+             & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 0.67 & 0.85 & 0.82 & 0.50\\
+             & RCI\textsubscript{ind,pre-SD} & 0.66 & 0.84 & 0.76 & 0.41\\
+  \midrule
+  5.5 Days & CSI\textsubscript{PC} & 0.80 & 0.88 & 0.87 & 0.61\\
+           & Mean PC & 0.82 & 0.88 & 0.82 & 0.53\\
+           & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 0.70 & 0.84 & 0.78 & 0.44\\
+           & RCI\textsubscript{ind,pre-SD} & 0.69 & 0.82 & 0.71 & 0.35\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} Accuracy = percentage agreement with reference method; Kappa = Cohen´s $\kappa$}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\par
+Considering the CSI\textsubscript{PC} among different sampling frequencies, classifications were relatively similar between the 30-fold and both 5-fold scenarios. Overall, a comparison of performance metrics within each method between the three sampling frequencies shows that for every method, its specificity, accuracy, and Cohen´s $\kappa$ indicated that the agreement of classifications with the 30-fold reference scenario was the highest within the 30-fold scenario, followed by the 5-fold Random Window scenario and the 5-fold Random Days scenario. In contrast, the sensitivity levels of the Mean PC, the CSI\textsubscript{RCI\textsubscript{ind,pre-SD}}, and the RCI\textsubscript{ind,pre-SD} methods did not consistently follow this rank order, although the differences were relatively small. However, considering all performance metrics, the examined clinical significance methods calculated for random assessment windows were generally more representative of participants´ _true_ change classifications given by the CSI\textsubscript{PC} (calculated on their individual 30-fold sample of assessments). This appears to indicate an accuracy advantage of implementing intervals of subsequent days over random days for assessing depressive symptoms.
+\par
+Specificity levels were consistently higher than sensitivity levels. The highest sensitivity levels were achieved by the Mean PC method in the 30-fold scenario (sensitivity = .98, specificity = .98, $\kappa$ = .84), followed by almost similarly high levels from the CSI\textsubscript{PC} method (sensitivity = .80, specificity = .91, $\kappa$ = .71) and the Mean PC method (sensitivity = .80, specificity = .90, $\kappa$ = .62) in the 5-fold Random Window scenario and in the 5-fold Random Days scenario. Within the 5-fold Random Days scenario, considerably good performances were also only achieved by the CSI\textsubscript{PC} method (sensitivity = .80, specificity = .88, $\kappa$ = .61) and the related Mean PC method (sensitivity = .82, specificity = .88, $\kappa$ = .53).
+\par
+In both 5-fold scenarios, the CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} and the RCI\textsubscript{ind,pre-SD} methods achieved specificity levels >.80, but much lower sensitivity levels between .66 and .70. Regarding the performance of the proposed individualized RCI formula, the results showed a consistently small advantage of the CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} over the RCI\textsubscript{ind,pre-SD}, throughout all EMA scenarios, indicating that the inclusion of a cutoff score for clinical significance increased the accuracy of the RCI\textsubscript{ind,pre-SD} by 6--7%. For the PC method, the inclusion of a cutoff score for clinical significance (i.e. CSI\textsubscript{PC}) increased its accuracy by 5%.
 
 
-\begin{figure}[htb]
-\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-30-30-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+<!------------------------------------------------------------------------------------------------------------->
+## Clinical Significance Under No-Treatment Conditions {#res-no-treat}
+
+### False--Positive Rate and Specificity in a Control Group
+
+<!------------------------------------------------------------------------------------------------------------->
+#### Questionnaire Scenarios
+
+The within-subjects pre-post treatment effect was equal among both no-treatment questionnaire scenarios (PP\textsubscript{5.5} and PP\textsubscript{1.1}), Cohen´s $d = 0.00$.^[The sample-level effect size was calculated between the first pre-treatment and the first post-treatment PHQ-9 assessment.] The data set PP\textsubscript{5.5} had average pre-treatment interval depression levels of $\overline{x_1} = 10.40$ ($s_{x_1} = 2.66$) and post-treatment levels of $\overline{x_2} = 10.39$ ($s_{x_2} = 2.65$), and PP\textsubscript{1.1} had average pre-treatment single-assessment depression levels of $\overline{x_1} = 10.38$ ($s_{x_1} = 3.45$) and post-treatment levels of $\overline{x_2} = 10.39$ ($s_{x_2} = 3.46$).
+\par
+
+\begin{figure}[th]
+\caption{\textit{PHQ-9 Score Distributions of (1) 5-Fold Individual Pre- and Post-Treatment Interval Mean Scores and (2) Single Individual Pre- and Post-Treatment Scores of a No-Treatment Control Group in a Simulated Standard-Questionnaire Scenario}}\label{fig:k62-pp-55-11-pre-post-plot}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k62_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k62_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
 
+Figure \@ref(fig:k62-pp-55-11-pre-post-plot) gives a more complete overview over within-subjects treatment effects observed in both questionnaire scenarios, with individual score changes depicted by thin gray lines, the overall average pre-post effect given by the bold black line, and pre- and post-treatment score distributions depicted as density and box plots. The left plot in Figure \@ref(fig:k62-pp-55-11-pre-post-plot) displays individual changes for participants in the 5-fold questionnaire scenario between pre- and post-treatment intervals. The right plot in Figure \@ref(fig:k62-pp-55-11-pre-post-plot) displays individual changes for participants in the single-assessment questionnaire scenario between their pre- and post-treatment assessments.
 
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Specificity of Classification Methods for a No-Treatment Control Group in Simulated Questionnaire Scenarios}}
+  \label{tab:pp-fpr-spec}
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & False Positives & True Negatives & Specificity\\
+  \midrule
+  5.5 & Mean PC & 14291 & 85519 & 0.86\\
+      & CSI\textsubscript{PC} & 11811 & 87999 & 0.88\\
+      & RCI\textsubscript{ind,pre-SD} & 48316 & 51494 & 0.52\\
+      & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 26020 & 73790 & 0.74\\
+  \midrule
+  1.1 & PC & 21029 & 78777 & 0.79\\
+      & CSI\textsubscript{PC} & 13953 & 85857 & 0.86\\
+      & RCI\textsubscript{JT} & 33364 & 66446 & 0.67\\
+      & CSI\textsubscript{RCI\textsubscript{JT}} & 21376 & 78434 & 0.79\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 99.810}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
 
+\par
+Results of the analyses of specificity across all clinical significance methods in both no-treatment questionnaire scenarios are given in Table \@ref(tab:pp-fpr-spec). It should be noted that, in contrast to the simulated treatment scenarios in chapter \@ref(res-treat), the present simulation of no-treatment conditions did not require selecting a reference method to serve as the ground truth for classifications. Instead, specificity levels were calculated from false-positive and true-negative rates, based on the fact that no treatment effects were present in these scenarios and the assumption that therefore all cases classified as \textit{deteriorated} or \textit{improved} were false-positive judgments.
+\par
+In both scenarios, the highest specificity levels were achieved by the CSI\textsubscript{PC} method (.86--.88) and the Mean PC method (.79--.86), while the lowest specificity levels were achieved by the RCI\textsubscript{ind,pre-SD} method. Surprisingly, the RCI\textsubscript{JT} and the CSI\textsubscript{RCI\textsubscript{JT}} methods resulted in higher specificity levels within the single-point scenario (.67 and .79, respectively) than the RCI\textsubscript{ind,pre-SD} and the CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} methods within the 5-fold scenario (.52 and .74, respectively).
+\par
+Especially considering that the PP\textsubscript{1.1} scenario only included two single assessments, the specificity of the CSI\textsubscript{PC} method can be considered high (.86), closely followed by the PC method and the CSI\textsubscript{RCI\textsubscript{JT}} method with specificity = .79. In conclusion, particularly the CSI\textsubscript{PC} and the Mean PC methods were able to correctly identify symptom trajectories without clinically significant changes considerably well.
 
-\begin{figure}[htb]
-\caption{\textit{Individual PHQ-9 Score Differences Between Single Pre-Treatment and Post-Treatment Assessments in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-1.1-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+<!------------------------------------------------------------------------------------------------------------->
+#### EMA Scenarios
+
+The within-subjects pre-post treatment effect was equal among both no-treatment EMA scenarios (EMA\textsubscript{5.5} and EMA\textsubscript{1.1}), Cohen´s $d = 0.00$.^[The sample-level effect size was calculated between the first pre-treatment and the first post-treatment PHQ-9 assessment.] The data set EMA\textsubscript{5.5} had average pre-treatment interval depression levels of $\overline{x_1} = 10.40$ ($s_{x_1} = 2.01$) and post-treatment levels of $\overline{x_2} = 10.40$ ($s_{x_2} = 2.01$), and EMA\textsubscript{1.1} had average pre-treatment single-assessment depression levels of $\overline{x_1} = 10.40$ ($s_{x_1} = 3.45$) and post-treatment levels of $\overline{x_2} = 10.39$ ($s_{x_2} = 3.45$).
+\par
+
+\begin{figure}[ht]
+\caption{\textit{PHQ-9 Score Distributions of (1) 5-Fold Individual Pre- and Post-Treatment Interval Mean Scores and (2) Single Individual Pre- and Post-Treatment Scores of a No-Treatment Control Group in a Simulated EMA Scenario}}\label{fig:k62-ema-55-11-pre-post-plot}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k62_EMA_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k62_EMA_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
 
-
-
-
-### EMA Scenario
-
-
-\begin{figure}[htb]
-\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated EMA Scenario}}\label{fig:k20-ema-30-30-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
-\end{figure}
-
-
-
-\begin{figure}[htb]
-\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Windows in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-win-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Window_Pre-Post_Box_Violin_Mean+CI} \hfill{}
-\end{figure}
-
-
-
-\begin{figure}[htb]
-\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Days in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-day-pre-post-plot}
-\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Days_Pre-Post_Box_Violin_Mean+CI} \hfill{}
-\end{figure}
-
-
-
-
-## Comparison of Classification Methods
-
-
-### Paper-Pencil Scenario
-
-
-
-
-
-Standard Questionnaire vs. Intense Questionnaire
-
-
-### EMA Scenario
-
-Standard EMA vs. Intense EMA
-
-
-
-
-## Baseline Dependence by Method
-
-
-Barplot with 95% CIs: x = PHQ Baseline Severity Categories, y = MeanDiff/PC/RCI...
-
-
-
-
-## False-Positive Rate and Specificity in a Control Group
-
-
-
-
-### Paper-Pencil Scenario
-
-
-
-
-### EMA Scenario
-
-
-
-
-
-
-## Jackknife Resampling of Parameter Estimates
-
-
-
-### Paper-Pencil Scenario
-
-
-### Percentage Change
-
-```{r echo=FALSE}
-
-```
-
-
-
-
-Within the same assessment frequency, the method bias of classifications was up to 19 % (of non-agreement).
-
-
-
-
-
-
-### EMA Scenario
-
-
-
+Figure \@ref(fig:k62-ema-55-11-pre-post-plot) gives a more complete overview over within-subjects treatment effects observed in both EMA scenarios, with individual score changes depicted by thin gray lines, the overall average pre-post effect given by the bold black line, and pre- and post-treatment score distributions depicted as density and box plots. The left plot in Figure \@ref(fig:k62-ema-55-11-pre-post-plot) displays individual changes for participants in the 5-fold EMA scenario between pre- and post-treatment intervals. The right plot in Figure \@ref(fig:k62-ema-55-11-pre-post-plot) displays individual changes for participants in the single-assessment EMA scenario between their pre- and post-treatment assessments.
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Specificity of Classification Methods for a No-Treatment Control Group in Simulated EMA Scenarios}}
+  \label{tab:ema-fpr-spec}
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & False Positives & True Negatives & Specificity\\
+  \midrule
+  5.5 & Mean PC & 7896 & 92068 & 0.92\\
+      & CSI\textsubscript{PC} & 6975 & 92989 & 0.93\\
+      & RCI\textsubscript{ind,pre-SD} & 10921 & 89043 & 0.89\\
+      & CSI\textsubscript{RCI\textsubscript{ind,pre-SD}} & 7816 & 92148 & 0.92\\
+  \midrule
+  1.1 & PC & 26644 & 73315 & 0.73\\
+      & CSI\textsubscript{PC} & 6975 & 92989 & 0.93\\
+      & RCI\textsubscript{JT} & 13600 & 86364 & 0.86\\
+      & CSI\textsubscript{RCI\textsubscript{JT}} & 11236 & 88728 & 0.88\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 99.964}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\par
+Results of the analyses of specificity across all clinical significance methods in both no-treatment EMA scenarios are given in Table \@ref(tab:ema-fpr-spec). It should be noted that, in contrast to the simulated treatment scenarios in chapter \@ref(res-treat), the present simulation of no-treatment conditions did not require selecting a reference method to serve as the ground truth for classifications. Instead, specificity levels were calculated from false-positive and true-negative rates, based on the fact that no treatment effects were present in these scenarios and the assumption that therefore all cases classified as \textit{deteriorated} or \textit{improved} were false-positive judgments.
+\par
+In the EMA\textsubscript{5.5} scenario, all methods achieved similarly high specificity levels between .89--.93. The CSI\textsubscript{PC} method achieved the highest specificity level in the EMA\textsubscript{1.1} scenario (.93), followed by the CSI\textsubscript{RCI\textsubscript{JT}} method with specificity = .88, while the PC method resulted in the lowest specificity level of .73.
+\par
+In conclusion, all examined methods achieved high specificity levels in the 5-fold no-treatment EMA scenario and, in the single-point EMA scenario, particularly the CSI\textsubscript{PC} method was similarly able to correctly identify symptom trajectories without clinically significant changes with a high precision.
 
