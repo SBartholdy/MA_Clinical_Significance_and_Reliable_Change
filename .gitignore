@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+*.RData
+*.RDS
+*.sav
+*.txt
+.DS_Store
+inst/rmarkdown/templates/thesis/skeleton/data/*
+inst/rmarkdown/templates/thesis/skeleton/_book/*
+inst/rmarkdown/templates/thesis/skeleton/_bookdown_files/*
+.idea

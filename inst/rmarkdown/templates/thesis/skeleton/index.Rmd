@@ -1,12 +1,17 @@
 ---
-author: 'Stephan Bartholdy'
+author: 'Stephan Bartholdy, B.Sc.'
 date: "`r format(Sys.time(), '%B %Y')`"
 institution: 'University of Salzburg'
-advisor: 'Dr. Raphael Schuster'
-altadvisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+advisor: 'Ao. Univ.--Prof. Dr. Anton--Rupert Laireiter'
+altadvisor: 'Dr. Raphael Schuster'
 department: 'Fachbereich Psychologie'
 #title: 'Optimizing Statistical Power and Precision of Reliable Change in Clinical Trials by Means of Pre--Post EMA'
-title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post Ecological Momentary Assessment'
+#title: 'Optimizing Statistical Power and Specificity of Clinically Significant Change by Means of Pre--Post Ecological Momentary Assessment'
+#title: 'Estimating potential gains in precision for measures of clinically sigificant change by implementing EMA based on individual within-subjects variance'
+#title: 'Optimizing precision in ...'
+#   title: 'Clinical Significance in Times of ...'
+#   title: 'Clinically Significant Change in Times of ...'
+title: 'Reliable Change in Times of Ecological Momentary Assessment: Adaptation and Expectable Increases in Classification Accuracy'
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 output: 
@@ -22,11 +27,15 @@ zusammenfassung: |
 # like below, use a command like that for the abstract above.  Note that a tab is 
 # needed on the line after the |.
 acknowledgements: |
-  I want to thank my direct supervisor Dr. Raphael Schuster for his unlimited help and kind encouragement throughout the whole process of writing this thesis. I also want to thank my indirect supervisor Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter for always offering his advice and expertise. \par
-  Apart from the excellent supervision, I´m thankful to Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton Rupert Laireiter, and Wolfgang Trutschnig for providing me with simulated data sets which they generated for their recent study on statistical power of Intense Pre-Post Assessment approaches. \par
-  This thesis was written using the _Salzburgthesisdown_ template ^[\url{https://github.com/irmingard/salzburgthesisdown}] by Veronika Priesner. Based on the _Thesisdown_ package ^[\url{https://github.com/ismayc/thesisdown}] [@Ismay.2020], this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX\ syntax.
-#\par
-#Finally, I want to thank my parents Laura and Frank for supporting me unconditionally throughout every step of my life and education. I dedicate this thesis, being the most difficult task of my life yet, to both of you, because without you I would not have been able to fulfill any of the dreams nor achieve any of the goals that I had in my life until today.
+  I want to thank my supervisor, Ao. Univ.–Prof. Dr. Anton–Rupert Laireiter, for always offering his advice and expertise and allowing me to work as flexibly and as freely as I needed to.
+  \par
+  I also want to thank my second supervisor, Dr. Raphael Schuster, for his unlimited help and kind encouragement throughout the whole process of writing this thesis. His level of interest in the topic and his constructive feedback were inspiring to me and helped me very much.
+  \par
+  Apart from the excellent supervision by both of them, I´m thankful to the whole team of authors consisting of Raphael Schuster, Manuela Larissa Schreyer, Tim Kaiser, Thomas Berger, Jan Philipp Klein, Steffen Moritz, Anton-Rupert Laireiter, and Wolfgang Trutschnig for providing me with data which they generated for their own recent study on the statistical power of intense pre-post assessment approaches.
+  \par
+  On a side note, I want to acknowledge that this thesis was written using the _Salzburgthesisdown_ template ^[\url{https://github.com/irmingard/salzburgthesisdown}] by Veronika Priesner. Based on the _Thesisdown_ package ^[\url{https://github.com/ismayc/thesisdown}] [@Ismay.2020], this format allows for the preparation and formatting of theses using a combination of R code, Markdown and \LaTeX\ syntax.
+  \par
+  Finally, I want to thank my parents Laura and Frank, as well as my grandparents, for supporting me unconditionally throughout every step of my life and education. I dedicate this thesis, being the most difficult task of my life yet, to you, because without you I would not have been able to fulfill any of the dreams nor achieve any of the goals that I had in my life until today.
 #preface: |
 #  This is an example of a thesis setup to use the reed thesis document class
 #  (for LaTeX) and the R bookdown package, in general.
@@ -61,9 +70,8 @@ If you receive a duplicate label error after knitting, make sure to delete the i
 #tinytex::tlmgr_update()
 #update.packages(ask = FALSE, checkBuilt = TRUE)
 
-pacman::p_load(rmarkdown,knitr,thesisdown,papaja,dplyr,tidyverse,haven,foreign,bootstrap,sjmisc,lattice,Rmisc,methods,devtools,psych,DescTools,summarytools,kableExtra,lubridate,timetk,overlapping,ggplot2,gghalves,plot.matrix,FNN)
+pacman::p_load(rmarkdown,knitr,thesisdown,papaja,dplyr,tidyverse,haven,foreign,bootstrap,sjmisc,lattice,Rmisc,methods,devtools,psych,DescTools,summarytools,kableExtra,lubridate,timetk,overlapping,ggplot2,gghalves,plot.matrix,FNN,citr,raincloudplots)
 #pacman::p_load(qgraph,bootnet,copula,reshape) #data generation
-#pacman::p_load(suddengains) #include as method or not?
 
 #opts_chunk$set(echo = FALSE, cache=FALSE)
 #knitr::read_chunk("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/PP_Stichprobenvergleiche_d0.88.R")

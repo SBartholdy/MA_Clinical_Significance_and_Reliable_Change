@@ -124,7 +124,7 @@ Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-
 
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-5-5-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
@@ -140,7 +140,7 @@ Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of partici
 -->
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-30-30-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
@@ -148,7 +148,7 @@ Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of partici
 
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual PHQ-9 Score Differences Between Single Pre-Treatment and Post-Treatment Assessments in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-1.1-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
@@ -159,21 +159,21 @@ Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of partici
 ### EMA Scenario
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated EMA Scenario}}\label{fig:k20-ema-30-30-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
 
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Windows in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-win-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Window_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
 
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Days in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-day-pre-post-plot}
 \includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Days_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}

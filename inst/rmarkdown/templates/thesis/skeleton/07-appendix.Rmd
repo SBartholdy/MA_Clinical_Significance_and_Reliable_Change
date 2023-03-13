@@ -8,7 +8,7 @@
 \setlength{\leftskip}{0in}
 \setlength{\parskip}{0pt}
 
-# Appendix: R Code {-}
+# Appendix: R Code {#A}
 
 The appendix includes information about the R version and packages that were used to prepare and process data, as well as R code for the most important pre-processing steps, the computation of clinical change methods, and the jackknife-resampling method.
 

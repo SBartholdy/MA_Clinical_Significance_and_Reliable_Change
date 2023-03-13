@@ -44,6 +44,7 @@
 \floatplacement{figure}{H}
 % End of CII addition
 \usepackage{rotating}
+\usepackage{blindtext}
 
 
 %% package apa7 class for table formatting
@@ -56,6 +57,7 @@
 %\usepackage{apa7} % (geraten)
 %% package apa7 class for table formatting
 
+%\usepackage{outlines} % for nice bullet lists with subitems
 
 
 %% Packages used by the R package kableExtra for RMarkdown formatting:
@@ -74,6 +76,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{makecell}
 %% End: Packages used by the R package kableExtra for RMarkdown formatting.
+
+%\usepackage{slashbox} %% to make diagonally split cells in tables possible
+%\usepackage{diagbox} %% to make diagonally split cells in tables possible
 
 %% Package needed to insert blank pages wherever wanted
 \usepackage{afterpage}
@@ -162,10 +167,23 @@ $endif$
 }
 \makeatother
 
+%%%%%%%%%%%%%%%% <!- [SB] eingefügt von GH zum Test gegen den Fehler "Environment CSLReferences undefined."
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}%
+  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
+  {\par}
+$endif$
+%%%%%%%%%%%%%%%% ->
+
 \renewcommand{\contentsname}{Table of Contents}
 % End of CII addition
 
 \setlength{\parskip}{0pt}
+%\renewcommand{\baselinestretch}{1.5}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FOR LINE-SPACING=1.5 (in whole document!) %%%%%%%%%%%%%%%% [SB]
+\onehalfspacing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FROM SETSPACE PACKAGE -> Line-spacing=1.5 (in whole document!) %%%%%%%% [SB]
 
 % Added by CII
 $if(space_between_paragraphs)$
@@ -236,6 +254,7 @@ $endif$
 
 $if(toc)$
   \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+  \setcounter{secnumdepth}{$toc-depth$} % reinkopiert von aktuellem commit ("solved bug in toc num depth") auf Thesisdown-GH, ändert aber nichts Offensichtliches -> kann also wieder gelöscht werden, wenn dadurch Probleme entstehen [SB]
   \setcounter{tocdepth}{$toc-depth$}
   \tableofcontents
 $endif$

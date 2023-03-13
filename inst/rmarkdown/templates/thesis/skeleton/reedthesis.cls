@@ -33,6 +33,7 @@
 \RequirePackage{fancyvrb}
 
 % Added by CII
+\usepackage{amsmath} %%%%%%%%%%%% wegen Textworks-Fehler "amsmath must be loaded before mathspec" [SB]
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
@@ -255,7 +256,7 @@
   \else
     \@restonecolfalse
   \fi
-  \chapter*{Acknowledgements and Dedication}
+  \chapter*{Acknowledgements}% and Dedication
   \fontsize{12}{14}\selectfont
 }{\clearpage \if@restonecol\twocolumn\fi}%
 

@@ -31,9 +31,9 @@ Data were simulated on the basis of an empirical clinical trial conducted with a
 
 
 
-<!--
-// The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
 
+// The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
+<!--
 validation.
 -->
 
@@ -273,12 +273,12 @@ The assumption of _linear_ change, on the other hand, is inherent in all methods
 This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
 
 Subjects with a low symptom severity at baseline may not be able to show a score reduction $\geq$ the pre-defined meaningful difference, and hence could not be regarded as meaningfully improved, while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as meaningfully improved, even though their post-treatment score could still be within the clinical range of scores. 
-
+\par
 The main advantage of this approach is _..._
 
 \par
 On the other hand, if a method inherently assumes _proportional_ change, it defines the absolute score difference to be regarded as meaningfully changed proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
-
+\par
 The main advantage of this approach is _..._
 
 [see @Karin.2018]
@@ -338,7 +338,7 @@ An overview of the interpretation categories for the Percentage Change method is
 ### Reliable Change Index
 
 
-The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. substantially exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
 \par
 
 
@@ -353,9 +353,9 @@ The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Ja
 #### Reliable Change [@Jacobson.1984; @Jacobson.1991]
 
 
-Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 critized widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
+Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 criticised widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
 \par
-They 
+
 \par
 The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $|RCI|>1.96$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
 
@@ -416,7 +416,7 @@ The RCI(ind) is proposed as a mathematical adaptation of the originally defined 
 
 
 \par
-Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+Adaptation Step from $RCI_{JT}$ to $RCI_{ind}$: The numerator in the formula is replaced by the mean interval difference ($Pre_5$ - $Post_5$):
 
 
 \begin{equation}
@@ -427,7 +427,7 @@ RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}} (\#eq:rci-st
 
 \par
 
-RCI(ind) using the SD from the individual pre-interval
+$RCI_{\textit{ind, pre SD}}$ using the SD from the individual pre-interval
 
 
 \begin{equation}
@@ -447,7 +447,7 @@ SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-se)
 \par
 
 
-RCI(ind) using pooled SDs from both individual intervals
+$RCI_{\textit{ind, pooled SD}}$ using pooled SDs from both individual intervals
 
 
 \begin{equation}
@@ -470,20 +470,19 @@ SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-se
 
 
 
-<!--
-//rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> individualized RCI)  
-  //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
-//number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
-  //mean difference standardized by dividing it by standard error of difference SED  
-//here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
-  //by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.  
-  //Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.
+\begin{itemize}
+\item //rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> individualized RCI)  
+\item //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
+\item //number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
+\item //mean difference standardized by dividing it by standard error of difference SED  
+\item //here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
+\item //by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.  
+\item //Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.
 
-
-//RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
-//subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.  
-//calculation of cutoff scores for significance of change in a specific test/scale etc.:
--->
+\item //RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
+\item //subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.  
+\item //calculation of cutoff scores for significance of change in a specific test/scale etc.:
+\end{itemize}
 
 
 
@@ -529,19 +528,14 @@ Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval m
 
 <!--
 ### Sudden Gains and Losses
-
 > Sudden Gain/Loss-Classification between pre- and post intervals [using the R package _{suddengains}_; @Wiedemann.2020]
-
 > 3 criteria for sudden change according to @Tang.1999:
   > significant absolute change: Über-/Unterschreitung eines definierten Cutoff-Scores (z.B. RCI), hier PHQ-9-Score <= 9
   > significant relative change: Reduktion/Zuwachs von Pre zu Post um >= 25%
   > significant change in relation to symptom fluctuation: 
-
 \begin{equation}
 M_{pre} - M_{post} > \text{critical value} \cdot \sqrt{\frac{\left(n_{pre} - 1 \right) \cdot SD^2_{pre} + \left(n_{post} - 1 \right) \cdot SD^2_{post}} {n_{pre} + n_{post} - 2}} (\#eq:sg)
 \end{equation}
-
-<br>
 $M_{pre}$ = mean of the subject´s scores before a potential gain/loss, 
 $M_{post}$ = mean of the subject´s scores after a potential gain/loss, 
 $\text{critical value}$ = 2.776 = two-tailed t statistic for $\alpha$ = 0.05 and df = 4, 
@@ -549,22 +543,6 @@ $n_{pre}$ = number of measurement points before a potential gain/loss,
 $n_{post}$ = number of measurement points after a potential gain/loss, 
 $SD^2_{pre}$ = standard deviation of the subject´s scores before a potential gain/loss, 
 $SD^2_{post}$ = standard deviation of the subject´s scores after a potential gain/loss
-<br>
-
-```{r sg_int, echo=FALSE, results='asis'}
-tibble(SG = c("PHQ-9 Post-Mean <= 9 & (Mean) PC >= 25 & Mean Diff. > (absolute) critical fluctuation", 
-            "every other combination of conditions", 
-            "PHQ-9 Post-Mean > 9 & (Mean) PC <= -25 & Mean Diff. > (absolute) critical fluctuation"),
-       Classification = c(-1L,0L,1L),
-       Interpretation = c("Sudden Gain", "No Sudden Change", "Sudden Loss")) %>% 
-  apa_table(
-    col.names = c("Sudden-Gain/Loss Criteria", "Classification", "Interpretation"),
-    caption = "Sudden-Gain/Loss Interpretation of PHQ-9 Scores",
-    #caption.short = "Sudden-Gain/Loss Interpretation",
-    label = "sg-int",
-    #longtable = TRUE,
-    placement = "htb")
-```
 -->
 
 <!--
@@ -583,65 +561,19 @@ multiwave-data approach using growth-curve modeling sensu @Speer.1992
 
 ## Analyses of Statistical Power, Sensitivity, and Specificity
 
-Statistical power is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding _true positive_ results.
-
-Methods for increasing statistical power in clinical trials include, for instance, (1) imputing missing data, (2) repeated assessments, (3) adjusting effects for covariates, or (4) computing linear mixed models (LMM) [@Schuster.2020]. 
-
-
-<!--
-- higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
-- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
--->
-
-
-
-
-
-\par \noindent
-_Sensitivity_, also known as _recall_ or _true-positive rate_, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both _true_ improvement and deterioration.
+Applying the definition of sensitivity (see Equation \@ref(eq:sensitivity)) to the three classes:
 
 \begin{equation}
-Sensitivity = \frac{tp}{p} = \frac{tp}{tp + fn} (\#eq:sensitivity)
+\begin{aligned}
+Sensitivity_{\textit{class-weighted average}} = Recall_{wgt} = \rho_{wgt} = \sum_{k=1}^{c} \frac{n_k}{n} \rho_k = \frac{1}{n} \sum_{k=1}^{c} tp^{(k)} \\
+= \frac{tp^{(deteriorated)}} {tp^{(deteriorated)} + fn^{(deteriorated)}} + \frac{tp^{(\textit{not changed})}} {tp^{(\textit{not changed})} + fn^{(\textit{not changed})}} \\
++ \frac{tp^{(improved)}} {tp^{(improved)} + fn^{(improved)}} (\#eq:sensitivity-cwa)
+\end{aligned}
 \end{equation}
+
+> $c$ = number of classes (i.e. 3: deteriorated; not changed; improved); $n_k$ = number of cases belonging to class $k$, with $k=1,...,c$; $n$ = total number of cases, with $n = \sum_{k=1}^{c} n_k$
 
 \par
-_Specificity_, also known as _selectivity_ or _true-negative rate_, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
-
-\begin{equation}
-Specificity = \frac{tn}{n} = \frac{tn}{tn + fp} (\#eq:specificity)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-\alpha = \frac{fp}{fp + tn} (\#eq:alpha-error)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-\beta = \frac{fn}{fn + tp} (\#eq:beta-error)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-Power = 1 - \beta (\#eq:power)
-\end{equation}
-
-\par \noindent
-Note that statistical power is equivalent to sensitivity, because:
-
-\begin{equation}
-Power = 1 - \beta = 1 - \frac{fn}{fn + tp} = \frac{fn + tp}{fn + tp} - \frac{fn}{fn + tp} = \frac{tp}{fn + tp} = Sensitivity (\#eq:power-sens-equiv)
-\end{equation}
-
-\par
-
-<!--
-<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
-Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively.
--->
 
 
 <!--    !!! Classification Evaluation with >2 Classes
@@ -654,13 +586,13 @@ Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions 
 
 ## False-Positive Rate and Specificity in a Control Group
 
-False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _p_ = _tp_ + _fn_ = 0, implying that cases of true change could neither be detected (i.e. _tp_ = 0) nor overlooked (i.e. _fn_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
+False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _P_ = _TP_ + _FN_ = 0, implying that cases of true change could neither be detected (i.e. _TP_ = 0) nor overlooked (i.e. _FN_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
 
 
 
 The _false-positive rate (FPR)_ is given by:
 \begin{equation}
-FPR = \frac{fp}{n} = \frac{fp}{fp + tn} (\#eq:fpr)
+FPR = \frac{FP}{N} = \frac{FP}{FP + TN} (\#eq:fpr)
 \end{equation}
 
 \par
@@ -674,6 +606,8 @@ The resulting
 
 
 ## Jackknife Resampling of Parameter Estimates
+
+[@Berthold.2020, p. 126]
 
 Exemplary R code for this bootstrapped analysis is provided in \@ref(r-jackknife).
 

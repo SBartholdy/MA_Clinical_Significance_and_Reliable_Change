@@ -1,0 +1,687 @@
+
+#### Extra-Kommentare von Raphael (eher für den Artikel):
+
+BEI UNSEREN ERGEBNISSEN:
+- Sensitivität für Verschlechterungen ist für alle Methoden in Single-Assessment-Szenarien (also PC, CSI(PC), CSI(RCI-JT)) niedrig -> zieht den Durchschnitt der Sensitivität runter -> in der Arbeit nennen!
+-> ABER: Verschlechterungen selten und eher Zufallsschwankungen zuzuschreiben, deshalb weniger ein Probelm in praktischen Settings
+
+- Korrelationen Baseline - Klassifikation berechnen, um BL-Abhängigkeit zu finden
+-> diese und die Korrelationen BL - Indices (.40-.58) in Arbeit berichten!
+
+//PP_5.5$Mean_PC - PRE_Mean r = .39
+//PP_30.30$Mean_PC - PRE_Mean r = .38
+//PP_1.1$PC - PRE r = .44
+//PP_1.1$RCI_JT - PRE r = -.58
+//PP_5.5$RCI_ind_preSD - PRE_Mean r = -.42
+//PP_30.30$RCI_ind_preSD - PRE_Mean r = -.43
+
+//EMA_30.30$RCI_ind_preSD - PRE_Mean r = -.51
+//EMA_5.5_Window$RCI_ind_preSD - PRE_Mean r = -.49
+//EMA_5.5_Days$RCI_ind_preSD - PRE_Mean r = -.49
+
+
+--> reicht auch im Appendix
+
+
+---- VOR- UND NACHTEILE PC UND RCI: ----
+RCI -:
+"alle haben einen Grenzwert"
+<<<
+A person´s average difference in test scores between the two assessment intervals, however large or small it may be, is relativized not only by the reliability (i.e. consistency) of the measurement instrument, but also by the person's own variability in responses to the instrument. Consequently, a person with a relatively large mean difference in a measured construct, but also with much variability in individual test scores over time, will be assigned a smaller RCI than another person with the same mean difference and less variability in test scores. This is because there is a reasonably higher confidence in the accuracy of the resulting difference in test scores for the latter person than for the former.
+>>>
+
+<!--
+\textcolor{red}{The main characteristics and pro and contra arguments for the practical use of these indices are listed in Table \@ref(tab:pros-cons) below.}
+
+\par \noindent
+\textcolor{red}{NEUE PRO/CONTRA-TABELLE}
+
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Characteristics of Clinical Significance Indices (Not Including External Cutoff Criteria for Clinically Significant Change)}}
+  \label{tab:pros-cons}
+  \tiny
+  \begin{tabular}{@{}l|l|l|l@{} p{0.33\textwidth} }
+  \toprule
+  & \multicolumn{1}{c|}{\textbf{Percentage Change (PC)}} & \multicolumn{1}{c|}{\textbf{Reliable Change Index RCI\textsubscript{JT}}} & \multicolumn{1}{c}{\textbf{Individualized Reliable Change Index RCI\textsubscript{ind,pre-SD}}} \\
+  \midrule
+  \textbf{Calculation requirements} & subject´s single-point pre- and post-treatment scores or interval mean scores & subject´s single-point pre- and post-treatment scores; between-subjects standard deviation of test scores at pretest; reliability & subject´s pre- and post-treatment interval mean scores; within-subject standard deviations of pre- and post-treatment intervals; reliability \\
+  \textbf{Applicable on multiple assessments?} & yes & no & yes \\
+  \multirow{4}{*}{\textbf{Pros}} & simple calculation & takes into account reliability and between-subjects variability & takes into account reliability and intra-individual variability \\
+  & easily interpretable & empirical RCI\textsubscript{JT} scores and significance cutoffs can be compared between studies & individual significance cutoff can be calculated \\
+  & assumes proportional rather than linear change (baseline independency) & & assumes proportional rather than linear change (baseline independency) \\
+  & can be updated easily to include new assessments & & can be updated easily to include new assessments \\
+  \multirow{3}{*}{\textbf{Cons}} & does not take into account reliability or natural variability of scores & between-subjects variability is not necessarily representative for within-subjects variability between assessments & more liberal classification of sig. improvements and sig. deteriorations than RCI\textsubscript{JT} when within-subjects standard deviation \textless between-subjects standard deviation (limited comparability with other RCIs) \\
+  & strongly affected by underlying fluctuations if applied on two single assessments & assumes linear change (baseline dependency) & empirically found individual RCI\textsubscript{ind,pre-SD} scores and significance cutoffs not directly comparable between studies \\
+  & justification of a PC criterion can be difficult (e.g., 50\% vs. 25\%) & one RCI per sample (every individual has the same RCI cutoff for change) & \\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+-->
+
+
+
+Hinton-Bayre (2011) Specificity of Reliable Change Models:
+- Implementierung der within-subjects variance führte zu Überschätzung der Falsch-Positiven
+- vor allem, wenn Behandlungs- und Fehlervarianz vermischt (eher bei wöchentlichen Messungen)
+--> bei uns auch ein Problem oder durch Einbauen von nur Pre-SD Problem gelöst?
+----> rausfinden, indem 5-fache Szenarien auch mit der between-subjects-SD ausgerechnet + mit unseren Ergebnissen verglichen werden (eh kein großer Unterschied, oder?)
+>>> LIMITATION <<<
+ws-SD < bs-SD, dadurch weniger Veränderung nötig, um sich nach RCI_ind rel. zu verändern als nach RCI_JT (wegen größerem SE im Nenner beim RCI_JT)
+
+
+Maassen (2001) The Unreliable Change of Reliable Change Indices:
+-
+
+Levis, Benedetti, & Thombs (2019) Accuracy of Patient Health Questionnaire-9 (PHQ-9) for screening to detect major depression - individual participant data meta-analysis:
+- Sen und Spez sehr hoch -> warum also bei uns viel niedriger? schwer zu argumentieren
+--> andere Definition der Klass.genauigkeit?
+- unsere Klass.genauigkeit ähnlich wie bei BDI
+--> haben andere Depressions-Inventare niedrigere Genauigkeiten, sodass wir trotzdem dafür argumentieren könnten, dass unsere Ergebnisse auch realistisch sind, oder ist der Artikel relativ hoffnungslos?
+--> mögliche Lösung?: Pre-Werte erhöhen, um within-ES auf d = 1.4-1.5 zu bekommen (realistisch und ähnlich zur Meta-Analyse)
+- bessere Sens. könnte daher kommen, dass Daten nach EVIDENT Trial modelliert wurden (within-ES sollte besser bei 1.5-1.7 liegen)
+
+
+
+Literatur:
+LB Lambert (2013) erklärt RCI + klin. Sig.
+-> "(RCI) is the most frequently
+used method for examining improvement in the
+literature (Ogles, Lunnen, & Bonesteel, 2001)"
+
+LB-Chapter Lambert, Hansen & Bauer (2008) ... In: ...:
+...
+
+Fahrenberg et al. (2007) zu AA:
+...
+
+Kalokerinos (2020) zu ESM:
+...
+
+
+
+
+\sout{
+\textcolor{red}{
+
+
+
+
+
+######################################################
+//Notizen beim Korrigieren + aus Erstversion gelöschte Teile (<<< ... >>>)
+
+//überall (Results fertig):
+\sout{paper-pencil} \textcolor{red}{questionnaire}
+
+\vspace*{\fill}
+
+<!---------- Abstract ---------->
+
+
+
+<!---------- Introduction ---------->
+
+
+
+<!---------- Assessment of Treatment Effectiveness on a Group Level vs. Individual Level ---------->
+<<<
+Regarding the strength of evidence in study designs in general, the \enquote{\textit{gold standard}} of empirical clinical research in any domain are randomized-controlled trials (RCTs). They are characterized by the following components:
+
++ experimental group(s) and control group(s),
++ random assignment of participants to groups,
++ and at least double blinding (i.e., neither participants nor experimenters know which group each participant is assigned to).\footnote{Beyond double blinding, it may be possible to also keep the person who analyses the data blind (i.e., \enquote{\text{triple blinding}}).}
+>>>
+
+<<<
+Clinically Significant Change, implemented with the Reliable Change Index (RCI), is \sout{the most common} \textcolor{red}{a frequently used} approach to this problem [see @Jacobson.1984; @Jacobson.1991]. @Jacobson.1991 criticized two fundamental aspects of \sout{this} \textcolor{red}{the} use of statistical significance tests \textcolor{red}{for group-level comparisons}: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, given a large enough sample.
+>>>
+
+<!---------- EMA ---------->
+
+
+
+<!---------- Clinical Research & CS ---------->
+
+
+
+<!---------- Power, Sensitivity & Specificity ---------->
+
+
+
+<!---------- Results ---------->
+
+<!-- normal (not booktabs):
+\begin{table}[thb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Evaluation of Performances Within Classification Methods Between Different Assessment Frequencies of Questionnaire and EMA Scenarios in Reference to their Respective 30-Fold Scenarios}}
+  \label{tab:pp-ema-senspec-wmbf2}
+  \begin{tabular}{c|c|cccc|c|cccc}
+  \hline
+  & \multicolumn{5}{c|}{Questionnaire} & \multicolumn{5}{c|}{EMA} \\
+  \hline
+  Method & \multicolumn{1}{c|}{Freq.} & \multicolumn{1}{c|}{Sens.} & \multicolumn{1}{c|}{Spec.} & \multicolumn{1}{c|}{Acc.} & \multicolumn{1}{c|}{$\kappa$} & \multicolumn{1}{c|}{Freq.} & \multicolumn{1}{c|}{Sens.} & \multicolumn{1}{c|}{Spec.} & \multicolumn{1}{c|}{Acc.} & \multicolumn{1}{c}{$\kappa$} \\
+  \hline
+  PC & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+  & 5.5 & 1 & 1 & 1 & 1 & 5.5 Window & 0.82 & 0.92 & 0.90 & 0.74 \\
+  & 1.1 & 0.37 & 0.80 & 0.72 & 0.41 & 5.5 Days & 0.79 & 0.90 & 0.85 & 0.64 \\
+  \hline
+  CSI\textsubscript{PC} & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+  & 5.5 & 1 & 1 & 1 & 1 & 5.5 Window & 0.80 & 0.91 & 0.91 & 0.71 \\
+  & 1.1 & 0.31 & 0.78 & 0.78 & 0.41 & 5.5 Days & 0.80 & 0.88 & 0.87 & 0.61 \\
+  \hline
+  CSI\textsubscript{RCI} & 30.30 (BL) & 1 & 1 & 1 & 1 & 30.30 (BL) & 1 & 1 & 1 & 1 \\
+  & 5.5 & 0.98 & 0.99 & 0.99 & 0.99 & 5.5 Window & 0.82 & 0.90 & 0.89 & 0.72 \\
+  & 1.1 & 0.32 & 0.78 & 0.71 & 0.41 & 5.5 Days & 0.75 & 0.88 & 0.84 & 0.61 \\
+  \hline
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} Accuracy = percentage agreement with reference method; Kappa = Cohen´s $\kappa$, where $\kappa < .20$ is interpreted as poor agreement, $.20 \leq \kappa < .40$ as fair agreement, $.40 \leq \kappa < .60$ as moderate agreement, $.60 \leq \kappa < .80$ as good agreement, and $\kappa \geq .80$ as very good agreement}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+-->
+
+<!---- Treatment Conditions: PP scenarios ---->
+
+<<<
+\begin{table}[ht]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in \sout{Paper-Pencil} \textcolor{red}{Questionnaire} Scenarios}}
+  \label{tab:pp-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  5.5 & Mean PC & \text{225 (2.7 \%)} & \text{5441 (66.1 \%)} & \text{2560 (31.1 \%)}\\
+      & RCI\textsubscript{ind,pre-SD} & \text{322 (3.9 \%)} & \text{4953 (60.2 \%)} & \text{2951 (35.9 \%)}\\
+      & RCI\textsubscript{ind,pooled SD} & \text{246 (3.0 \%)} & \text{5126 (62.3 \%)} & \text{2854 (34.7 \%)}\\
+      & RCI\textsubscript{JT,Step} & \text{206 (2.5 \%)} & \text{5284 (64.2 \%)} & \text{2736 (33.3 \%)}\\
+      & EN & \text{719 (8.7 \%)} & \text{1953 (23.7 \%)} & \text{5554 (67.5 \%)}\\
+      & CSI\textsubscript{PC} & \text{182 (2.2 \%)} & \text{6306 (76.7 \%)} & \text{1738 (21.1 \%)}\\
+  \midrule
+  30.30 & Mean PC & \text{225 (2.7 \%)} & \text{5441 (66.1 \%)} & \text{2560 (31.1 \%)}\\
+      & RCI\textsubscript{ind,pre-SD} & \text{338 (4.1 \%)} & \text{4903 (59.6 \%)} & \text{2985 (36.3 \%)}\\
+      & RCI\textsubscript{ind,pooled SD} & \text{276 (3.4 \%)} & \text{5051 (61.4 \%)} & \text{2899 (35.2 \%)}\\
+      & EN & \text{785 (9.5 \%)} & \text{1776 (21.6 \%)} & \text{5665 (68.9 \%)}\\
+      & CSI\textsubscript{PC} & \text{182 (2.2 \%)} & \text{6306 (76.7 \%)} & \text{1738 (21.1 \%)}\\
+  \midrule
+  1.1 & PC & \text{175 (2.1 \%)} & \text{5118 (62.2 \%)} & \text{2933 (35.7 \%)}\\
+      & RCI\textsubscript{JT} & \text{90 (1.1 \%)} & \text{5411 (65.8 \%)} & \text{2725 (33.1 \%)}\\
+      & EN & \text{568 (6.9 \%)} & \text{3090 (37.6 \%)} & \text{4568 (55.5 \%)}\\
+      & CSI\textsubscript{PC} & \text{58 (0.7 \%)} & \text{6179 (75.1 \%)} & \text{1989 (24.2 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.226}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+>>>
+
+<<<
+\begin{table}[thb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Performance of Classification Methods in \sout{Paper-Pencil} \textcolor{red}{Questionnaire} Scenarios in Reference to the Clinical Significance Method}}
+  \label{tab:pp-senspec}
+  \begin{tabular}{@{}cccccc@{}}
+  \toprule
+  Frequency & Method & Sensitivity & Specificity & Accuracy & Kappa\\
+  \midrule
+  5.5 & Mean PC & 0.95 & 0.95 & 0.89 & 0.75\\
+      & RCI\textsubscript{ind,pre-SD} & 0.92 & 0.93 & 0.83 & 0.64\\
+      & RCI\textsubscript{ind,pooled SD} & 0.91 & 0.93 & 0.85 & 0.67\\
+      & RCI\textsubscript{JT,Step} & 0.93 & 0.94 & 0.87 & 0.71\\
+      & EN & 0.68 & 0.73 & 0.47 & 0.21\\
+      & CSI\textsubscript{PC} & 1 & 1 & 1 & 1\\
+  \midrule
+  30.30 & Mean PC & 0.95 & 0.95 & 0.89 & 0.75\\
+      & RCI\textsubscript{ind,pre-SD} & 0.92 & 0.92 & 0.83 & 0.63\\
+      & RCI\textsubscript{ind,pooled SD} & 0.92 & 0.93 & 0.85 & 0.66\\
+      & EN & 0.66 & 0.71 & 0.45 & 0.20\\
+      & CSI\textsubscript{PC} & 1 & 1 & 1 & 1\\
+  \midrule
+  1.1 & PC & 0.35 & 0.78 & 0.69 & 0.32\\
+      & RCI\textsubscript{JT} & 0.34 & 0.80 & 0.74 & 0.38\\
+      & EN & 0.43 & 0.75 & 0.54 & 0.22\\
+      & CSI\textsubscript{PC} & 0.31 & 0.78 & 0.78 & 0.41\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} Accuracy = percentage agreement with reference method; Kappa = Cohen´s $\kappa$, where $\kappa < .20$ is interpreted as poor agreement, $.20 \leq \kappa < .40$ as fair agreement, $.40 \leq \kappa < .60$ as moderate agreement, $.60 \leq \kappa < .80$ as good agreement, and $\kappa \geq .80$ as very good agreement}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+>>>
+
+<<<
+Figure \@ref(fig:k20-pp-55-3030-11-pre-post-plot) gives a more complete overview over within-subjects treatment effects observed in the three \sout{paper-pencil} \textcolor{red}{questionnaire} scenarios, with individual score changes depicted by thin gray lines, the overall average pre-post effect given by the bold black line, and pre- and post-treatment score distributions depicted as density and box plots. The top-left plot in Figure \@ref(fig:k20-pp-55-3030-11-pre-post-plot) displays individual changes for participants in the 5-fold questionnaire scenario between pre- and post-treatment intervals.^[Repeated-measures box- and violin plots were created following an open-visualizations tutorial available on \url{https://jorvlan.github.io/publications/repmes_tutorial_R.pdf}, which is now also available in the R package \textit{raincloudplots}.] The top-right plot in Figure \@ref(fig:k20-pp-55-3030-11-pre-post-plot) displays individual changes for participants in the 30-fold questionnaire scenario between pre- and post-treatment intervals. The bottom-left plot in Figure \@ref(fig:k20-pp-55-3030-11-pre-post-plot) displays individual changes for participants in the single-assessment questionnaire scenario between their pre- and post-treatment assessments.
+
+\begin{figure}[t]
+\caption{\textit{PHQ-9 Score Distributions of (1) 5-Fold and (2) 30-Fold Individual Pre- and Post-Treatment Interval Mean Scores and (3) Single Individual Pre- and Post-Treatment Scores in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-55-3030-11-pre-post-plot}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_PP_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+>>>
+
+
+
+<!---- Treatment Conditions: EMA scenarios ---->
+
+<<<
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in EMA Scenarios}}
+  \label{tab:ema-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  30.30 & Mean PC & \text{73 (0.9 \%)} & \text{6068 (75.5 \%)} & \text{1899 (23.6 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{54 (0.7 \%)} & \text{5945 (73.9 \%)} & \text{2041 (25.4 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{13 (0.2 \%)} & \text{6340 (78.9 \%)} & \text{1687 (21.0 \%)}\\
+        & EN & \text{17 (0.2 \%)} & \text{4293 (53.4 \%)} & \text{3730 (46.4 \%)}\\
+        & CSI\textsubscript{PC} & \text{59 (0.7 \%)} & \text{6523 (81.1 \%)} & \text{1458 (18.1 \%)}\\
+  \midrule
+  5.5 Window & Mean PC & \text{123 (1.5 \%)} & \text{5858 (72.9 \%)} & \text{2059 (25.6 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{87 (1.1 \%)} & \text{5899 (73.4 \%)} & \text{2054 (25.5 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{30 (0.4 \%)} & \text{6260 (77.9 \%)} & \text{1750 (21.8 \%)}\\
+        & EN & \text{43 (0.5 \%)} & \text{4249 (52.8 \%)} & \text{3748 (46.6 \%)}\\
+        & CSI\textsubscript{PC} & \text{99 (1.2 \%)} & \text{6359 (79.1 \%)} & \text{1582 (19.7 \%)}\\
+  \midrule
+  5.5 Days & Mean PC & \text{225 (2.8 \%)} & \text{5559 (69.1 \%)} & \text{2256 (28.1 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{152 (1.9 \%)} & \text{5550 (69.0 \%)} & \text{2338 (29.1 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{74 (0.9 \%)} & \text{5965 (74.2 \%)} & \text{2001 (24.9 \%)}\\
+        & EN & \text{141 (1.8 \%)} & \text{3906 (48.6 \%)} & \text{3993 (49.7 \%)}\\
+        & CSI\textsubscript{PC} & \text{183 (2.3 \%)} & \text{6169 (76.7 \%)} & \text{1688 (21.0 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.040}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+>>>
+
+<<<
+\begin{table}[htb]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Performance of Classification Methods in EMA Scenarios in Reference to the Clinical Significance Method}}
+  \label{tab:ema-senspec}
+  \begin{tabular}{@{}cccccc@{}}
+  \toprule
+  Frequency & Method & Sensitivity & Specificity & Accuracy & Kappa\\
+  \midrule
+  30.30 & Mean PC & 0.98 & 0.98 & 0.94 & 0.84\\
+        & RCI\textsubscript{ind,pre-SD} & 0.70 & 0.90 & 0.86 & 0.61\\
+        & RCI\textsubscript{ind,pooled SD} & 0.52 & 0.93 & 0.92 & 0.75\\
+        & EN & 0.55 & 0.86 & 0.71 & 0.40\\
+        & CSI\textsubscript{PC} & 1 & 1 & 1 & 1\\
+  \midrule
+  5.5 Window & Mean PC & 0.80 & 0.90 & 0.86 & 0.62\\
+        & RCI\textsubscript{ind,pre-SD} & 0.67 & 0.85 & 0.82 & 0.50\\
+        & RCI\textsubscript{ind,pooled SD} & 0.47 & 0.87 & 0.87 & 0.60\\
+        & EN & 0.50 & 0.85 & 0.70 & 0.38\\
+        & CSI\textsubscript{PC} & 0.80 & 0.91 & 0.91 & 0.71\\
+  \midrule
+  5.5 Days & Mean PC & 0.82 & 0.88 & 0.82 & 0.53\\
+        & RCI\textsubscript{ind,pre-SD} & 0.70 & 0.84 & 0.78 & 0.44\\
+        & RCI\textsubscript{ind,pooled SD} & 0.62 & 0.86 & 0.84 & 0.53\\
+        & EN & 0.67 & 0.83 & 0.66 & 0.34\\
+        & CSI\textsubscript{PC} & 0.80 & 0.88 & 0.87 & 0.61\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} Accuracy = percentage agreement with reference method; Kappa = Cohen´s $\kappa$, where $\kappa < .20$ is interpreted as poor agreement, $.20 \leq \kappa < .40$ as fair agreement, $.40 \leq \kappa < .60$ as moderate agreement, $.60 \leq \kappa < .80$ as good agreement, and $\kappa \geq .80$ as very good agreement}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+>>>
+
+<<<
+Figure \@ref(fig:k20-ema-3030-55w-55d-pre-post-plot) gives a more complete overview over within-subjects treatment effects observed in the three EMA scenarios, with individual score changes depicted by thin gray lines, the overall average pre-post effect given by the bold black line, and pre- and post-treatment score distributions depicted as density and box plots. The top-left plot in Figure \@ref(fig:k20-ema-3030-55w-55d-pre-post-plot) displays individual changes for participants in the 30-fold EMA scenario between pre- and post-treatment intervals. The top-right plot in Figure \@ref(fig:k20-ema-3030-55w-55d-pre-post-plot) displays individual changes for participants in the 5-fold Random Window EMA scenario between pre- and post-treatment intervals. The bottom-left plot in Figure \@ref(fig:k20-ema-3030-55w-55d-pre-post-plot) displays individual changes for participants in the 5-fold Random Days EMA scenario between pre- and post-treatment intervals.
+
+\begin{figure}[hbt]
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between (1) 30-Fold, (2) 5-Fold Random Window, and (3) 5-Fold Random Days Pre-Treatment and Post-Treatment Intervals in a Simulated EMA Scenario}}\label{fig:k20-ema-3030-55w-55d-pre-post-plot}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_EMA_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Window_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Days_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+>>>
+
+
+<!---- Clinical Significance Under No-Treatment Conditions ---->
+
+<!---- #### Questionnaire Scenarios ---->
+<<<
+\begin{table}[ht]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Specificity of Classification Methods for a No-Treatment Control Group in Simulated \sout{Paper-Pencil} \textcolor{red}{Questionnaire} Scenarios}}
+  \label{tab:pp-fpr-spec}
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & False Positives & True Negatives & Specificity\\
+  \midrule
+  5.5 & Mean PC & 14291 & 85519 & 0.86\\
+      & RCI\textsubscript{ind,pre-SD} & 26020 & 73790 & 0.74\\
+      & RCI\textsubscript{ind,pooled SD} & 25909 & 73901 & 0.74\\
+      & EN & 55653 & 44157 & 0.44\\
+      & CSI\textsubscript{PC} & 11811 & 87999 & 0.88\\
+  \midrule
+  1.1 & PC & 21029 & 78777 & 0.79\\
+      & RCI\textsubscript{JT} & 21376 & 78434 & 0.79\\
+      & EN & 39358 & 60452 & 0.61\\
+      & CSI\textsubscript{PC} & 13953 & 85857 & 0.86\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 99.810}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+>>>
+
+
+<!---- #### EMA Scenarios ---->
+
+
+
+<!---------- Discussion ---------->
+
+<!---- Discussion of Results ---->
+
+
+
+<!---- Treatment Conditions: PP scenarios ---->
+
+
+
+<!---- Treatment Conditions: EMA scenarios ---->
+
+
+
+<!---- Conclusion/Implications ---->
+
+
+
+
+<!---------- APPENDIX ---------->
+## Appendix A: Pairwise Correlations Between Assessments {#A}
+
+<!-- raus, weil EMA_5.5 gar nicht gebraucht
+\begin{table}[H]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Matrix of Correlations Between Single Pre- and Post-Assessments in the 5-Fold EMA Scenario}}
+  \label{tab:cor-ema-55}
+  \tiny
+  \begin{tabular}{@{}ccccccccccc@{}}
+  \toprule
+  & \multicolumn{1}{c}{PRE\_1} & \multicolumn{1}{c}{PRE\_2} & \multicolumn{1}{c}{PRE\_3} & \multicolumn{1}{c}{PRE\_4} & \multicolumn{1}{c}{PRE\_5} & \multicolumn{1}{c}{POST\_1} & \multicolumn{1}{c}{POST\_2} & \multicolumn{1}{c}{POST\_3} & \multicolumn{1}{c}{POST\_4} & \multicolumn{1}{c}{POST\_5}\\
+  \midrule
+  PRE\_1 & 1.00 & \textbf{0.32} & 0.10 & 0.04 & 0.02 & 0.16 & 0.05 & 0.02 & 0.01 & 0.01\\
+  PRE\_2 & 0.32 & 1.00 & \textbf{0.32} & 0.12 & 0.05 & 0.05 & 0.01 & 0.00 & 0.00 & 0.00\\
+  PRE\_3 & 0.10 & 0.32 & 1.00 & \textbf{0.32} & 0.12 & 0.00 & 0.00 & 0.01 & 0.01 & 0.00\\
+  PRE\_4 & 0.04 & 0.12 & 0.32 & 1.00 & \textbf{0.32} & 0.01 & 0.00 & 0.02 & 0.01 & 0.02\\
+  PRE\_5 & 0.02 & 0.05 & 0.12 & 0.32 & 1.00 & \textbf{0.00} & -0.01 & 0.01 & 0.00 & 0.02\\
+  POST\_1 & 0.16 & 0.05 & 0.00 & 0.01 & 0.00 & 1.00 & \textbf{0.32} & 0.10 & 0.04 & 0.01\\
+  POST\_2 & 0.05 & 0.01 & 0.00 & 0.00 & -0.01 & 0.32 & 1.00 & \textbf{0.31} & 0.12 & 0.03\\
+  POST\_3 & 0.02 & 0.00 & 0.01 & 0.02 & 0.01 & 0.10 & 0.31 & 1.00 & \textbf{0.32} & 0.11\\
+  POST\_4 & 0.01 & 0.00 & 0.01 & 0.01 & 0.00 & 0.04 & 0.12 & 0.32 & 1.00 & \textbf{0.32}\\
+  POST\_5 & 0.01 & 0.00 & 0.00 & 0.02 & 0.02 & 0.01 & 0.03 & 0.11 & 0.32 & 1.00\\
+  \bottomrule
+  \end{tabular}
+\end{threeparttable}
+\end{table}
+-->
+
+<!-------------------------------------------------------------------------------------------------------------
+## Appendix B: Clinical Significance Classifications {#B}
+
+--
+```{r results="asis", echo=FALSE, eval=FALSE}
+load("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/cor_07_k20/PP_Class.RData")
+load("C:/Users/steph/OneDrive/Desktop/MA_Clinical_Significance_and_Reliable_Change/MA_Clinical_Significance_and_Reliable_Change/inst/rmarkdown/templates/thesis/skeleton/data/cor_04_k20/EMA_Class.RData")
+
+PP_Class %>% summary()
+EMA_Class %>% summary()
+```
+--
+
+The second appendix includes summary tables displaying the absolute and relative frequencies of classification categories (i.e., \textit{significantly deteriorated}, \textit{not significantly changed}, and \textit{significantly improved}) which resulted from applying the investigated clinical significance methods within paper-pencil and EMA scenarios.
+
+-------------------------------------------------------------------------------------------------------------
+### Paper--Pencil Scenarios {#class-pp}
+
+\begin{table}[H]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in Paper-Pencil Scenarios}}
+  \label{tab:pp-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  5.5 & Mean PC & \text{225 (2.7 \%)} & \text{5441 (66.1 \%)} & \text{2560 (31.1 \%)}\\
+      & RCI\textsubscript{ind,pre-SD} & \text{322 (3.9 \%)} & \text{4953 (60.2 \%)} & \text{2951 (35.9 \%)}\\
+      & RCI\textsubscript{ind,pooled SD} & \text{246 (3.0 \%)} & \text{5126 (62.3 \%)} & \text{2854 (34.7 \%)}\\
+      & RCI\textsubscript{JT,Step} & \text{206 (2.5 \%)} & \text{5284 (64.2 \%)} & \text{2736 (33.3 \%)}\\
+      & EN & \text{719 (8.7 \%)} & \text{1953 (23.7 \%)} & \text{5554 (67.5 \%)}\\
+      & CSI & \text{182 (2.2 \%)} & \text{6306 (76.7 \%)} & \text{1738 (21.1 \%)}\\
+  \midrule
+  30.30 & Mean PC & \text{225 (2.7 \%)} & \text{5441 (66.1 \%)} & \text{2560 (31.1 \%)}\\
+      & RCI\textsubscript{ind,pre-SD} & \text{338 (4.1 \%)} & \text{4903 (59.6 \%)} & \text{2985 (36.3 \%)}\\
+      & RCI\textsubscript{ind,pooled SD} & \text{276 (3.4 \%)} & \text{5051 (61.4 \%)} & \text{2899 (35.2 \%)}\\
+      & EN & \text{785 (9.5 \%)} & \text{1776 (21.6 \%)} & \text{5665 (68.9 \%)}\\
+      & CSI & \text{182 (2.2 \%)} & \text{6306 (76.7 \%)} & \text{1738 (21.1 \%)}\\
+  \midrule
+  1.1 & PC & \text{175 (2.1 \%)} & \text{5118 (62.2 \%)} & \text{2933 (35.7 \%)}\\
+      & RCI\textsubscript{JT} & \text{90 (1.1 \%)} & \text{5411 (65.8 \%)} & \text{2725 (33.1 \%)}\\
+      & EN & \text{568 (6.9 \%)} & \text{3090 (37.6 \%)} & \text{4568 (55.5 \%)}\\
+      & CSI & \text{58 (0.7 \%)} & \text{6179 (75.1 \%)} & \text{1989 (24.2 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.226}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+-------------------------------------------------------------------------------------------------------------
+### EMA Scenarios {#class-ema}
+
+\begin{table}[H]
+\vspace*{1.5em}
+\begin{threeparttable}
+  \caption{\textit{Classifications Resulting From Clinical Change Methods in EMA Scenarios}}
+  \label{tab:ema-class}
+  \small
+  \begin{tabular}{@{}ccccc@{}}
+  \toprule
+  Frequency & Method & \text{deteriorated (\%)} & \text{no sig. change (\%)} & \text{improved (\%)}\\
+  \midrule
+  30.30 & Mean PC & \text{73 (0.9 \%)} & \text{6068 (75.5 \%)} & \text{1899 (23.6 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{54 (0.7 \%)} & \text{5945 (73.9 \%)} & \text{2041 (25.4 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{13 (0.2 \%)} & \text{6340 (78.9 \%)} & \text{1687 (21.0 \%)}\\
+        & EN & \text{17 (0.2 \%)} & \text{4293 (53.4 \%)} & \text{3730 (46.4 \%)}\\
+        & CSI & \text{59 (0.7 \%)} & \text{6523 (81.1 \%)} & \text{1458 (18.1 \%)}\\
+  \midrule
+  5.5 Window & Mean PC & \text{123 (1.5 \%)} & \text{5858 (72.9 \%)} & \text{2059 (25.6 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{87 (1.1 \%)} & \text{5899 (73.4 \%)} & \text{2054 (25.5 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{30 (0.4 \%)} & \text{6260 (77.9 \%)} & \text{1750 (21.8 \%)}\\
+        & EN & \text{43 (0.5 \%)} & \text{4249 (52.8 \%)} & \text{3748 (46.6 \%)}\\
+        & CSI & \text{99 (1.2 \%)} & \text{6359 (79.1 \%)} & \text{1582 (19.7 \%)}\\
+  \midrule
+  5.5 Days & Mean PC & \text{225 (2.8 \%)} & \text{5559 (69.1 \%)} & \text{2256 (28.1 \%)}\\
+        & RCI\textsubscript{ind,pre-SD} & \text{152 (1.9 \%)} & \text{5550 (69.0 \%)} & \text{2338 (29.1 \%)}\\
+        & RCI\textsubscript{ind,pooled SD} & \text{74 (0.9 \%)} & \text{5965 (74.2 \%)} & \text{2001 (24.9 \%)}\\
+        & EN & \text{141 (1.8 \%)} & \text{3906 (48.6 \%)} & \text{3993 (49.7 \%)}\\
+        & CSI & \text{183 (2.3 \%)} & \text{6169 (76.7 \%)} & \text{1688 (21.0 \%)}\\
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[para]
+  \normalsize{\textit{Note.} \textit{N} = 8.040}
+  \end{tablenotes}
+\end{threeparttable}
+\end{table}
+------------------------------------------------------------------------------------------------------------->
+
+
+
+<!------------------------------------------------------------------------------------------------------------->
+<!--
+### Jackknife Resampling of Clinical Change Methods {#r-jackknife}
+
+Bootstrapped calculation of Percentage Change through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-pc", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]),
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"Mean_PC_jse"] =
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_30.30[i,"Mean_PC_jbias"] =
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"Mean_PC_jse"] =
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Window[i,"Mean_PC_jbias"] =
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+Mean_PC = function(x, ID_df) {
+  (1-((mean(ID_df[x,2])) / (mean(ID_df[x,1])))) * 100}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"Mean_PC_jse"] =
+    jackknife(1:n, Mean_PC, df)$jack.se
+  EMA_5.5_Days[i,"Mean_PC_jbias"] =
+    jackknife(1:n, Mean_PC, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including only pre standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pre", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) /
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]),
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_preSD_jse"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_preSD_jbias"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) /
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_preSD_jse"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_preSD_jbias"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_preSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) /
+    sqrt(2 * (sd(ID_df[x,1]) * sqrt(1 - EMA_5.5_Alpha))^2)}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_preSD_jse"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_preSD_jbias"] =
+    jackknife(1:n, RCI_ind_preSD, df)$jack.bias}
+```
+
+Bootstrapped calculation of the Individual Reliable Change Index (including pooled standard deviations) through jackknife resampling of assessments in both 5-fold and 30-fold EMA assessment intervals (similar process for 5-fold and 30-fold intervals of simulated questionnaire data):
+
+```{r label="r-jackknife-rci-pool", eval=FALSE}
+pacman::p_load(bootstrap)
+
+### EMA_30.30:
+n = 30
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 +
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_30.30)) {
+  df = data.frame(PRE = as.numeric(EMA_30.30[i,pre_30mzp]),
+                  POST = as.numeric(EMA_30.30[i,post_30mzp]))
+  EMA_30.30[i,"RCI_ind_pooledSD_jse"] =
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_30.30[i,"RCI_ind_pooledSD_jbias"] =
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Window:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 +
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Window)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Window[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Window[i,post_5mzp]))
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jse"] =
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Window[i,"RCI_ind_pooledSD_jbias"] =
+      jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+
+### EMA_5.5_Days:
+n = 5
+RCI_ind_pooledSD = function(x, ID_df) {
+  (mean(ID_df[x,2]) - mean(ID_df[x,1])) / sqrt((sd(ID_df[x,1])^ 2 +
+    sd(ID_df[x,2])^ 2) * (1 - EMA_5.5_Alpha))}
+
+for (i in 1:nrow(EMA_5.5_Days)) {
+  df = data.frame(PRE = as.numeric(EMA_5.5_Days[i,pre_5mzp]),
+                  POST = as.numeric(EMA_5.5_Days[i,post_5mzp]))
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jse"] =
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.se
+  EMA_5.5_Days[i,"RCI_ind_pooledSD_jbias"] =
+    jackknife(1:n, RCI_ind_pooledSD, df)$jack.bias}
+```
+-->

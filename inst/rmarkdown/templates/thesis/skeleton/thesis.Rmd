@@ -99,79 +99,179 @@ bla
 
 # Theoretical Background
 
-
+_..._
 
 ## Assessment of Psychopathology in Clinical Research and Practice
 
-
-
-
-In clinical outcome research, research predominantly focuses mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as _t_ values, Cohen´s _d_, Hedge´s _g_, and often the sole reliance on statistical significance, as well. 
+_..._
 \par
 
+
+In clinical outcome research, studies predominantly focus on mean differences on a group level, i.e. between experimental and control groups (between subjects), or pre- and post assessments (within subjects), which encompasses the use of effect sizes such as _t_ values, Cohen´s _d_, Hedge´s _g_, and often the sole reliance on statistical significance, as well. 
+\par
+
+<!--
 Relevant biases and side effects include placebo effects, the \enquote{hello-and-goodbye} effect, response bias, dropout, 
+-->
+\par
+
+Regarding the strength of evidence in study designs, the \enquote{\textit{gold standard}} of empirical clinical research in any domain are _randomized-controlled trials_ (RCTs). They are characterized by the following components:
+
+\+ experimental group(s) and control group(s),
+\+ random assignment of participants to groups,
+\+ and at least double blinding (i.e., neither participants nor experimenters know which group each participant is assigned to).^[Beyond double blinding, it may be possible to also keep the person who analyses the data blind (i.e., \enquote{\text{triple blinding}}).]
 
 \par
 There is a difference between _efficacy_ research, which studies treatment effects under controlled conditions, and _effectiveness_ research, which studies treatment effects under real clinical conditions. Both mostly rely on mean changes that are compared between groups [@Anderson.2014], which is informative for comparing different therapies by their effectiveness and efficacy, but not useful for interpreting treatment effects on individual participants, although this would be the common setting with repeated assessments over the course of psychotherapeutic interventions (e.g., for ongoing symptom monitoring). For individual change analyses, concepts of reliable change are more appropriate, as they include characteristics of both the individual (e.g.,individual mean difference) and the assessment method (reliability).
 \par
-There are many variations of the same concept, including the _Clinically Significant Difference (CSD)_, the _Reliable Change Index (RCI)_, the _Minimal Detectable Change (MDC)_, the _Minimal Clinically Important Difference (MCID)_, and the _Minimal Important Difference (MID)_.	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
+There are many variations of the same broad concept, including the _Clinically Significant Difference (CSD)_, the _Reliable Change Index (RCI)_, the _Minimal Detectable Change (MDC)_, the _Minimal Clinically Important Difference (MCID)_, and the _Minimal Important Difference (MID)_.	These methods can be roughly divided into two approaches: _distribution-based_ (change scores in relation to an underlying distribution of test scores in a given sample) and _anchor-based_ methods (involve external criteria as references for clinically meaningful change) [@Haley.2006].
 
 
 
-## Methods for the Classification of Significant Change in Clinical Research
+## Methods for the Classification of Meaningful Change in Clinical Research
 
+_..._
+\par
+
+\begin{itemize}
+\item //Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.
+\item //First applied in marital counseling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients)
+
+\item //Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values
+    \item mean differences between pre- and post-timepoints or between treatment and control groups
+    \item reasonable for cumulating evidence in meta-analyses
+    \item but results often interpreted only in terms of statistical significance
+
+\item //@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.
+\end{itemize}
+
+
+## Ecological Momentary Assessment (EMA)
+
+_Ecological Momentary Assessment (EMA)_, also known as _Intense Pre-Post Assessment (IPA)_, is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure the construct directly in the subject´s natural environment (similar to a \enquote{\text{field experiment}}). The method gained popularity as part of the broad concept of _digital mental health_, which describes methods for applying and assisting psychological treatments with digital tools.
+\par
+EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, or craving). Despite oftentimes high sampling frequencies, it can be applied efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort. Longitudinal EMA designs typically consist of a small number of psychometrically reliable items that require minimal effort and time for the respondents to answer [@Rot.2012; @Shiffman.2008]. As these short self-reports can be presented in smartphone apps or computer programs, this approach forms a powerful, yet feasible opportunity to study the progression of affective states and behaviors on an individual level.
+\par
+This diagnostic format could be seen as a bridge between empirical research and clinical practice: Research generally produces insights from comparisons between groups of subjects, while the knowledge that is needed for the interaction with patients and clients is much more centered around them as individuals. Any practical work with them is in itself a study of processes within each person. EMA formats can benefit both fields by facilitating a deeper understanding of complex psychological processes. For instance, EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always embedded in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counseling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions.
+\par
+
+\begin{figure}[htb]
+\caption{\textit{Individual 30-Fold Pre-Treatment and Post-Treatment Intervals of PHQ-9 Scores of 9 Randomly Selected Participants in a Simulated EMA Scenario (Higher Scores Indicate Higher Levels of Depressive Symptoms)}}\label{fig:ema-30-30-tsplot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/EMA_30.30_tsplot_example} \hfill{}
+\end{figure}
+
+
+Assessing symptoms over time through EMA may capture more accurately each individual´s treatment responses, but to be able to interpret the course of multiple individual observations, it is crucial to consider the inherent characteristics of EMA data: Figure \@ref(fig:ema-30-30-tsplot) displays nine individual time series of realistically simulated EMA assessments on a short scale measuring depressive symptoms (scores ranging from 0 to 27 points). The plots show how different participants may respond to the same effective psychotherapeutic treatment. Their time series are divided into 30 daily assessment occasions before and after this treatment was applied. While an overall positive effect between these intervals is present on the population level, an investigation of the treatment´s effectiveness on an individual level reveals different slopes of symptom scores over time, as well as different levels of fluctuation between individuals. 
 
 <!--
-//``Clinical research and clinical practice in any discipline that involves repeated testing of subjects regarding some measurable characteristics can benefit from being able to determine if a specific change in test scores over time could be attributed to measurement error alone or exceeds this interval significantly and could therefore be attributed to another influence, e.g., an intervention.´´ \par
-//First applied in marital counseling and psychotherapy research [@Jacobson.1984; @Jacobson.1991], now also in many neuropsychological settings (e.g., for rehabilitation after epilepsy surgery or concussions, cognitive changes in cognitively impaired patients) \par
+The plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): 
 
-//Most common is calculating and reporting mean differences and respective effect sizes (e.g., Cohen´s d, Hedge´s g), t values and p values \par
-
-- mean differences between pre- and post-timepoints or between treatment and control groups \par
-
--	reasonable for cumulating evidence in meta-analyses \par
-
--	but results often interpreted only in terms of statistical significance \par
-
-//``@Jacobson.1991 criticised two fundamental aspects of this use of statistical significance tests: (1) They do not take into account the within-subject variability of the construct of interest and (2) a statistically significant difference between group means does not automatically suggest a clinically meaningful difference, because, as @Cohen.1994 argued, any difference can be statistically significant, just given a large enough sample.´´
--->
-
-
-## Digital Mental Health Service
-
-
-
-### Ecological Momentary Assessment (EMA)
-
-_Ecological Momentary Assessment (EMA)_, also known as _Intense Pre-Post Assessment (IPA)_, is the repeated assessment of a construct via short scales or questionnaires, commonly presented on mobile devices, in order to measure it directly in the subject´s natural environment (forming a \enquote{\textit{field experiment}}). EMA is especially suitable for accurately capturing psychological constructs with high intra-individual variability over time (e.g., depression, anxiety, craving). Despite oftentimes high sampling frequencies, it can be applied efficiently, as it enables highly informative insights from data that is gathered at a minimal cost and effort. Longitudinal EMA designs typically consist of a small number of psychometrically reliable items that require minimal effort and time for the respondents to answer [@Rot.2012; @Shiffman.2008]. As these short self-reports can be presented in smartphone apps or computer programs, this approach forms a powerful, yet feasible opportunity to study the progression of affective states and behaviors on an individual level.
-\par
-This diagnostic tool could be seen as a bridge between empirical research and clinical practice: Research commonly finds insights from comparisons between groups of subjects, while the knowledge that is needed for the interaction with patients and clients is much more centered around them as individuals. Any practical work with them is in itself a study of processes within each person. EMA formats can benefit both fields by facilitating a deeper understanding of complex psychological processes.
-\par
-_//introducing, offering, alternative, discover, yield, capture_
-\par
-
-For instance, EMA is applied in clinical psychological research and therapy, e.g., to capture mood instability in bipolar disorders [e.g., @Holmes.2016] or fluctuating symptoms of depression [e.g., @Armey.2015; @Silk.2011]. Through this form of repeated measurement, it is possible to assess relevant information at random or non-random times of the day or week (e.g., directly after panic attacks in patients with panic disorders, or every morning in depressive patients), while always embedded in the participant´s normal environment and everyday life, instead of in a laboratory, a clinic, or a counseling center. It therefore has the inherent advantage of eliminating lab-specific response tendencies, which is certainly also coupled with the disadvantages of introducing other, environment-specific sources of bias, and possibly the risk of a lower response rate than usually obtained in settings with personally given instructions before each assessment.
-
-
-
-\par
-<!--
-//plot shows high mood variability pre-treatment (SD = 3.81) and much lower variability post-treatment (SD = 1.04), as well as a higher pre-treatment mean (M = 9.11) than post-treatment mean (M = 1.86)  
-//plots show the simple advantages of multiple assessments in two intervals over two single assessments (pre- and post-treatment): imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
+imagine assessing depressive symptoms in participant 1 randomly on day 7 pre-treatment (score of 20) and on day 6 post-treatment (score of 0) -> total difference of -20 points -> very powerful intervention!  
 //or imagine assessing depressive symptoms in participant 1 randomly on day 12 pre-treatment (score of about 5) and on day 26 post-treatment (score of 5) -> total difference of 0 points -> useless intervention (possibly worse than placebo)!
 -->
+<!-- _//introducing, offering, alternative, discover-->
+
+The randomly selected cases show average baseline severity levels between around 7.5 and 12.5 points and average follow-up levels between around 5 and 12.5 points, with intra-individual variances that strongly differed between them. For instance, participant 4261 (top-right corner) appears to have improved over the course of the treatment, as indicated by a drop in his or her average daily depression levels from around 12.5 to around 5 points. The time-series plot shows a clear negative difference between the pre- and post-interval mean scores, but it also reveals substantial variation of daily depressive mood in the subject´s post-treatment assessment period (i.e. in the 30 daily assessments after the treatment). The participant´s mood variability after the treatment is higher than before the treatment, suggesting that the (on average) lower depressive symptom level after the treatment was less stable than during the baseline period. In other words, the subject´s average score at baseline would yield a more precise estimate of their real depressive symptoms than their follow-up average score would be for the post-treatment interval.
+
+The presence of individual fluctuation between single assessments raises the essential question how to interpret these score changes, and furthermore, what to conclude about the effectiveness of the given treatment on the basis of this data.
+
+Several questions need to be answered in the process of developing an analytic strategy. Assuming that the assessment method, frequency, time period etc. are already decided upon, as given in the described example in Figure \@ref(fig:ema-30-30-tsplot), how could the gathered observations then be analysed to reach conclusions about the treatment under investigation?
+
+Is it appropriate to calculate the mean difference between average pre-treatment and post-treatment interval scores? This could be done by calculating the effect size Cohen´s _d_, which includes conventional interpretation categories and a statistical significance level to interpret.
+
+But this approach reduces the assessed information to simple interval average scores, without taking into account the evident intra-individual symptom variability.
+
+Alternatively, by treating each subject as a population of pre-treatment and post-treatment observations, the same effect size could be calculated for individual pre-post mean differences, while including the subject´s symptom fluctuations through their pre- and post-standard deviations.
+
+
+
+
+
+## Statistical Power, Sensitivity, and Specificity
+
+_Statistical power_ is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding _true positive_ results.
+
+
+
+\par \noindent
+_Sensitivity_, also known as _recall_ or _true-positive rate_, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both _true_ improvement and deterioration.
+
+\begin{equation}
+Sensitivity = \frac{TP}{P} = \frac{TP}{TP + FN} (\#eq:sensitivity)
+\end{equation}
+
+\par
+_Specificity_, also known as _selectivity_ or _true-negative rate_, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
+
+\begin{equation}
+Specificity = \frac{TN}{N} = \frac{TN}{TN + FP} (\#eq:specificity)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+\alpha = \frac{FP}{FP + TN} (\#eq:alpha-error)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+\beta = \frac{FN}{FN + TP} (\#eq:beta-error)
+\end{equation}
+
+\par \noindent
+
+\begin{equation}
+Power = 1 - \beta (\#eq:power)
+\end{equation}
+
+\par \noindent
+Note that statistical power is equivalent to sensitivity, because:
+
+\begin{equation}
+Power = 1 - \beta = 1 - \frac{FN}{FN + TP} = \frac{FN + TP}{FN + TP} - \frac{FN}{FN + TP} = \frac{TP}{FN + TP} = Sensitivity (\#eq:power-sens-equiv)
+\end{equation}
+
+\par
+
+<!-- [@Berthold.2020, p. 119] -->
+
+<!--
+<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
+Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively.
+-->
+
+Methods for increasing statistical power in clinical trials include, for instance, (1) imputing missing data, (2) repeated assessments, (3) adjusting effects for covariates, or (4) computing linear mixed models (LMM) [@Schuster.2020]. The reason for the increase of statistical power through multiple assessments follows from the central limit theorem, which states that, for $n \rightarrow \infty$ random samples from a population, as well as for $n \rightarrow N$ observed cases from the population, the resulting parameter estimate converges against the true statistic in the population. Likewise, the more assessments are included into the analysis, the more precise the estimated measures of interest will be. In most real-world situations, it may not be possible or feasible to take as many assessments from each individual as technically possible, but this would also not be necessary for obtaining practically relevant levels of statistical power. Following from the convergence of estimation precision against 1, each additional observation adds precision, while the absolute precision added by each additional assessment converges against 0. In a context where levels of psychopathology are investigated, a reasonable time interval of interest may be, e.g., one week between therapy sessions. The most precise estimates of a subject´s average symptom level throughout this week would (hypothetically) be achieved by taking and averaging daily (or even more frequent) observations from this subject, but such a high sampling frequency would neither be feasible nor necessary to obtain appropriate levels of certainty. 
+
+<!-- [@Berthold.2020, p. 383]
+Intuitively this theorem says that the sum of a large number of almost arbitrarily distributed random variables (the Lindeberg condition is a very weak restriction) is approximately normally distributed. Since physical measurements are usually affected by a large number of random influences from several independent sources, which all add up to form the total measurement error, the result is often approximately normally distributed. The central limit theorem thus explains why normally distributed quantities are so common in practice.
+-->
+
+\par
+An example from test theory is the so-called Spearman-Brown relation between test length (i.e. number of items) and reliability _[...........................]_. \par
+
+In conclusion, few additional assessments per individual could increase the statistical power of research designs substantially, resulting in higher confidence in the results, a lower probability of false-positive effects, and a higher replicability in the long term.
+
+
+<!--
+- higher power through inclusion of more assessment occasions
+- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
+-->
+
+
 
 
 
 
 ## Purpose of the Study
 
-The present thesis forms an in-depth investigation of the theoretically expectable increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
+The present thesis forms an in-depth investigation of the theoretically expected increases in statistical power and specificity of psycho-diagnostic approaches in clinical trials through the use of multiple baseline- and follow-up assessments, as practically implemented in ecological momentary assessment.
 
 
 \par
+<!--
 investigated if the inclusion of multiple measurements pre and post treatment via ecological momentary assessment (EMA) can enhance statistical power
-
+-->
 
 The present thesis is concerned with the comparison of currently used techniques for determining meaningful change in longitudinal clinical trials which follow either a single-point approach or an intense-assessment approach to measuring psychopathology. \par
 
@@ -216,14 +316,17 @@ MathJax.Hub.Config({
 
 All following analyses are based on mathematically simulated data sets that were generated for a previous study by @Schuster.2020. A detailed description of the simulation process can be found in the supplementary material of their article online ^[\url{https://doi.org/10.1016/j.invent.2020.100313}].\par
 
+<!--
 Estimated parameters and the simulation process will be described in the following sections.
-
-
+-->
 
 Data were simulated on the basis of an empirical clinical trial conducted with a 
-<!--
-// The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
 
+
+
+
+// The Patient Health Questionnaire-9 [PHQ-9, @Kroenke.2001] was used to evaluate changes in the degree of depressive symptoms in an empirical study. All 9 items are scored on a 4-point Likert scale (0-3), resulting in a total score of 0-27, with higher scores indicating more severe depression. 
+<!--
 validation.
 -->
 
@@ -240,7 +343,7 @@ clinical sample undergoing treatment for depression
 
 
 
-Data sets for both diagnostic methods showed an overall effect size of Cohen´s _d_ between 0.88 (EMA) and 0.91 (questionnaire) for the symptom change from pre- to post timepoints. Their overall _treatment effect_ would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
+Data sets for both diagnostic methods showed an overall effect size of Cohen´s _d_ between 0.88 (EMA) and 0.92 (questionnaire) for the symptom change from pre- to post timepoints. Their overall _treatment effect_ would therefore be considered large [@Cohen.2013], lying within the range of real empiric effect sizes reported in research on psychotherapy outcomes. For instance, a large meta-analysis of 115 studies conducted by @Cuijpers.2010 on the effectiveness of psychotherapy resulted in a mean effect size of Cohen´s _d_ = 0.68.
 \par
 
 
@@ -463,12 +566,12 @@ The assumption of _linear_ change, on the other hand, is inherent in all methods
 This approach treats all individuals equally in that it does not take into account the individual symptom severity expressed at their baseline assessment. 
 
 Subjects with a low symptom severity at baseline may not be able to show a score reduction $\geq$ the pre-defined meaningful difference, and hence could not be regarded as meaningfully improved, while subjects with a high symptom severity at baseline could pass the required score improvement and be regarded as meaningfully improved, even though their post-treatment score could still be within the clinical range of scores. 
-
+\par
 The main advantage of this approach is _..._
 
 \par
 On the other hand, if a method inherently assumes _proportional_ change, it defines the absolute score difference to be regarded as meaningfully changed proportionally, in order to account for the influence of baseline severity. By setting proportional differences as cutoff criteria for classification categories, observed changes are evaluated individually in relation to baseline severity.
-
+\par
 The main advantage of this approach is _..._
 
 [see @Karin.2018]
@@ -528,7 +631,7 @@ An overview of the interpretation categories for the Percentage Change method is
 ### Reliable Change Index
 
 
-The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
+The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Jacobson.1991. It is defined as a	standardized difference score that determines whether a score difference is statistically significant, i.e. substantially exceeds the error variance of the assessment method. Hence, it determines if the observed score difference can be attributed to treatment effects rather than to naturally occurring variance in the sample.
 \par
 
 
@@ -543,9 +646,9 @@ The _Reliable Change Index (RCI)_ was first introduced by @Jacobson.1984 and @Ja
 #### Reliable Change [@Jacobson.1984; @Jacobson.1991]
 
 
-Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 critized widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
+Contemplating the sole reliance on statistical significance of tests, @Jacobson.1991 criticised widespread research approaches for the following problems: (1) comparisons on a group level ignore intra-individual variability and change, and (2) significant group differences are not synonymous with clinical relevance.
 \par
-They 
+
 \par
 The RC Index is a standardised measure of the raw score difference between 2 assessments. It quantifies the extent by which the score difference exceeds the error variance of the assessment method. A significant RCI therefore indicates that the observed change exceeds the measurement error by an extent upon which it can be confidently assumed that it is not caused by error variance, but rather by other factors, such as an applied clinical treatment. The conventionally applied significance cutoff is $|RCI|>1.96$, given by the z score for 95 % confidence, i.e. a two-sided $\alpha$ probability <.05. \par
 
@@ -606,7 +709,7 @@ The RCI(ind) is proposed as a mathematical adaptation of the originally defined 
 
 
 \par
-Adaptation Step from RCI(JT) to RCI(ind): The numerator in the formula is replaced by the mean interval difference (5xPre - 5xPost):
+Adaptation Step from $RCI_{JT}$ to $RCI_{ind}$: The numerator in the formula is replaced by the mean interval difference ($Pre_5$ - $Post_5$):
 
 
 \begin{equation}
@@ -617,7 +720,7 @@ RCI_{Step} = \frac{\overline{x_{2}} - \overline{x_{1}}}  {s_{diff}} (\#eq:rci-st
 
 \par
 
-RCI(ind) using the SD from the individual pre-interval
+$RCI_{\textit{ind, pre SD}}$ using the SD from the individual pre-interval
 
 
 \begin{equation}
@@ -637,7 +740,7 @@ SE_{D,pre} = \sqrt{2 \cdot (s_{x} \cdot (1 - r_{xy})^2)} (\#eq:rci-ind-presd-se)
 \par
 
 
-RCI(ind) using pooled SDs from both individual intervals
+$RCI_{\textit{ind, pooled SD}}$ using pooled SDs from both individual intervals
 
 
 \begin{equation}
@@ -660,20 +763,19 @@ SE_{D} = \sqrt{(s_{x}^2 + s_{y}^2) \cdot (1 - r_{xy})} (\#eq:rci-ind-pooledsd-se
 
 
 
-<!--
-//rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> individualized RCI)  
-  //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
-//number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
-  //mean difference standardized by dividing it by standard error of difference SED  
-//here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
-  //by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.  
-  //Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.
+\begin{itemize}
+\item //rather simple adaptation of the formula with a few changes, but very different outcome, because now it´s not a group estimate anymore, but a standardized estimate for reliable change of a single person (-> individualized RCI)  
+\item //test scores aggregated into means for 2 assessment intervals (baseline and follow-up), so for the formula itself the number of timepoints in each interval doesn´t matter and the intervals don´t have to have equal numbers of single assessments  
+\item //number of included timepoints, sampling frequency, sampling randomness and start- and end-points for assessment intervals would have to be decided construct- and context-specifically for each group of diagnoses and each study (just like it is now)  
+\item //mean difference standardized by dividing it by standard error of difference SED  
+\item //here pooled SED, including the SDs of both intervals, but depending on results of following analyses, maybe I will only include the pretest SD of each participant, or instead the experimental or the control group´s SD in the denominator  
+\item //by including the individual standard deviation of a single subject instead of variability measures on the group or population level, the individual´s error term is neither understated nor inflated by the test scores of other people than the person of interest. Nevertheless, the variability of responses of a sample or population to the given test is also part of the reliability of the test ($r_{xy}$), which is included in the error estimate, too.  
+\item //Whereas in the most popular RCI formulas, rtt is used, in contexts where instable psychological constructs are measured over time, the internal consistency (Cronbach´s $\alpha$) is more appropriate for the following reasons: As @Cronbach.1947 described in his early review of reliability coefficients, the test-retest reliability can only be an accurate estimate of measurement precision if the measured construct is expected to be stable over time. By definition, the unique measurement variance can only be distinguished from the real construct variance over time if the construct in reality does not fluctuate between timepoints [@Maassen.2009; @Wyrwich.2004]. As stability is not expected for the constructs examined in (psycho-)therapy research and practice, but they are rather particularly analysed for changes over time, the test-retest reliability is not considered appropriate for the calculation of a reliable change index.
 
-
-//RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
-//subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.  
-//calculation of cutoff scores for significance of change in a specific test/scale etc.:
--->
+\item //RCIind > 1.96 indicates reliable deterioration, whereas RCIind < -1.96 indicates reliable improvement  
+\item //subject´s mean difference of scores between both testing intervals, however large or small it may be in the individual case, is relativized not only by the unreliability (i.e. inconsistency) of the measurement instrument, but also by the subject´s own variability of responses to the instrument. As a consequence, a person with a relatively large mean difference in a measured construct, but also with much variability in single test scores over time, will be assigned a smaller index than another person with the same mean difference and less variability in test scores, because for the latter person there would logically be more confidence in the accuracy of the resulting difference in test scores than for the former one.  
+\item //calculation of cutoff scores for significance of change in a specific test/scale etc.:
+\end{itemize}
 
 
 
@@ -719,19 +821,14 @@ Interpretation of PHQ-9 post-scores according to the Edwards-Nunnally-interval m
 
 <!--
 ### Sudden Gains and Losses
-
 > Sudden Gain/Loss-Classification between pre- and post intervals [using the R package _{suddengains}_; @Wiedemann.2020]
-
 > 3 criteria for sudden change according to @Tang.1999:
   > significant absolute change: Über-/Unterschreitung eines definierten Cutoff-Scores (z.B. RCI), hier PHQ-9-Score <= 9
   > significant relative change: Reduktion/Zuwachs von Pre zu Post um >= 25%
   > significant change in relation to symptom fluctuation: 
-
 \begin{equation}
 M_{pre} - M_{post} > \text{critical value} \cdot \sqrt{\frac{\left(n_{pre} - 1 \right) \cdot SD^2_{pre} + \left(n_{post} - 1 \right) \cdot SD^2_{post}} {n_{pre} + n_{post} - 2}} (\#eq:sg)
 \end{equation}
-
-<br>
 $M_{pre}$ = mean of the subject´s scores before a potential gain/loss, 
 $M_{post}$ = mean of the subject´s scores after a potential gain/loss, 
 $\text{critical value}$ = 2.776 = two-tailed t statistic for $\alpha$ = 0.05 and df = 4, 
@@ -739,22 +836,6 @@ $n_{pre}$ = number of measurement points before a potential gain/loss,
 $n_{post}$ = number of measurement points after a potential gain/loss, 
 $SD^2_{pre}$ = standard deviation of the subject´s scores before a potential gain/loss, 
 $SD^2_{post}$ = standard deviation of the subject´s scores after a potential gain/loss
-<br>
-
-```{r sg_int, echo=FALSE, results='asis'}
-tibble(SG = c("PHQ-9 Post-Mean <= 9 & (Mean) PC >= 25 & Mean Diff. > (absolute) critical fluctuation", 
-            "every other combination of conditions", 
-            "PHQ-9 Post-Mean > 9 & (Mean) PC <= -25 & Mean Diff. > (absolute) critical fluctuation"),
-       Classification = c(-1L,0L,1L),
-       Interpretation = c("Sudden Gain", "No Sudden Change", "Sudden Loss")) %>% 
-  apa_table(
-    col.names = c("Sudden-Gain/Loss Criteria", "Classification", "Interpretation"),
-    caption = "Sudden-Gain/Loss Interpretation of PHQ-9 Scores",
-    #caption.short = "Sudden-Gain/Loss Interpretation",
-    label = "sg-int",
-    #longtable = TRUE,
-    placement = "htb")
-```
 -->
 
 <!--
@@ -773,59 +854,19 @@ multiwave-data approach using growth-curve modeling sensu @Speer.1992
 
 ## Analyses of Statistical Power, Sensitivity, and Specificity
 
-Statistical power is the probability of a specific method to detect an effect, given that it really exists in the population. Hence, it defines the probability of finding _true positive_ results.
-
-<!--
-- higher power through inclusion of more assessment occasions (sensu Spearman-Brown formula)
-- e.g. @Schuster.2020: power increased by 6-92% from two- to five-fold assessment compared to single assessments
--->
-
-
-\par \noindent
-_Sensitivity_, also known as _recall_ or _true-positive rate_, is the probability of a given method to correctly identify positive cases. In the present study, positive cases are equivalent to true cases of meaningful change, and therefore include both _true_ improvement and deterioration.
+Applying the definition of sensitivity (see Equation \@ref(eq:sensitivity)) to the three classes:
 
 \begin{equation}
-Sensitivity = \frac{tp}{p} = \frac{tp}{tp + fn} (\#eq:sensitivity)
+\begin{aligned}
+Sensitivity_{\textit{class-weighted average}} = Recall_{wgt} = \rho_{wgt} = \sum_{k=1}^{c} \frac{n_k}{n} \rho_k = \frac{1}{n} \sum_{k=1}^{c} tp^{(k)} \\
+= \frac{tp^{(deteriorated)}} {tp^{(deteriorated)} + fn^{(deteriorated)}} + \frac{tp^{(\textit{not changed})}} {tp^{(\textit{not changed})} + fn^{(\textit{not changed})}} \\
++ \frac{tp^{(improved)}} {tp^{(improved)} + fn^{(improved)}} (\#eq:sensitivity-cwa)
+\end{aligned}
 \end{equation}
+
+> $c$ = number of classes (i.e. 3: deteriorated; not changed; improved); $n_k$ = number of cases belonging to class $k$, with $k=1,...,c$; $n$ = total number of cases, with $n = \sum_{k=1}^{c} n_k$
 
 \par
-_Specificity_, also known as _selectivity_ or _true-negative rate_, is the probability of a given method to correctly identify negative cases. In the present study, positive cases are equivalent to true cases of no meaningful change.
-
-\begin{equation}
-Specificity = \frac{tn}{n} = \frac{tn}{tn + fp} (\#eq:specificity)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-\alpha = \frac{fp}{fp + tn} (\#eq:alpha-error)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-\beta = \frac{fn}{fn + tp} (\#eq:beta-error)
-\end{equation}
-
-\par \noindent
-
-\begin{equation}
-Power = 1 - \beta (\#eq:power)
-\end{equation}
-
-\par \noindent
-Note that statistical power is equivalent to sensitivity, because:
-
-\begin{equation}
-Power = 1 - \beta = 1 - \frac{fn}{fn + tp} = \frac{fn + tp}{fn + tp} - \frac{fn}{fn + tp} = \frac{tp}{fn + tp} = Sensitivity (\#eq:power-sens-equiv)
-\end{equation}
-
-\par
-
-<!--
-<https://wiki.socr.umich.edu/index.php/SMHS_PowerSensitivitySpecificity>
-Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions in the range [0,1], so they represent error-rates. The reason they are listed in the corresponding cells is that they are directly proportionate to the numerical values of the FP and FN, respectively.
--->
 
 
 <!--    !!! Classification Evaluation with >2 Classes
@@ -838,13 +879,13 @@ Note that both (Type I ($\alpha$) and Type II ($\beta$)) errors are proportions 
 
 ## False-Positive Rate and Specificity in a Control Group
 
-False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _p_ = _tp_ + _fn_ = 0, implying that cases of true change could neither be detected (i.e. _tp_ = 0) nor overlooked (i.e. _fn_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
+False-positive rates and the specificity of clinical change methods were investigated in questionnaire and EMA scenarios with overall within-subjects effect sizes of Cohen´s _d_ $\approx$ 0, representing the scores of a control group in a clinical trial. Although some participants in these simulated scenarios showed a substantial symptom improvement or deterioration, the overall pre-post symptom changes were closely distributed around 0, with the vast majority of cases showing no meaningful changes in absolute scores. The main advantage of using zero-effect data sets for this analysis is that the absence of a general treatment effect, along with equally distributed random positive and negative effects, enables the a-priori assumption that proportions of cases identified as changed should be minimal in the most specific calculation methods. The respective cases would only constitute false-positive classifications (i.e. both classifications of improvement and of deterioration), as the number of truly changed participants would be _P_ = _TP_ + _FN_ = 0, implying that cases of true change could neither be detected (i.e. _TP_ = 0) nor overlooked (i.e. _FN_ = 0) in these scenarios. Following from their definitions, classification sensitivity (see Equation \@ref(eq:sensitivity)) could not be calculated under these conditions, while the classification specificity (see Equation \@ref(eq:specificity)) could be appropriately estimated with regard to the known _ground truth_ of the whole sample consisting of only negative (i.e. non-changed) cases.
 
 
 
 The _false-positive rate (FPR)_ is given by:
 \begin{equation}
-FPR = \frac{fp}{n} = \frac{fp}{fp + tn} (\#eq:fpr)
+FPR = \frac{FP}{N} = \frac{FP}{FP + TN} (\#eq:fpr)
 \end{equation}
 
 \par
@@ -858,6 +899,8 @@ The resulting
 
 
 ## Jackknife Resampling of Parameter Estimates
+
+[@Berthold.2020, p. 126]
 
 Exemplary R code for this bootstrapped analysis is provided in \@ref(r-jackknife).
 
@@ -993,9 +1036,9 @@ Plot: Dispersion of symptom scores (nine-item Patient Health Questionnaire, PHQ-
 
 
 
-\begin{figure}
+\begin{figure}[htb]
 \caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-5-5-pre-post-plot}
-\includegraphics[width=0.5\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_5.5_Pre-Post_Box_Violin_Mean+CI} \hfill{}
 \end{figure}
 
 
@@ -1009,10 +1052,43 @@ Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of partici
 -->
 
 
+\begin{figure}[htb]
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-30-30-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+
+\begin{figure}[htb]
+\caption{\textit{Individual PHQ-9 Score Differences Between Single Pre-Treatment and Post-Treatment Assessments in a Simulated Standard-Questionnaire Scenario}}\label{fig:k20-pp-1.1-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_PP_1.1_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
 
 
 ### EMA Scenario
 
+
+\begin{figure}[htb]
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 30-Fold Pre-Treatment and Post-Treatment Intervals in a Simulated EMA Scenario}}\label{fig:k20-ema-30-30-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_30.30_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+\begin{figure}[htb]
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Windows in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-win-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Window_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
+
+
+
+\begin{figure}[htb]
+\caption{\textit{Individual Mean Differences in PHQ-9 Scores Between 5-Fold Pre-Treatment and Post-Treatment Random Days in a Simulated EMA Scenario}}\label{fig:k20-ema-5-5-day-pre-post-plot}
+\includegraphics[width=0.75\linewidth]{data/Time Series Dataframes/k20_EMA_5.5_Days_Pre-Post_Box_Violin_Mean+CI} \hfill{}
+\end{figure}
 
 
 
@@ -1021,6 +1097,10 @@ Figure \@ref(fig:k20-pp-5-5-pre-post-plot) displays individual change of partici
 
 
 ### Paper-Pencil Scenario
+
+
+
+
 
 Standard Questionnaire vs. Intense Questionnaire
 
@@ -1100,37 +1180,42 @@ Within the same assessment frequency, the method bias of classifications was up 
 
 
 
-
+<!--
 Table Pros and Cons of Assessment Formats
 Table Pros and Cons of Classification Methods
+-->
 
 
 ## Implications of Findings
 
 
-<!--
-Potential uses of all the investigated methods include:
-- reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
-- potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
-- routine outcome monitoring, feedback and evaluation tool for treatment
-- to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
-- easy visualization of symptom changes for patients and practitioners
-- [@Bauer.2004b]: clinical significance important for:
-* dose-response research
-* outcome-management systems (as a marker for remission/deterioration)
-* calculating relative improvement for comparison of new treatments with TAU
--->
+\par
+
+Potential uses of all the investigated classification methods include:
+\begin{itemize}
+\item reporting effect sizes and cutoff scores in clinical outcome research, enabling the inclusion in meta-analyses
+\item potential application in algorithms for EMA apps for monitoring and analysing reliable symptom changes (e.g., for early detection of manic phases from high variability) -> red flags
+\item routine outcome monitoring, feedback and evaluation tool for treatment
+\item to put in perspective individual symptom changes with internal and external factors (e.g., sleep, medication, job issues): endless statistical possibilities (e.g. explained variance through inclusion of measured variables)
+\item easy visualization of symptom changes for patients and practitioners
+\item [@Bauer.2004b]: clinical significance important for:
+    \item dose-response research
+    \item outcome-management systems (as a marker for remission/deterioration)
+    \item calculating relative improvement for comparison of new treatments with TAU
+\end{itemize}
 
 
 ## Strengths and Limitations
 
 
 
-
+<!--
 external validity of findings
+-->
+
 \par
 One notable limitation of the study regards the characteristics of the simulated data sets. Although based on empirically gathered data from clinical samples, on average, the simulated baseline-interval scores were arguably low and mainly corresponded to mild and moderate levels of depression. The PHQ-9 scale has a maximum score of 27 points, but the data used for the analyses in this study did only reach a maximum of 25 points. Therefore, for instance, it would have been possible to add a constant score of 2 points to every single assessment, if the intention would had been to correct the data sets to represent more severe levels of depression. This overall correction would not have had any impact on the effect size (Cohen´s _d_), the underlying covariance matrix of assessments, test-retest reliabilities, the internal consistency Cronbach´s $\alpha$, or any of the proportional clinical change methods (Percentage Change, Individualized Reliable Change Index, and the Edwards-Nunnally Method). It would only have affected the proportions of cases that were identified by the Clinical Significance method as _moved from the clinical to the non-clinical population_, or vice versa. This is because the standard definition of clinically significant change in PHQ-9 scores includes the 50 % change criterion, as well as passing the cutoff score of 9 points defining the border between the clinical and the non-clinical distribution [see @McMillan.2010]. However, following from the comparative approach in this study, a constant-value correction would not have altered the measures of interest in this methodological comparison, and neither the conclusions that are drawn from its results. \par
-This example is intended to emphasize the generalisability of conclusions regarding the sensitivity and specificity of the analysed methods in comparison to each other: Assuming that the simulated data sets realistically represent empirically observed clinical trial data, the resulting differences in agreement between methods would be the same, regardless of the symptom-severity levels.
+This example is intended to emphasize the generalisability of conclusions regarding the sensitivity and specificity of the analyzed methods in comparison to each other: Assuming that the simulated data sets realistically represent empirically observed clinical trial data, the resulting differences in agreement between methods would be the same, regardless of the symptom-severity levels.
 
 
 
